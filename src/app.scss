@@ -1,0 +1,17 @@
+@import "settings/settings";
+
+* {
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+.container {
+    width: 1000px;
+    max-width: 80vw;
+    margin: auto;
+}
+
+.app-wrapper {
+    overflow: hidden;
+}
+
