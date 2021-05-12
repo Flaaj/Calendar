@@ -1,0 +1,28 @@
+@import "../../../settings/settings";
+
+.sidebar {
+    width: 300px;
+    min-width: 20vw;
+    height: 100vh;
+    background-color: seagreen;
+    padding: 0 15px;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    @include breakpoint-down(lg) {
+        height: auto;
+        width: auto;
+    }
+
+    &__logout {
+        margin: auto auto 10px;
+        background: none;
+        border: none;
+        color: white;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        cursor: pointer
+    }
+}
