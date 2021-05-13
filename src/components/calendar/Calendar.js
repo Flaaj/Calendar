@@ -4,8 +4,6 @@ import DayContainer from "../dayContainer/DayContainer";
 import MonthPicker from "../monthPicker/MonthPicker";
 import CalendarHeader from "./calendarHeader/CalendarHeader";
 import Sidebar from "./sidebar/Sidebar";
-// styles:
-import "./calendar.scss";
 // assets:
 import arrow from "../../../public/assets/arrow.svg";
 

@@ -1,4 +1,13 @@
 @import "settings/settings";
+@import "./components/calendar/calendar.scss";
+@import "./components/dayContainer/dayContainer.scss";
+@import "./components/loginScreen/loginScreen.scss";
+@import "./components/monthPicker/monthPicker.scss";
+@import "./components/calendar/calendarHeader/calendarHeader.scss";
+@import "./components/calendar/sidebar/sidebar.scss";
+@import "./components/calendar/sidebar/newAppointmentForm/newAppointmentForm.scss";
+@import "./components/dayContainer/appointmentDetails/appointmentDetails.scss";
+@import "./components/monthPicker/monthPicker.scss";
 
 * {
     box-sizing: border-box;

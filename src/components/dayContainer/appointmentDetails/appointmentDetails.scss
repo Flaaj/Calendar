@@ -1,0 +1,72 @@
+
+
+    .form {
+        &__input, &__select {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid black;
+            background: none;
+            color: black;   
+            outline: none;
+            padding: 0 10px;
+
+            &--color {
+                width: 100px;
+
+            }
+
+            &::placeholder {
+                color: rgb(164, 163, 163)
+            }
+
+            &::-webkit-calendar-picker-indicator {
+                filter: invert(1);
+            }            
+        }
+
+        &__select {
+            text-align: center;
+            text-align-last: center;
+        }
+
+        &__option {
+            text-align: right;
+            height: 40px;
+            display: block;
+            color: black;
+        }
+
+        textarea {
+            resize: none;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+        }
+
+        &__row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        &__label {
+            margin-right: 20px;
+            color: black;
+        }
+
+        &__submit {
+            background-color: rgba(black, 0.2);
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: 0.4s;
+            margin-bottom: 20px;
+            color: black;
+            width: 100%;
+            
+            &:hover {
+                background: rgba(black, 0.1);
+            }
+        }
+    }

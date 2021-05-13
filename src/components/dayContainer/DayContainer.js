@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-// styles:
-import "./dayContainer.scss";
+// components:
+import AppointmentDetails from "./appointmentDetails/ApointmentDetails";
 // assets:
-// import bg from "../../../public/assets/day-container-bg.svg";
 const bg = "../../../public/assets/day-container-bg.svg";
 
 const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
@@ -10,7 +9,10 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
     const [isFullScreenClass, setIsFullScreenClass] = useState("");
     const [chosenAppointment, setChosenAppointment] = useState("");
 
-    const isTodayClass = date.toLocaleDateString() === new Date().toLocaleDateString() ? " today" : "";
+    const isTodayClass =
+        date.toLocaleDateString() === new Date().toLocaleDateString()
+            ? " today"
+            : "";
     const isCurrentMonthClass = isCurrentMonth ? " current-month" : "";
 
     useEffect(() => {
@@ -41,32 +43,56 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
             .database()
             .ref(target)
             .remove()
-            .then(() => {})
+            .then(() => {
+                // setChosenAppointment("");
+            })
             .catch((err) => console.log(err));
     };
 
     return (
         <div
             onClick={() => !isFullScreen && toggleFullScreen()}
-            className={"day-container" + isTodayClass + isCurrentMonthClass + isFullScreenClass}
+            className={
+                "day-container" +
+                isTodayClass +
+                isCurrentMonthClass +
+                isFullScreenClass
+            }
         >
             <header className="day-container__header">
                 <h3>{dateDisplay()}</h3>
             </header>
             <div className="day-container__content">
-                <div className="day-container__appointments" style={{ backgroundImage: `url(${bg})` }}>
+                <div
+                    className="day-container__appointments"
+                    style={{ backgroundImage: `url(${bg})` }}
+                >
                     {data &&
                         Array.from(Object.keys(data)).map((id) => {
-                            const { color, timeWindows, name, phone, email, note } = data[id];
+                            const {
+                                color,
+                                timeWindows,
+                                name,
+                                phone,
+                                email,
+                                note,
+                            } = data[id];
                             const blockSize = timeWindows.length;
                             const start = timeWindows[0];
                             const end = timeWindows[blockSize - 1];
-                            const blockSizeClass = blockSize === 1 ? "small" : blockSize < 4 ? "medium" : "large";
+                            const blockSizeClass =
+                                blockSize === 1
+                                    ? "small"
+                                    : blockSize < 4
+                                    ? "medium"
+                                    : "large";
                             return (
                                 <div
                                     className={`day-container__appointment grid-start-${start} grid-end-${end}`}
                                     style={{
-                                        backgroundColor: isFullScreen ? "white" : "",
+                                        backgroundColor: isFullScreen
+                                            ? "white"
+                                            : "",
                                     }}
                                     key={id}
                                     data-id={id}
@@ -74,17 +100,33 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
                                     <div
                                         className="appointment"
                                         style={{
-                                            backgroundColor: id === chosenAppointment ? color + "99" : color + "44",
+                                            backgroundColor:
+                                                id === chosenAppointment
+                                                    ? color + "99"
+                                                    : color + "44",
                                         }}
-                                        onClick={() => isFullScreen && setChosenAppointment(id)}
+                                        onClick={() =>
+                                            isFullScreen &&
+                                            setChosenAppointment(id)
+                                        }
                                     >
-                                        <div className={`appointment__content ${blockSizeClass}`}>
-                                            <div className="appointment__name">{name}</div>
-                                            <div className="appointment__row">
-                                                <div className="appointment__phone">{phone}</div>
-                                                <div className="appointment__email">{email}</div>
+                                        <div
+                                            className={`appointment__content ${blockSizeClass}`}
+                                        >
+                                            <div className="appointment__name">
+                                                {name}
                                             </div>
-                                            <div className="appointment__note">{note}</div>
+                                            <div className="appointment__row">
+                                                <div className="appointment__phone">
+                                                    {phone}
+                                                </div>
+                                                <div className="appointment__email">
+                                                    {email}
+                                                </div>
+                                            </div>
+                                            <div className="appointment__note">
+                                                {note}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -92,16 +134,35 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
                         })}
                 </div>
                 {isFullScreen && (
-                    <div className="day-container__panel">
+                    <div className="day-container__panel panel">
                         <button
+                            className="panel__button"
                             onClick={() => {
-                                setChosenAppointment("")
+                                setChosenAppointment("");
                                 setIsFullScreen(false);
                             }}
                         >
                             Powrót do kalendarza
                         </button>
-                        <button onClick={() => deleteAppointment(chosenAppointment)}>Usuń rezerwację</button>
+                        {data && data[chosenAppointment] && (
+                            <>
+                                <AppointmentDetails
+                                    appointmentId={chosenAppointment}
+                                    data={data[chosenAppointment]}
+                                    firebase={firebase}
+                                    date={date}
+                                    setChosenAppointment={setChosenAppointment}
+                                />
+                                <button
+                                    onClick={() =>
+                                        deleteAppointment(chosenAppointment)
+                                    }
+                                    className="panel__delete"
+                                >
+                                    Usuń rezerwację
+                                </button>
+                            </>
+                        )}
                     </div>
                 )}
             </div>

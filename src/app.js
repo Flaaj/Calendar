@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Route,
+    Redirect,
+} from "react-router-dom";
 // components:
 import Calendar from "./components/calendar/Calendar";
 import LoginScreen from "./components/loginScreen/LoginScreen";
 // styles:
-import "./normalize.scss";
 import "./app.scss";
 //database:
 import firebase from "firebase/app";
@@ -19,7 +22,8 @@ const App = () => {
         const firebaseConfig = {
             apiKey: "AIzaSyBSIbJAQ8-e8GeW1EZdvZZNbi34PU29fYI",
             authDomain: "kalendarzmechanik.firebaseapp.com",
-            databaseURL: "https://kalendarzmechanik-default-rtdb.europe-west1.firebasedatabase.app",
+            databaseURL:
+                "https://kalendarzmechanik-default-rtdb.europe-west1.firebasedatabase.app",
             projectId: "kalendarzmechanik",
             storageBucket: "kalendarzmechanik.appspot.com",
             messagingSenderId: "854800916273",
@@ -29,8 +33,9 @@ const App = () => {
 
         firebase.initializeApp(firebaseConfig);
 
-        firebase.auth().onAuthStateChanged((user) => user && setUser(user) && console.log(user));
-        
+        firebase.auth().onAuthStateChanged((user) => {
+            user && setUser(user);
+        });
     }, []);
 
     return (

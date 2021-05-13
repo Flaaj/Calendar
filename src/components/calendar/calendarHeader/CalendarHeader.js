@@ -1,6 +1,4 @@
 import React from "react";
-//styles:
-import "./calendarHeader.scss";
 
 const CalendarHeader = () => {
     const weekdayNames = [

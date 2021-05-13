@@ -1,33 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-const NewAppointmentForm = ({ firebase: { database } }) => {
+const ApointmentDetails = ({
+    appointmentId,
+    data,
+    firebase,
+    date,
+}) => {
     const [name, setName] = useState();
     const [phone, setPhone] = useState();
     const [email, setEmail] = useState();
-    const [from, setFrom] = useState("1");
-    const [to, setTo] = useState("1");
+    const [from, setFrom] = useState();
+    const [to, setTo] = useState();
     const [note, setNote] = useState();
-    const [date, setDate] = useState();
-    const [color, setColor] = useState("#000000");
-    const [timeWindows, setTimeWindows] = useState([]);
-
-    // useEffect(() => {
-    // }, []);
+    // const [date, setDate] = useState();
+    const [color, setColor] = useState();
+    const [timeWindows, setTimeWindows] = useState();
 
     useEffect(() => {
-        const timeWindowNumbers = [];
-        for (let i = +from; i <= +to; i++) {
-            timeWindowNumbers.push(i);
-        }
-        setTimeWindows(timeWindowNumbers);
-    }, [from, to]);
-
-    const addNewAppointment = async (target, body) => {
-        database()
-            .ref(target)
-            .push(body)
-            .catch((err) => console.log(err));
-    };
+        setName(data.name);
+        setPhone(data.phone || "");
+        setEmail(data.email || "");
+        setFrom(data.timeWindows[0]);
+        setTo(data.timeWindows[data.timeWindows.length - 1]);
+        setNote(data.note || "");
+        // setDate(date);
+        setColor(data.color);
+        setTimeWindows(data.timeWindows);
+    }, [data]);
 
     const [hours, setHours] = useState([]);
     useEffect(() => {
@@ -40,6 +39,14 @@ const NewAppointmentForm = ({ firebase: { database } }) => {
         }
     }, []);
 
+    useEffect(() => {
+        const timeWindowNumbers = [];
+        for (let i = +from; i <= +to; i++) {
+            timeWindowNumbers.push(i);
+        }
+        setTimeWindows(timeWindowNumbers);
+    }, [from, to]);
+
     const refreshState =
         (setState) =>
         ({ target: { value } }) => {
@@ -48,33 +55,30 @@ const NewAppointmentForm = ({ firebase: { database } }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        const body = {};
-        if (name && date && timeWindows.length > 0) {
-            body.name = name;
-            body.timeWindows = timeWindows;
-            phone && (body.phone = phone);
-            email && (body.email = email);
-            note && (body.note = note);
-            color && (body.color = color);
-
-            const target = date.replaceAll("-", "/").replaceAll("/0", "/");
-
-            addNewAppointment(target, body);
-        } else {
-            alert(
-                "Uzupełnij co najmniej imię, date wizyty oraz godzinę jej rozpoczęcia i zakończenia. Reszta danych jest opcjonalna"
-            );
-        }
+        const body = {
+            name,
+            email,
+            phone,
+            timeWindows,
+            note,
+            color,
+        };
+        console.log(body)
+        const [day, month, year] = date.toLocaleDateString().split(".");
+        const target = `${year}/${+month}/${+day}/${appointmentId}`;
+        firebase
+            .database()
+            .ref(target)
+            .update(body)
+            .then((data) => {console.log(data)}).catch(err => console.log(err));
     };
 
-    useEffect(() => {
-        console.log(from, to )
-    }, [from, to])
-
     return (
-        <div className="new-appointment-form">
-            <h2 className="new-appointment-form__heading">Nowa rezerwacja</h2>
-            <form className="new-appointment-form__form form" onSubmit={onSubmit}>
+        <div>
+            <form
+                className="new-appointment-form__form form"
+                onSubmit={onSubmit}
+            >
                 <div className="form__row">
                     <label htmlFor="name" className="form__label">
                         Imię:
@@ -114,7 +118,7 @@ const NewAppointmentForm = ({ firebase: { database } }) => {
                         placeholder="Adres email"
                     />
                 </div>
-                <div className="form__row">
+                {/* <div className="form__row">
                     <label htmlFor="date" className="form__label">
                         Data:
                     </label>
@@ -125,7 +129,7 @@ const NewAppointmentForm = ({ firebase: { database } }) => {
                         onChange={refreshState(setDate)}
                         className="form__input"
                     />
-                </div>
+                </div> */}
                 <div className="form__row">
                     <label htmlFor="from" className="form__label">
                         Poczatek:
@@ -138,7 +142,11 @@ const NewAppointmentForm = ({ firebase: { database } }) => {
                         className="form__select"
                     >
                         {hours.slice(0, -1).map((option, index) => (
-                            <option key={option} value={index + 1} className="form__option">
+                            <option
+                                key={option}
+                                value={index + 1}
+                                className="form__option"
+                            >
                                 {option}
                             </option>
                         ))}
@@ -148,9 +156,19 @@ const NewAppointmentForm = ({ firebase: { database } }) => {
                     <label htmlFor="from" className="form__label">
                         Koniec:
                     </label>
-                    <select name="to" id="to" value={to} onChange={refreshState(setTo)} className="form__select">
+                    <select
+                        name="to"
+                        id="to"
+                        value={to}
+                        onChange={refreshState(setTo)}
+                        className="form__select"
+                    >
                         {hours.slice(1).map((option, index) => (
-                            <option key={option} value={index + 1} className="form__option">
+                            <option
+                                key={option}
+                                value={index + 1}
+                                className="form__option"
+                            >
                                 {option}
                             </option>
                         ))}
@@ -183,11 +201,11 @@ const NewAppointmentForm = ({ firebase: { database } }) => {
                     />
                 </div>
                 <button type="submit" className="form__submit">
-                    Dodaj rezerwację
+                    Zapisz zmiany
                 </button>
             </form>
         </div>
     );
 };
 
-export default NewAppointmentForm;
+export default ApointmentDetails;

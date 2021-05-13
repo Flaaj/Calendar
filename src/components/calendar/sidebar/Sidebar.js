@@ -1,8 +1,6 @@
 import React from "react";
 // components:
 import NewAppointmentForm from "./newAppointmentForm/NewAppointmentForm";
-// styles:
-import "./sidebar.scss";
 
 const Sidebar = ({ firebase, setUser }) => {
     const logOut = () => {
