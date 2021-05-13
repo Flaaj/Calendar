@@ -21,7 +21,7 @@ export const initializeApp = (firebase, setUser) => {
     });
 };
 
-export const authenticate = (firebase, login, password, setUser) => (e) => {
+export const authenticate = (firebase, login, password, setUser, setError) => (e) => {
     e.preventDefault();
     setError(false);
     firebase

@@ -4,7 +4,7 @@ import { refreshState } from "../../../../functions";
 // api:
 import { addNewAppointment } from "../../../../api";
 
-const NewAppointmentForm = ({ firebase }) => {
+const NewAppointmentForm = ({  }) => {
     const [name, setName] = useState();
     const [phone, setPhone] = useState();
     const [email, setEmail] = useState();
@@ -14,9 +14,6 @@ const NewAppointmentForm = ({ firebase }) => {
     const [date, setDate] = useState();
     const [color, setColor] = useState("#000000");
     const [timeWindows, setTimeWindows] = useState([]);
-
-    // useEffect(() => {
-    // }, []);
 
     useEffect(() => {
         const timeWindowNumbers = [];

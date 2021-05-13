@@ -1,10 +1,8 @@
 import React from "react";
-// styles:
-import "./monthPicker.scss";
 // assets:
-import arrow from "../../../public/assets/arrow.svg";
+import arrow from "../../../../public/assets/arrow.svg";
 // contstants:
-import { monthNames } from "../../constants";
+import { monthNames } from "../../../constants";
 
 const MonthPicker = ({
     month,

@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// styles :
-import "./loginScreen.scss";
 // functions:
 import { refreshState } from "../../functions";
 // api:
@@ -16,7 +14,7 @@ const LoginScreen = ({ firebase, setUser }) => {
             <h1>Zaloguj się</h1>
             <form
                 className="login-screen__form"
-                onSubmit={authenticate(firebase, login, password, setUser)}
+                onSubmit={authenticate(firebase, login, password, setUser, setError)}
             >
                 <div className="form__row">
                     <label className="form__label" htmlFor="email">

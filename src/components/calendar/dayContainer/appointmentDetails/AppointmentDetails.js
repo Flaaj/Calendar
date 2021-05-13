@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 // functions:
-import { refreshState } from "../../../functions";
+import { refreshState } from "../../../../functions";
 // api:
-import { updateAppointment } from "../../../api";
+import { updateAppointment } from "../../../../api";
 
-const ApointmentDetails = ({ appointmentId, data, firebase, date }) => {
+const AppointmentDetails = ({ appointmentId, data, firebase, date }) => {
     const [name, setName] = useState();
     const [phone, setPhone] = useState();
     const [email, setEmail] = useState();
@@ -211,4 +211,4 @@ const ApointmentDetails = ({ appointmentId, data, firebase, date }) => {
     );
 };
 
-export default ApointmentDetails;
+export default AppointmentDetails;
