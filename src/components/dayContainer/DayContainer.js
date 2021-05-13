@@ -3,16 +3,17 @@ import React, { useState, useEffect } from "react";
 import AppointmentDetails from "./appointmentDetails/ApointmentDetails";
 // assets:
 const bg = "../../../public/assets/day-container-bg.svg";
+// functions:
+import { isToday, dateDisplay } from "../../functions";
+// api:
+import { deleteAppointment } from "../../api";
 
 const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [isFullScreenClass, setIsFullScreenClass] = useState("");
     const [chosenAppointment, setChosenAppointment] = useState("");
 
-    const isTodayClass =
-        date.toLocaleDateString() === new Date().toLocaleDateString()
-            ? " today"
-            : "";
+    const isTodayClass = isToday(date) ? " today" : "";
     const isCurrentMonthClass = isCurrentMonth ? " current-month" : "";
 
     useEffect(() => {
@@ -20,34 +21,6 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
     }, [isFullScreen]);
 
     const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
-
-    const dateDisplay = () => {
-        let dateString = "";
-        if (isFullScreen) {
-            dateString += date
-                .toLocaleDateString()
-                .split(".")
-                .map((el, i) => (i === 1 ? monthNames[+el] : el))
-                .join(" ");
-        } else {
-            dateString += date.toLocaleDateString().split(".")[0];
-        }
-        return dateString;
-    };
-
-    const deleteAppointment = (id) => {
-        const [day, month, year] = date.toLocaleDateString().split(".");
-        const target = `${year}/${+month}/${+day}/${id}`;
-        console.log(target);
-        firebase
-            .database()
-            .ref(target)
-            .remove()
-            .then(() => {
-                // setChosenAppointment("");
-            })
-            .catch((err) => console.log(err));
-    };
 
     return (
         <div
@@ -60,7 +33,7 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
             }
         >
             <header className="day-container__header">
-                <h3>{dateDisplay()}</h3>
+                <h3>{dateDisplay(date, isFullScreen)}</h3>
             </header>
             <div className="day-container__content">
                 <div
@@ -155,7 +128,7 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
                                 />
                                 <button
                                     onClick={() =>
-                                        deleteAppointment(chosenAppointment)
+                                        deleteAppointment(firebase, date, chosenAppointment)
                                     }
                                     className="panel__delete"
                                 >
@@ -171,18 +144,3 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
 };
 
 export default DayContainer;
-
-const monthNames = {
-    1: "Stycznia",
-    2: "Lutego",
-    3: "Marca",
-    4: "Kwietnia",
-    5: "Maja",
-    6: "Czerwca",
-    7: "Lipca",
-    8: "Sierpnia",
-    9: "Września",
-    10: "Października",
-    11: "Listopada",
-    12: "Grudnia",
-};

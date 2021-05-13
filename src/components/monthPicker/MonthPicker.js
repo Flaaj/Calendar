@@ -3,13 +3,16 @@ import React from "react";
 import "./monthPicker.scss";
 // assets:
 import arrow from "../../../public/assets/arrow.svg";
+// contstants:
+import { monthNames } from "../../constants";
 
 const MonthPicker = ({
     month,
     year,
     decreaseMonth,
     increaseMonth,
-    changeYear,
+    decreaseYear,
+    increaseYear,
 }) => {
     return (
         <div className="month-picker">
@@ -23,17 +26,11 @@ const MonthPicker = ({
                 </button>
             </div>
             <div className="month-picker__year">
-                <button
-                    onClick={() => changeYear("down")}
-                    className="arrow arrow--left"
-                >
+                <button onClick={decreaseYear} className="arrow arrow--left">
                     <img src={arrow} alt="poprzedni rok" />
                 </button>
                 {year}
-                <button
-                    onClick={() => changeYear("up")}
-                    className="arrow arrow--right"
-                >
+                <button onClick={increaseYear} className="arrow arrow--right">
                     <img src={arrow} alt="następny rok" />
                 </button>
             </div>
@@ -42,18 +39,3 @@ const MonthPicker = ({
 };
 
 export default MonthPicker;
-
-const monthNames = {
-    1: "Styczeń",
-    2: "Luty",
-    3: "Marzec",
-    4: "Kwiecień",
-    5: "Maj",
-    6: "Czerwiec",
-    7: "Lipiec",
-    8: "Sierpień",
-    9: "Wrzesień",
-    10: "Październik",
-    11: "Listopad",
-    12: "Grudzień",
-};

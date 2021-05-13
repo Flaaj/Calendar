@@ -1,38 +1,23 @@
 import React, { useState } from "react";
 // styles :
 import "./loginScreen.scss";
+// functions:
+import { refreshState } from "../../functions";
+// api:
+import { authenticate } from "../../api";
 
 const LoginScreen = ({ firebase, setUser }) => {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
 
-    const authenticate = (login, password) => (e) => {
-        e.preventDefault();
-        setError(false);
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(login, password)
-            .then(({ user }) => {
-                setUser(user);
-                console.log("Hello World!");
-            })
-            .catch(({ code, message }) => {
-                console.log(code, message);
-                setError(true);
-            });
-    };
-
-    const refreshState =
-        (setState) =>
-        ({ target: { value } }) => {
-            setState(value);
-        };
-
     return (
         <div className="login-screen">
             <h1>Zaloguj się</h1>
-            <form className="login-screen__form" onSubmit={authenticate(login, password)}>
+            <form
+                className="login-screen__form"
+                onSubmit={authenticate(firebase, login, password, setUser)}
+            >
                 <div className="form__row">
                     <label className="form__label" htmlFor="email">
                         Adres email konta:
@@ -65,7 +50,9 @@ const LoginScreen = ({ firebase, setUser }) => {
                     Zaloguj
                 </button>
             </form>
-            <div className="error-message">{error && "Niepoprawny email i / lub hasło"}</div>
+            <div className="error-message">
+                {error && "Niepoprawny email i / lub hasło"}
+            </div>
         </div>
     );
 };

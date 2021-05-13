@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
+// functions:
+import { refreshState } from "../../../functions";
+// api:
+import { updateAppointment } from "../../../api";
 
-const ApointmentDetails = ({
-    appointmentId,
-    data,
-    firebase,
-    date,
-}) => {
+const ApointmentDetails = ({ appointmentId, data, firebase, date }) => {
     const [name, setName] = useState();
     const [phone, setPhone] = useState();
     const [email, setEmail] = useState();
     const [from, setFrom] = useState();
     const [to, setTo] = useState();
     const [note, setNote] = useState();
-    // const [date, setDate] = useState();
     const [color, setColor] = useState();
     const [timeWindows, setTimeWindows] = useState();
+    const [enableInputs, setEnableInputs] = useState(false);
 
     useEffect(() => {
         setName(data.name);
@@ -23,7 +22,6 @@ const ApointmentDetails = ({
         setFrom(data.timeWindows[0]);
         setTo(data.timeWindows[data.timeWindows.length - 1]);
         setNote(data.note || "");
-        // setDate(date);
         setColor(data.color);
         setTimeWindows(data.timeWindows);
     }, [data]);
@@ -47,12 +45,6 @@ const ApointmentDetails = ({
         setTimeWindows(timeWindowNumbers);
     }, [from, to]);
 
-    const refreshState =
-        (setState) =>
-        ({ target: { value } }) => {
-            setState(value);
-        };
-
     const onSubmit = (e) => {
         e.preventDefault();
         const body = {
@@ -63,35 +55,47 @@ const ApointmentDetails = ({
             note,
             color,
         };
-        console.log(body)
-        const [day, month, year] = date.toLocaleDateString().split(".");
-        const target = `${year}/${+month}/${+day}/${appointmentId}`;
-        firebase
-            .database()
-            .ref(target)
-            .update(body)
-            .then((data) => {console.log(data)}).catch(err => console.log(err));
+
+        updateAppointment(firebase, date, appointmentId, body);
     };
 
+    const toggleInputs = () => setEnableInputs((prev) => !prev);
+
     return (
-        <div>
+        <div className="appointment-details">
+            <div className="appointment-details__header">
+                <h2 className="appointment-details__heading">
+                    Dane o rezerwacji
+                </h2>
+                <button
+                    onClick={toggleInputs}
+                    className="appointment-details__toggle"
+                >
+                    {enableInputs ? "Cofnij" : "Edytuj"}
+                </button>
+            </div>
             <form
-                className="new-appointment-form__form form"
+                className={
+                    "new-appointment-form__form form" +
+                    (enableInputs && " edit")
+                }
                 onSubmit={onSubmit}
             >
-                <div className="form__row">
+                <h3>
                     <label htmlFor="name" className="form__label">
                         Imię:
                     </label>
-                    <input
-                        id="name"
-                        type="text"
-                        className="form__input"
-                        onChange={refreshState(setName)}
-                        value={name}
-                        placeholder="Imię i/lub nazwisko klienta"
-                    />
-                </div>
+                </h3>
+                <input
+                    id="name"
+                    type="text"
+                    className="form__input"
+                    onChange={refreshState(setName)}
+                    value={name}
+                    placeholder="Imię i/lub nazwisko klienta"
+                    disabled={!enableInputs}
+                />
+                <h3>Dane kontaktowe:</h3>
                 <div className="form__row">
                     <label htmlFor="phone" className="form__label">
                         Tel:
@@ -103,6 +107,7 @@ const ApointmentDetails = ({
                         onChange={refreshState(setPhone)}
                         value={phone}
                         placeholder="Numer telefonu"
+                        disabled={!enableInputs}
                     />
                 </div>
                 <div className="form__row">
@@ -116,23 +121,16 @@ const ApointmentDetails = ({
                         onChange={refreshState(setEmail)}
                         value={email}
                         placeholder="Adres email"
+                        disabled={!enableInputs}
                     />
                 </div>
-                {/* <div className="form__row">
-                    <label htmlFor="date" className="form__label">
-                        Data:
-                    </label>
-                    <input
-                        id="date"
-                        type="date"
-                        value={date}
-                        onChange={refreshState(setDate)}
-                        className="form__input"
-                    />
-                </div> */}
+                <h3>Czas trwania:</h3>
                 <div className="form__row">
-                    <label htmlFor="from" className="form__label">
-                        Poczatek:
+                    <label
+                        htmlFor="from"
+                        className="form__label form__label--time"
+                    >
+                        od:
                     </label>
                     <select
                         name="from"
@@ -140,6 +138,7 @@ const ApointmentDetails = ({
                         value={from}
                         onChange={refreshState(setFrom)}
                         className="form__select"
+                        disabled={!enableInputs}
                     >
                         {hours.slice(0, -1).map((option, index) => (
                             <option
@@ -151,10 +150,11 @@ const ApointmentDetails = ({
                             </option>
                         ))}
                     </select>
-                </div>
-                <div className="form__row">
-                    <label htmlFor="from" className="form__label">
-                        Koniec:
+                    <label
+                        htmlFor="to"
+                        className="form__label form__label--time"
+                    >
+                        do:
                     </label>
                     <select
                         name="to"
@@ -162,6 +162,7 @@ const ApointmentDetails = ({
                         value={to}
                         onChange={refreshState(setTo)}
                         className="form__select"
+                        disabled={!enableInputs}
                     >
                         {hours.slice(1).map((option, index) => (
                             <option
@@ -174,23 +175,24 @@ const ApointmentDetails = ({
                         ))}
                     </select>
                 </div>
-                <div className="form__row">
+                <h3>
                     <label htmlFor="from" className="form__label">
                         Notatka:
                     </label>
-                    <textarea
-                        rows="8"
-                        name="note"
-                        id="note"
-                        value={note}
-                        onChange={refreshState(setNote)}
-                        className="form__input"
-                        placeholder="Notatka..."
-                    />
-                </div>
+                </h3>
+                <textarea
+                    rows="8"
+                    name="note"
+                    id="note"
+                    value={note}
+                    onChange={refreshState(setNote)}
+                    className="form__input"
+                    placeholder="Notatka..."
+                    disabled={!enableInputs}
+                />
                 <div className="form__row">
                     <label htmlFor="email" className="form__label">
-                        Kolor kafelka w kalendarzu:
+                        Kolor kafelka:
                     </label>
                     <input
                         id="color"
@@ -198,6 +200,7 @@ const ApointmentDetails = ({
                         value={color}
                         onChange={refreshState(setColor)}
                         className="form__input form__input--color"
+                        disabled={!enableInputs}
                     />
                 </div>
                 <button type="submit" className="form__submit">
