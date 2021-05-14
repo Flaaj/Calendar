@@ -3,8 +3,12 @@
 @import "./components/calendar/calendar.scss";
 @import "./components/calendar/monthPicker/monthPicker.scss";
 @import "./components/calendar/calendarHeader/calendarHeader.scss";
+@import "./components/calendar/focusWeekToggles/focusWeekToggles.scss";
 @import "./components/calendar/sidebar/sidebar.scss";
 @import "./components/calendar/sidebar/newAppointmentForm/newAppointmentForm.scss";
+@import "./components/calendar/sidebar/menu/menu.scss";
+@import "./components/calendar/sidebar/messenger/messenger.scss";
+@import "./components/calendar/sidebar/messenger/message/message.scss";
 @import "./components/calendar/dayContainer/dayContainer.scss";
 @import "./components/calendar/dayContainer/appointmentDetails/appointmentDetails.scss";
 @import "./components/calendar/dayContainer/appointment/appointment.scss";

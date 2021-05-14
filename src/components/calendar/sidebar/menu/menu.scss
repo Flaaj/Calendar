@@ -1,0 +1,22 @@
+.menu {
+    color: white;
+    border-bottom: 2px solid white;
+    h2 {
+        margin-bottom: 15px;
+    }
+    ul {
+        padding-left: 10px;
+        li {
+            list-style: none;
+            cursor: pointer;
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+
+            &.current {
+                color: rgba(black, 0.5);
+                font-weight: bold;
+            }
+        }
+    }
+}

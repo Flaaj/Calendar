@@ -13,28 +13,34 @@ const firebaseConfig = {
     measurementId: "G-RV8HDHW5SC",
 };
 
-export const initializeApp = (firebase, setUser) => {
+export const initializeApp = (firebase, setInitialized) => {
     firebase.initializeApp(firebaseConfig);
-
-    firebase.auth().onAuthStateChanged((user) => {
-        user && setUser(user);
-    });
+    setInitialized(true);
 };
 
-export const authenticate = (firebase, login, password, setUser, setError) => (e) => {
-    e.preventDefault();
-    setError(false);
-    firebase
-        .auth()
-        .signInWithEmailAndPassword(login, password)
-        .then(({ user }) => {
-            setUser(user);
-            console.log("Hello World!");
-        })
-        .catch(({ code, message }) => {
-            console.log(code, message);
-            setError(true);
-        });
+export const checkIfLogged = (firebase, setUser) => {
+    firebase.auth().onAuthStateChanged((user) => setUser(user));
+};
+
+export const authenticate =
+    (firebase, login, password, setUser, setError) => (e) => {
+        e.preventDefault();
+        setError(false);
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(login, password)
+            .then(({ user }) => {
+                setUser(user);
+                console.log("Hello World!");
+            })
+            .catch(({ code, message }) => {
+                console.log(code, message);
+                setError(true);
+            });
+    };
+
+export const logOut = (firebase) => {
+    firebase.auth().signOut();
 };
 
 export const deleteAppointment = (firebase, date, id) => {
@@ -65,8 +71,8 @@ export const addNewAppointment = async (firebase, target, body) => {
 };
 
 export const updateAppointment = (firebase, date, id, body) => {
-    console.log(getRefFromDateObject(date, id))
-    console.log(body)
+    console.log(getRefFromDateObject(date, id));
+    console.log(body);
     firebase
         .database()
         .ref(getRefFromDateObject(date, id))
@@ -76,7 +82,6 @@ export const updateAppointment = (firebase, date, id, body) => {
         })
         .catch((err) => console.log(err));
 };
-
 
 export const queryMonthsToListen = (firebase, month, year, data, setData) => {
     const monthsToQuery =
@@ -119,3 +124,34 @@ export const queryMonthsToListen = (firebase, month, year, data, setData) => {
         }
     });
 };
+
+export const messageListener = (firebase, setMessages) => {
+    firebase
+        .database()
+        .ref("messages")
+        .on("value", (snapshot) => {
+            if (snapshot.val()) {
+                const msgs = Object.entries(snapshot.val());
+                setMessages(msgs);
+            }
+        });
+};
+
+export const sendMessage =
+    (firebase, messageToSend, setMessageToSend) => (e) => {
+        e.preventDefault();
+        if (messageToSend) {
+            const body = {
+                user: firebase.auth().currentUser.email,
+                date: new Date().getTime(),
+                msg: messageToSend,
+            };
+            firebase
+                .database()
+                .ref("messages")
+                .push(body)
+                .then(() => {
+                    setMessageToSend("");
+                });
+        }
+    };

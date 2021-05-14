@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 // components:
 import NewAppointmentForm from "./newAppointmentForm/NewAppointmentForm";
+import Menu from "./menu/Menu";
+import Messenger from "./messenger/Messenger";
+// api:
+import { logOut } from "./../../../api";
 
 const Sidebar = ({ firebase, setUser }) => {
-    const logOut = () => {
-        firebase.auth().signOut().then(() => {
-            setUser(undefined);
-        });
-    };
+    const [currentItem, setCurrentItem] = useState("form");
     return (
         <div className="sidebar">
-            <div className="menu"></div>
-            <NewAppointmentForm firebase={firebase} />
-            <button className="sidebar__logout" onClick={logOut}>Wyloguj</button>
+            <Menu currentItem={currentItem} setCurrentItem={setCurrentItem} />
+            {currentItem === "form" && <NewAppointmentForm firebase={firebase} /> }
+            {currentItem === "chat" && <Messenger firebase={firebase} />}
+            <button
+                className="sidebar__logout"
+                onClick={() => logOut(firebase, setUser)}
+            >
+                Wyloguj
+            </button>
         </div>
     );
 };

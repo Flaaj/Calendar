@@ -11,25 +11,34 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 // api:
-import { initializeApp } from "./api";
+import { initializeApp, checkIfLogged } from "./api";
 
 const App = () => {
     const [user, setUser] = useState();
+    const [initialized, setInitialized] = useState(false);
 
     useEffect(() => {
-        initializeApp(firebase, setUser);
+        initializeApp(firebase, setInitialized);
     }, []);
+
+    useEffect(() => {
+        initialized && checkIfLogged(firebase, setUser);
+    }, [initialized]);
 
     return (
         <Router>
-            <Route exact path="/login">
-                {user && <Redirect to="/" />}
-                <LoginScreen firebase={firebase} setUser={setUser} />
-            </Route>
-            <Route exact path="/">
-                {!user && <Redirect to="/login" />}
-                <Calendar firebase={firebase} setUser={setUser} />
-            </Route>
+            {initialized && (
+                <>
+                    <Route exact path="/login">
+                        {user && <Redirect to="/" />}
+                        <LoginScreen firebase={firebase} setUser={setUser} />
+                    </Route>
+                    <Route exact path="/">
+                        {!user && <Redirect to="/login" />}
+                        <Calendar firebase={firebase} setUser={setUser} />
+                    </Route>
+                </>
+            )}
         </Router>
     );
 };

@@ -1,0 +1,51 @@
+
+.week-focus-toggles {
+    width: 30px;
+    padding-top: 58px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &__toggle {
+        flex: 1;
+        height: 100%;
+        display: block;
+        border: 1px solid rgba(black, 0.8);
+        border-bottom: none;
+        background: none;
+        cursor: pointer;
+        position: relative;
+        transition: 0.25s;
+
+        &:hover {
+            background-color: rgba(black, 0.15);
+        }
+
+        &::before,
+        &::after {
+            position: absolute;
+            content: url("../public/assets/arrow.svg");
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            transform-origin: center center;
+        }
+        &::before {
+            transform: translate(-35%, -61%) rotate(-90deg);
+        }
+        &::after {
+            transform: translate(-67%, -20%) rotate(90deg);
+        }
+
+        &.focused {
+            &::before {
+                top: 95%;
+                transform: translate(-35%, -50%) rotate(-90deg);
+            }
+            &::after {
+                top: 5%;
+                transform: translate(-67%, -50%) rotate(90deg);
+            }
+        }
+    }
+}

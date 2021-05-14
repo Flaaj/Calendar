@@ -4,8 +4,7 @@ import DayContainer from "./dayContainer/DayContainer";
 import MonthPicker from "./monthPicker/MonthPicker";
 import CalendarHeader from "./calendarHeader/CalendarHeader";
 import Sidebar from "./sidebar/Sidebar";
-// assets:
-import arrow from "../../../public/assets/arrow.svg";
+import FocusWeekToggles from "./focusWeekToggles/FocusWeekToggles";
 // api:
 import { queryMonthsToListen } from "../../api";
 //constants:
@@ -87,7 +86,7 @@ const Calendar = ({ firebase, setUser }) => {
 
         setDaysToShow(dates);
     }, [daysInWeekFromPreviousMonth, daysInWeekFromNextMonth]);
-    
+
     const changeMonth = (month, year, direction) => {
         let newMonth, newYear;
         if (direction === "up") {
@@ -123,33 +122,18 @@ const Calendar = ({ firebase, setUser }) => {
                     month={thisMonth}
                     year={thisYear}
                     increaseMonth={() => changeMonth(thisMonth, thisYear, "up")}
-                    decreaseMonth={() => changeMonth(thisMonth, thisYear, "down")}
+                    decreaseMonth={() =>
+                        changeMonth(thisMonth, thisYear, "down")
+                    }
                     increaseYear={() => changeYear("up")}
                     decreaseYear={() => changeYear("down")}
                 />
                 <div className="calendar__row">
-                    <div className="weekFocusToggles">
-                        {new Array(~~(daysToShow.length / 7)).fill("").map(
-                            (week, index) =>
-                                (focusWeek === -1 || focusWeek === index) && (
-                                    <button
-                                        className="weekFocusToggles__toggle"
-                                        onClick={() =>
-                                            setFocusWeek((week) =>
-                                                week === -1 ? index : -1
-                                            )
-                                        }
-                                        key={`toggle-${index}`}
-                                    >
-                                        <span>
-                                            {focusWeek === -1
-                                                ? "rozszerz"
-                                                : "powrót"}
-                                        </span>
-                                    </button>
-                                )
-                        )}
-                    </div>
+                    <FocusWeekToggles
+                        togglesNum={~~(daysToShow.length / 7)}
+                        focusWeek={focusWeek}
+                        setFocusWeek={setFocusWeek}
+                    />
                     <div className="calendar__container">
                         <CalendarHeader />
                         <div className={"calendar__month"}>
