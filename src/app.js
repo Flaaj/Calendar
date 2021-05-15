@@ -11,7 +11,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 // api:
-import { initializeApp, checkIfLogged } from "./api";
+import { initializeApp, authStateListener } from "./api";
 
 const App = () => {
     const [user, setUser] = useState();
@@ -22,7 +22,7 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        initialized && checkIfLogged(firebase, setUser);
+        initialized && authStateListener(firebase, setUser);
     }, [initialized]);
 
     return (

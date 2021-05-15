@@ -7,7 +7,7 @@ import Messenger from "./messenger/Messenger";
 import { logOut } from "./../../../api";
 
 const Sidebar = ({ firebase, setUser }) => {
-    const [currentItem, setCurrentItem] = useState("form");
+    const [currentItem, setCurrentItem] = useState("chat");
     return (
         <div className="sidebar">
             <Menu currentItem={currentItem} setCurrentItem={setCurrentItem} />

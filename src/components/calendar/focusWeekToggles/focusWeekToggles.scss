@@ -1,18 +1,19 @@
 
 .week-focus-toggles {
     width: 30px;
-    padding-top: 58px;
+    margin-top: 58px;
     display: flex;
     flex-direction: column;
-    height: 100%;
-
+    height: calc(100% - 58px);
+    background-color: rgba(black, 0.84);
     &__toggle {
         flex: 1;
-        height: 100%;
+        margin-top: 20px;
         display: block;
-        border: 1px solid rgba(black, 0.8);
-        border-bottom: none;
-        background: none;
+        border: none;
+        border-right: 1px solid rgba(black, 0.82);
+        border-top: 1px solid rgba(black, 0.82);
+        background: white;
         cursor: pointer;
         position: relative;
         transition: 0.25s;
@@ -31,7 +32,7 @@
             transform-origin: center center;
         }
         &::before {
-            transform: translate(-35%, -61%) rotate(-90deg);
+            transform: translate(-43%, -61%) rotate(-90deg);
         }
         &::after {
             transform: translate(-67%, -20%) rotate(90deg);
@@ -40,7 +41,7 @@
         &.focused {
             &::before {
                 top: 95%;
-                transform: translate(-35%, -50%) rotate(-90deg);
+                transform: translate(-43%, -50%) rotate(-90deg);
             }
             &::after {
                 top: 5%;

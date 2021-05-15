@@ -18,7 +18,7 @@ export const initializeApp = (firebase, setInitialized) => {
     setInitialized(true);
 };
 
-export const checkIfLogged = (firebase, setUser) => {
+export const authStateListener = (firebase, setUser) => {
     firebase.auth().onAuthStateChanged((user) => setUser(user));
 };
 
@@ -31,7 +31,6 @@ export const authenticate =
             .signInWithEmailAndPassword(login, password)
             .then(({ user }) => {
                 setUser(user);
-                console.log("Hello World!");
             })
             .catch(({ code, message }) => {
                 console.log(code, message);
@@ -131,8 +130,7 @@ export const messageListener = (firebase, setMessages) => {
         .ref("messages")
         .on("value", (snapshot) => {
             if (snapshot.val()) {
-                const msgs = Object.entries(snapshot.val());
-                setMessages(msgs);
+                setMessages(Object.entries(snapshot.val()));
             }
         });
 };

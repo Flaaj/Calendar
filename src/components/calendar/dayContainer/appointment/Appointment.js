@@ -23,7 +23,7 @@ const Appointment = ({data, id, isFullScreen, chosenAppointment, setChosenAppoin
             className={`day-container__appointment grid-start-${start} grid-end-${end}`}
             style={{
                 backgroundColor: isFullScreen
-                    ? "white"
+                    ? "#fffffff0"
                     : "",
             }}
             data-id={id}
