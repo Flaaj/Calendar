@@ -60,15 +60,10 @@ export const addNewAppointment = async (firebase, target, body) => {
 };
 
 export const updateAppointment = (firebase, date, id, body) => {
-    console.log(getRefFromDateObject(date, id));
-    console.log(body);
     firebase
         .database()
         .ref(getRefFromDateObject(date, id))
         .update(body)
-        .then((data) => {
-            console.log(data);
-        })
         .catch((err) => console.log(err));
 };
 

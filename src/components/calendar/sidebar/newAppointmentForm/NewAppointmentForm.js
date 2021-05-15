@@ -37,7 +37,10 @@ const NewAppointmentForm = ({  }) => {
     const onSubmit = (e) => {
         e.preventDefault();
         const body = {};
-        if (name && date && timeWindows.length > 0) {
+        if (timeWindows.length === 0) {
+            alert("Rezerwacja nie może zaczynać się później, niż się kończy :(")
+        }
+        else if (name && date && timeWindows.length > 0) {
             body.name = name;
             body.timeWindows = timeWindows;
             phone && (body.phone = phone);

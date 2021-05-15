@@ -47,16 +47,22 @@ const AppointmentDetails = ({ appointmentId, data, firebase, date }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        const body = {
-            name,
-            email,
-            phone,
-            timeWindows,
-            note,
-            color,
-        };
+        if (timeWindows.length > 0) {
+            const body = {
+                name,
+                email,
+                phone,
+                timeWindows,
+                note,
+                color,
+            };
 
-        updateAppointment(firebase, date, appointmentId, body);
+            updateAppointment(firebase, date, appointmentId, body);
+        } else {
+            alert(
+                "Rezerwacja nie może zaczynać się później, niż się kończy :("
+            );
+        }
     };
 
     const toggleInputs = () => setEnableInputs((prev) => !prev);
