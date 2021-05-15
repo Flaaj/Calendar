@@ -1,17 +1,7 @@
 // functions:
 import { getRefFromDateObject } from "./functions";
 // config:
-const firebaseConfig = {
-    apiKey: "AIzaSyBSIbJAQ8-e8GeW1EZdvZZNbi34PU29fYI",
-    authDomain: "kalendarzmechanik.firebaseapp.com",
-    databaseURL:
-        "https://kalendarzmechanik-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "kalendarzmechanik",
-    storageBucket: "kalendarzmechanik.appspot.com",
-    messagingSenderId: "854800916273",
-    appId: "1:854800916273:web:61894c654b5041c1adda10",
-    measurementId: "G-RV8HDHW5SC",
-};
+const firebaseConfig = require("../firebase.config.json");
 
 export const initializeApp = (firebase, setInitialized) => {
     firebase.initializeApp(firebaseConfig);

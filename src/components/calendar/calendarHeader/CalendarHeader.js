@@ -3,12 +3,12 @@ import React from "react";
 const CalendarHeader = () => {
     const weekdayNames = [
         ["Poniedziałek", "Pn."],
-        ["Wtorek", "Wt."],
-        ["Środa", "Śr."],
-        ["Czwartek", "Cz."],
-        ["Piątek", "Pt."],
-        ["Sobota", "Sb."],
-        ["Niedziela", "Nd."],
+        ["Wtorek",       "Wt."],
+        ["Środa",        "Śr."],
+        ["Czwartek",     "Cz."],
+        ["Piątek",       "Pt."],
+        ["Sobota",       "Sb."],
+        ["Niedziela",    "Nd."],
     ];
 
     return (
