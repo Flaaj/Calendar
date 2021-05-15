@@ -1,20 +1,23 @@
 import React, { useState } from "react";
+// redux:
+import { connect } from "react-redux";
+// actions:
+import { authenticate } from "../../actions/databaseActions";
 // functions:
 import { refreshState } from "../../functions";
 // api:
-import { authenticate } from "../../api";
+// import { authenticate } from "../../api";
 
-const LoginScreen = ({ firebase, setUser }) => {
+const LoginScreen = ({ authenticate, error }) => {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(false);
 
     return (
         <div className="login-screen">
             <h1>Zaloguj się</h1>
             <form
                 className="login-screen__form"
-                onSubmit={authenticate(firebase, login, password, setUser, setError)}
+                onSubmit={authenticate(login, password)}
             >
                 <div className="form__row">
                     <label className="form__label" htmlFor="email">
@@ -55,4 +58,14 @@ const LoginScreen = ({ firebase, setUser }) => {
     );
 };
 
-export default LoginScreen;
+const mapStateToProps = (state) => ({
+    user: state.database.user,
+    error: state.database.error,
+});
+const mapDispatchToProps = (dispatch) => ({
+    authenticate: authenticate(dispatch),
+});
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+
+export default Container;

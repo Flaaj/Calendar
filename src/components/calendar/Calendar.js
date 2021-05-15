@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+// redux:
+import { connect } from "react-redux";
 // components:
 import DayContainer from "./dayContainer/DayContainer";
 import MonthPicker from "./monthPicker/MonthPicker";
@@ -10,13 +12,10 @@ import { queryMonthsToListen } from "../../api";
 //constants:
 import { daysInMonthDict } from "../../constants";
 
-const Calendar = ({ firebase, setUser }) => {
-    const [today] = useState(new Date());
+const Calendar = ({ firebase, setUser, thisMonth, thisYear }) => {
     const [daysInWeekFromPreviousMonth, setDaysInWeekFromPreviousMonth] =
         useState(0);
     const [daysInWeekFromNextMonth, setDaysInWeekFromNextMonth] = useState(0);
-    const [thisMonth, setThisMonth] = useState();
-    const [thisYear, setThisYear] = useState();
     const [daysInMonth, setDaysInMonth] = useState(daysInMonthDict);
     const [daysToShow, setDaysToShow] = useState([]);
     const [appointmentsData, setAppointmentsData] = useState({});
@@ -31,12 +30,6 @@ const Calendar = ({ firebase, setUser }) => {
             setAppointmentsData
         );
     };
-
-    useEffect(() => {
-        const curDate = today.toLocaleDateString().split(".");
-        setThisMonth(+curDate[1]);
-        setThisYear(+curDate[2] + 1);
-    }, [today]);
 
     useEffect(() => {
         gapYearHandler(thisYear, setDaysInMonth);
@@ -87,24 +80,6 @@ const Calendar = ({ firebase, setUser }) => {
         setDaysToShow(dates);
     }, [daysInWeekFromPreviousMonth, daysInWeekFromNextMonth]);
 
-    const changeMonth = (month, year, direction) => {
-        let newMonth, newYear;
-        if (direction === "up") {
-            newMonth = (month % 12) + 1;
-            newYear = newMonth === 1 ? year + 1 : year;
-        } else if (direction === "down") {
-            newMonth = ((month + 10) % 12) + 1;
-            newYear = newMonth === 12 ? year - 1 : year;
-        }
-        setThisMonth(newMonth);
-        setThisYear(newYear);
-    };
-
-    const changeYear = (direction) => {
-        if (direction === "up") setThisYear((year) => year + 1);
-        if (direction === "down") setThisYear((year) => year - 1);
-    };
-
     const getTheDayData = (date) => {
         const dateString = date.toLocaleDateString();
         const [day, month, year] = dateString.replaceAll(".0", ".").split(".");
@@ -118,16 +93,7 @@ const Calendar = ({ firebase, setUser }) => {
     return (
         <div className="app-wrapper">
             <div className="calendar">
-                <MonthPicker
-                    month={thisMonth}
-                    year={thisYear}
-                    increaseMonth={() => changeMonth(thisMonth, thisYear, "up")}
-                    decreaseMonth={() =>
-                        changeMonth(thisMonth, thisYear, "down")
-                    }
-                    increaseYear={() => changeYear("up")}
-                    decreaseYear={() => changeYear("down")}
-                />
+                <MonthPicker />
                 <div className="calendar__row">
                     <FocusWeekToggles
                         togglesNum={~~(daysToShow.length / 7)}
@@ -164,4 +130,16 @@ const Calendar = ({ firebase, setUser }) => {
     );
 };
 
-export default Calendar;
+const mapStateToProps = (state) => {
+    console.log(state);
+    if (state) {
+        return {
+            thisYear: state.date.year,
+            thisMonth: state.date.month,
+        };
+    }
+};
+
+const Container = connect(mapStateToProps)(Calendar);
+
+export default Container;

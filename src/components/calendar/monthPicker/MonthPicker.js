@@ -1,7 +1,9 @@
 import React from "react";
+// redux:
+import { connect } from "react-redux";
 // assets:
 import arrow from "../../../../public/assets/arrow.svg";
-// contstants:
+// constants:
 import { monthNames } from "../../../constants";
 
 const MonthPicker = ({
@@ -36,4 +38,24 @@ const MonthPicker = ({
     );
 };
 
-export default MonthPicker;
+const mapStateToProps = (state) => {
+    if (state) {
+        return {
+            year: state.date.year,
+            month: state.date.month,
+        };
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        increaseMonth: () => dispatch({ type: "month/increase" }),
+        decreaseMonth: () => dispatch({ type: "month/decrease" }),
+        increaseYear: () => dispatch({ type: "year/increase" }),
+        decreaseYear: () => dispatch({ type: "year/decrease" }),
+    };
+};
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(MonthPicker);
+
+export default Container;

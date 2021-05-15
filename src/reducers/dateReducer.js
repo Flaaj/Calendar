@@ -1,16 +1,16 @@
 const initializeState = () => {
     const today = new Date().toLocaleDateString();
-    const [day, month, year] = today.split(".");
+    const [month, year] = today.split(".").slice(1);
     return {
         today,
-        year,
-        month,
+        year: +year,
+        month: +month,
     };
 };
 
 const initialState = initializeState();
 
-const reducer = function (state = initialState, action) {
+export const dateReducer = function (state = initialState, action) {
     switch (action.type) {
         case "year/increase":
             return { ...state, year: state.year + 1 };
@@ -29,4 +29,6 @@ const reducer = function (state = initialState, action) {
                 return { ...state, month: state.month - 1 };
             }
     }
+
+    return state;
 };
