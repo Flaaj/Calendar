@@ -1,18 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
+// redux:
+import { connect } from "react-redux";
+// actions:
+import { messageListener } from "../../../../actions/databaseActions";
 // components:
 import Message from "./message/Message";
 // functions:
 import { refreshState } from "../../../../functions";
 // api:
-import { messageListener, sendMessage } from "../../../../api";
+import { sendMessage } from "../../../../api";
 
-const Messenger = ({ firebase }) => {
-    const [messages, setMessages] = useState([]);
+const Messenger = ({ firebase, messages, messageListener }) => {
     const [messageToSend, setMessageToSend] = useState("");
     const bottom = useRef();
 
     useEffect(() => {
-        messageListener(firebase, setMessages);
+        messageListener();
     }, []);
 
     useEffect(() => {
@@ -27,14 +30,7 @@ const Messenger = ({ firebase }) => {
                 ))}
                 <div className="messenger__bottom" ref={bottom}></div>
             </div>
-            <form
-                className="messenger__form"
-                onSubmit={sendMessage(
-                    firebase,
-                    messageToSend,
-                    setMessageToSend
-                )}
-            >
+            <form className="messenger__form" onSubmit={sendMessage(firebase, messageToSend, setMessageToSend)}>
                 <textarea
                     rows="4"
                     value={messageToSend}
@@ -47,4 +43,20 @@ const Messenger = ({ firebase }) => {
     );
 };
 
-export default Messenger;
+const mapStateToProps = (state) => {
+    if (state) {
+        return {
+            messages: state.database.messages,
+        };
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        messageListener: messageListener(dispatch),
+    };
+};
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(Messenger);
+
+export default Container;

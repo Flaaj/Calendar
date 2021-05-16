@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+// redux:
+import { connect } from "react-redux";
 // components:
 import AppointmentDetails from "./appointmentDetails/AppointmentDetails";
 import Appointment from "./appointment/Appointment";
@@ -11,22 +13,21 @@ import { deleteAppointment } from "../../../api";
 
 const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
     const [isFullScreen, setIsFullScreen] = useState(false);
-    const [isFullScreenClass, setIsFullScreenClass] = useState("");
     const [chosenAppointment, setChosenAppointment] = useState("");
 
     const isTodayClass = isToday(date) ? " today" : "";
     const isCurrentMonthClass = isCurrentMonth ? " current-month" : "";
 
     useEffect(() => {
-        setIsFullScreenClass(isFullScreen ? " fullscreen" : "");
-    }, [isFullScreen]);
+        console.log("hello")   
+    })
 
     const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
 
     return (
         <div
             onClick={() => !isFullScreen && toggleFullScreen()}
-            className={"day-container" + isTodayClass + isCurrentMonthClass + isFullScreenClass}
+            className={"day-container" + isTodayClass + isCurrentMonthClass + (isFullScreen ? " fullscreen" : "")}
         >
             <header className="day-container__header">
                 <h3>{dateDisplay(date, isFullScreen)}</h3>
@@ -80,4 +81,20 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
     );
 };
 
-export default DayContainer;
+
+const mapStateToProps = (state, props) => {
+    const dateString = props.date.toLocaleDateString();
+    const [day, month, year] = dateString.replaceAll(".0", ".").split(".");
+    const target = `${year}/${month}`;
+    return {
+        data: state.database.data[target] ? state.database.data[target][day] : {}
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+    };
+};
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(DayContainer);
+
+export default Container;

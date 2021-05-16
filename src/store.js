@@ -8,5 +8,5 @@ const middleware = [thunk];
 export const store = createStore(
     reducer,
     undefined,
-    applyMiddleware(...middleware)
+    applyMiddleware(...middleware)  
 );

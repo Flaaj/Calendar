@@ -3,6 +3,8 @@ const initializeState = () => {
         firebase: {},
         initialized: false,
         user: undefined,
+        messages: [],
+        data: {},
     };
 };
 
@@ -22,6 +24,10 @@ export const databaseReducer = function (state = initialState, action) {
             };
         case "firebase/login-failed":
             return { ...state, error: true };
+        case "messages/update":
+            return { ...state, messages: action.payload };
+        case "data/update":
+            return { ...state, data: { ...state.data, [action.payload.target]: action.payload.data } };
     }
     return state;
 };

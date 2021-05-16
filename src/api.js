@@ -12,21 +12,6 @@ export const authStateListener = (firebase, setUser) => {
     firebase.auth().onAuthStateChanged((user) => setUser(user));
 };
 
-export const authenticate =
-    (firebase, login, password, setUser, setError) => (e) => {
-        e.preventDefault();
-        setError(false);
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(login, password)
-            .then(({ user }) => {
-                setUser(user);
-            })
-            .catch(({ code, message }) => {
-                console.log(code, message);
-                setError(true);
-            });
-    };
 
 export const logOut = (firebase) => {
     firebase.auth().signOut();
@@ -65,59 +50,6 @@ export const updateAppointment = (firebase, date, id, body) => {
         .ref(getRefFromDateObject(date, id))
         .update(body)
         .catch((err) => console.log(err));
-};
-
-export const queryMonthsToListen = (firebase, month, year, data, setData) => {
-    const monthsToQuery =
-        month === 1
-            ? [
-                  [12, year - 1],
-                  [1, year],
-                  [2, year],
-              ]
-            : month === 12
-            ? [
-                  [11, year],
-                  [12, year],
-                  [1, year + 1],
-              ]
-            : [
-                  [month - 1, year],
-                  [month, year],
-                  [month + 1, year],
-              ];
-    monthsToQuery.forEach(([month, year]) => {
-        const target = `${year}/${month}`;
-        if (!data[target]) {
-            firebase
-                .database()
-                .ref(target)
-                .on("value", (snapshot) => {
-                    if (snapshot.val()) {
-                        setData((data) => ({
-                            ...data,
-                            [target]: snapshot.val(),
-                        }));
-                    } else {
-                        setData((data) => ({
-                            ...data,
-                            [target]: true,
-                        }));
-                    }
-                });
-        }
-    });
-};
-
-export const messageListener = (firebase, setMessages) => {
-    firebase
-        .database()
-        .ref("messages")
-        .on("value", (snapshot) => {
-            if (snapshot.val()) {
-                setMessages(Object.entries(snapshot.val()));
-            }
-        });
 };
 
 export const sendMessage =

@@ -5,6 +5,7 @@ const initializeState = () => {
         today,
         year: +year,
         month: +month,
+        focusWeek: -1,
     };
 };
 
@@ -27,6 +28,12 @@ export const dateReducer = function (state = initialState, action) {
                 return { ...state, year: state.year - 1, month: 12 };
             } else {
                 return { ...state, month: state.month - 1 };
+            }
+        case "week/focus":
+            if (state.focusWeek !== -1) {
+                return { ...state, focusWeek: -1 };
+            } else {
+                return { ...state, focusWeek: action.payload };
             }
     }
 

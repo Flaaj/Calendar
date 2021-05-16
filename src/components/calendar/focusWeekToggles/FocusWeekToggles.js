@@ -1,39 +1,44 @@
 import React, { useState, useEffect } from "react";
+// redux:
+import { connect } from "react-redux";
+// actions:
+import { setFocusWeek } from "../../../actions/dateActions";
 
-const FocusWeekToggles = ({ togglesNum, focusWeek, setFocusWeek }) => {
-    const [togglesArray, setTogglesArray] = useState(
-        Array(togglesNum).fill("")
-    );
+const FocusWeekToggles = ({ togglesNum, setFocusWeek, focusWeek, focusWeekClass }) => {
 
     useEffect(() => {
-        setTogglesArray(Array(togglesNum).fill(""));
-    }, [togglesNum]);
-
-    const toggleFocus = (index) => {
-        setFocusWeek((week) => (week === -1 ? index : -1));
-    };
-
+        
+    })
     return (
         <div className="week-focus-toggles">
-            {togglesArray.map((_, index) =>
-                focusWeek === -1 ? (
-                    <button
-                        className="week-focus-toggles__toggle"
-                        onClick={() => toggleFocus(index)}
-                        key={`toggle-${index}`}
-                    ></button>
-                ) : (
-                    focusWeek === index && (
-                        <button
-                            className="week-focus-toggles__toggle focused"
-                            onClick={() => toggleFocus(index)}
-                            key={`toggle-${index}`}
-                        ></button>
-                    )
-                )
-            )}
+            {Array(togglesNum)
+                .fill("")
+                .map(
+                    (_, index) =>
+                        (focusWeek === -1 || focusWeek === index) && (
+                            <button
+                                className={"week-focus-toggles__toggle" + focusWeekClass}
+                                onClick={setFocusWeek(index)}
+                                key={`toggle-${index}`}
+                            ></button>
+                        )
+                )}
         </div>
     );
 };
 
-export default FocusWeekToggles;
+const mapStateToProps = (state) => {
+    return {
+        focusWeekClass: state.date.focusWeek !== -1 ? " focused" : "",
+        focusWeek: state.date.focusWeek,
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setFocusWeek: setFocusWeek(dispatch),
+    };
+};
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(FocusWeekToggles);
+
+export default Container;
