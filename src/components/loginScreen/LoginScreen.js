@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 import { authenticate } from "../../actions/databaseActions";
 // functions:
 import { refreshState } from "../../functions";
-// api:
-// import { authenticate } from "../../api";
 
 const LoginScreen = ({ authenticate, error }) => {
     const [login, setLogin] = useState("");

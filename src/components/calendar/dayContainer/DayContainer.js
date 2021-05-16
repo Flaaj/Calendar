@@ -86,15 +86,16 @@ const mapStateToProps = (state, props) => {
     const dateString = props.date.toLocaleDateString();
     const [day, month, year] = dateString.replaceAll(".0", ".").split(".");
     const target = `${year}/${month}`;
+    
     return {
         data: state.database.data[target] ? state.database.data[target][day] : {},
         firebase: state.database.firebase
     };
 };
-const mapDispatchToProps = (dispatch) => {
-    return {
-    };
-};
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//     };
+// };
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(DayContainer);
 
