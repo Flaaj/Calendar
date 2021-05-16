@@ -8,14 +8,14 @@ const Message = ({msg}) => {
     };
 
     return (
-        <div key={msg[0]} className="message">
+        <div className="message">
             <span className="message__author">
-                {msg[1].user}
+                {msg.user}
             </span>
             <span className="message__time">
-                {getFormattedDateString(new Date(msg[1].date))}
+                {getFormattedDateString(new Date(msg.date))}
             </span>
-            <p className="message__text">{msg[1].msg}</p>
+            <p className="message__text">{msg.msg}</p>
         </div>
     );
 }

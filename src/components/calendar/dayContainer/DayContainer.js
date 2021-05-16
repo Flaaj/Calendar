@@ -18,9 +18,9 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
     const isTodayClass = isToday(date) ? " today" : "";
     const isCurrentMonthClass = isCurrentMonth ? " current-month" : "";
 
-    useEffect(() => {
-        console.log("hello")   
-    })
+    // useEffect(() => {
+    //     console.log("hello")   
+    // })
 
     const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
 
@@ -87,7 +87,8 @@ const mapStateToProps = (state, props) => {
     const [day, month, year] = dateString.replaceAll(".0", ".").split(".");
     const target = `${year}/${month}`;
     return {
-        data: state.database.data[target] ? state.database.data[target][day] : {}
+        data: state.database.data[target] ? state.database.data[target][day] : {},
+        firebase: state.database.firebase
     };
 };
 const mapDispatchToProps = (dispatch) => {

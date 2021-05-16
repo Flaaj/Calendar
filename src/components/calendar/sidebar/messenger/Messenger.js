@@ -12,23 +12,23 @@ import { sendMessage } from "../../../../api";
 
 const Messenger = ({ firebase, messages, messageListener }) => {
     const [messageToSend, setMessageToSend] = useState("");
-    const bottom = useRef();
+    const messengerBottom = useRef();
 
     useEffect(() => {
         messageListener();
     }, []);
 
     useEffect(() => {
-        bottom.current.scrollIntoView();
+        messengerBottom.current.scrollIntoView();
     }, [messages]);
 
     return (
         <div className="messenger">
             <div className="messenger__content">
-                {messages.map((msg) => (
-                    <Message key={msg[0]} msg={msg} />
+                {messages.map(([id, msg]) => (
+                    <Message key={id} msg={msg} />
                 ))}
-                <div className="messenger__bottom" ref={bottom}></div>
+                <div className="messenger__bottom" ref={messengerBottom}></div>
             </div>
             <form className="messenger__form" onSubmit={sendMessage(firebase, messageToSend, setMessageToSend)}>
                 <textarea
@@ -44,11 +44,9 @@ const Messenger = ({ firebase, messages, messageListener }) => {
 };
 
 const mapStateToProps = (state) => {
-    if (state) {
-        return {
-            messages: state.database.messages,
-        };
-    }
+    return {
+        messages: state.database.messages,
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {

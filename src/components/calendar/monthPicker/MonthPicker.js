@@ -6,14 +6,7 @@ import arrow from "../../../../public/assets/arrow.svg";
 // constants:
 import { monthNames } from "../../../constants";
 
-const MonthPicker = ({
-    month,
-    year,
-    decreaseMonth,
-    increaseMonth,
-    decreaseYear,
-    increaseYear,
-}) => {
+const MonthPicker = ({ month, year, decreaseMonth, increaseMonth, decreaseYear, increaseYear }) => {
     return (
         <div className="month-picker">
             <div className="month-picker__month">
@@ -39,12 +32,10 @@ const MonthPicker = ({
 };
 
 const mapStateToProps = (state) => {
-    if (state) {
-        return {
-            year: state.date.year,
-            month: state.date.month,
-        };
-    }
+    return {
+        year: state.date.year,
+        month: state.date.month,
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
