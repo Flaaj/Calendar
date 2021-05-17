@@ -24,10 +24,18 @@ export const databaseReducer = function (state = initialState, action) {
             };
         case "firebase/login-failed":
             return { ...state, error: true };
+        case "firebase/auth-state-change":
+            return { ...state, user: action.payload };
         case "messages/update":
             return { ...state, messages: action.payload };
         case "data/update":
-            return { ...state, data: { ...state.data, [action.payload.target]: action.payload.data } };
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.target]: action.payload.data,
+                },
+            };
     }
     return state;
 };

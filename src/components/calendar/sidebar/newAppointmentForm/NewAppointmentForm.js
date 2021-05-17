@@ -4,14 +4,14 @@ import { refreshState } from "../../../../functions";
 // api:
 import { addNewAppointment } from "../../../../api";
 
-const NewAppointmentForm = ({  }) => {
-    const [name, setName] = useState();
-    const [phone, setPhone] = useState();
-    const [email, setEmail] = useState();
+const NewAppointmentForm = ({ firebase }) => {
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
     const [from, setFrom] = useState("1");
     const [to, setTo] = useState("1");
-    const [note, setNote] = useState();
-    const [date, setDate] = useState();
+    const [note, setNote] = useState("");
+    const [date, setDate] = useState("");
     const [color, setColor] = useState("#000000");
     const [timeWindows, setTimeWindows] = useState([]);
 

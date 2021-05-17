@@ -6,7 +6,7 @@ import { Provider, connect } from "react-redux";
 // store:
 import { store } from "./store";
 // actions :
-import { saveFirebaseToStore } from "./actions/databaseActions";
+import { saveFirebaseToStore, authStateListener } from "./actions/databaseActions";
 // components:
 import Calendar from "./components/calendar/Calendar";
 import LoginScreen from "./components/loginScreen/LoginScreen";
@@ -17,10 +17,9 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 // api:
-import { initializeApp, authStateListener } from "./api";
+import { initializeApp } from "./api";
 
-const App = ({ saveFirebaseToStore }) => {
-    const [user, setUser] = useState();
+const App = ({ user, saveFirebaseToStore, authStateListener }) => {
     const [initialized, setInitialized] = useState(false);
 
     useEffect(() => {
@@ -29,7 +28,7 @@ const App = ({ saveFirebaseToStore }) => {
     }, []);
 
     useEffect(() => {
-        initialized && authStateListener(firebase, setUser);
+        initialized && authStateListener();
     }, [initialized]);
 
     return (
@@ -37,11 +36,11 @@ const App = ({ saveFirebaseToStore }) => {
             <Router>
                 <Route exact path="/login">
                     {user && <Redirect to="/" />}
-                    <LoginScreen firebase={firebase} setUser={setUser} />
+                    <LoginScreen />
                 </Route>
                 <Route exact path="/">
                     {!user && <Redirect to="/login" />}
-                    <Calendar firebase={firebase} setUser={setUser} />
+                    <Calendar />
                 </Route>
             </Router>
         )
@@ -52,6 +51,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
     saveFirebaseToStore: saveFirebaseToStore(dispatch),
+    authStateListener: authStateListener(dispatch)
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(App);

@@ -5,14 +5,14 @@ import { refreshState } from "../../../../functions";
 import { updateAppointment } from "../../../../api";
 
 const AppointmentDetails = ({ appointmentId, data, firebase, date }) => {
-    const [name, setName] = useState();
-    const [phone, setPhone] = useState();
-    const [email, setEmail] = useState();
-    const [from, setFrom] = useState();
-    const [to, setTo] = useState();
-    const [note, setNote] = useState();
-    const [color, setColor] = useState();
-    const [timeWindows, setTimeWindows] = useState();
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [from, setFrom] = useState("0");
+    const [to, setTo] = useState("0");
+    const [note, setNote] = useState("");
+    const [color, setColor] = useState("");
+    const [timeWindows, setTimeWindows] = useState([]);
     const [enableInputs, setEnableInputs] = useState(false);
 
     useEffect(() => {
@@ -108,7 +108,7 @@ const AppointmentDetails = ({ appointmentId, data, firebase, date }) => {
                     </label>
                     <input
                         id="phone"
-                        type="telephone"
+                        type="text"
                         className="form__input"
                         onChange={refreshState(setPhone)}
                         value={phone}
@@ -203,8 +203,8 @@ const AppointmentDetails = ({ appointmentId, data, firebase, date }) => {
                     <input
                         id="color"
                         type="color"
-                        value={color}
                         onChange={refreshState(setColor)}
+                        value={color}
                         className="form__input form__input--color"
                         disabled={!enableInputs}
                     />

@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
+// redux:
+import { connect } from "react-redux";
 // components:
 import NewAppointmentForm from "./newAppointmentForm/NewAppointmentForm";
 import Menu from "./menu/Menu";
 import Messenger from "./messenger/Messenger";
+import FreeTerms from "./freeTerms/FreeTerms";
 // api:
 import { logOut } from "./../../../api";
 
-const Sidebar = ({ firebase, setUser }) => {
-    const [currentItem, setCurrentItem] = useState("form");
+const Sidebar = ({ firebase, currentMenuItem }) => {
     return (
         <div className="sidebar">
-            <Menu currentItem={currentItem} setCurrentItem={setCurrentItem} />
-            {currentItem === "form" && <NewAppointmentForm firebase={firebase} /> }
-            {currentItem === "chat" && <Messenger firebase={firebase} />}
+            <Menu />
+            {currentMenuItem === "form" && (
+                <NewAppointmentForm firebase={firebase} />
+            )}
+            {currentMenuItem === "chat" && <Messenger />}
+            {currentMenuItem === "terms" && <FreeTerms />}
             <button
                 className="sidebar__logout"
-                onClick={() => logOut(firebase, setUser)}
+                onClick={() => logOut(firebase)}
             >
                 Wyloguj
             </button>
@@ -23,4 +28,13 @@ const Sidebar = ({ firebase, setUser }) => {
     );
 };
 
-export default Sidebar;
+const mapStateToProps = (state) => {
+    return {
+        currentMenuItem: state.date.currentMenuItem,
+        firebase: state.database.firebase
+    };
+};
+
+const Container = connect(mapStateToProps)(Sidebar);
+
+export default Container;

@@ -6,6 +6,7 @@ const initializeState = () => {
         year: +year,
         month: +month,
         focusWeek: -1,
+        currentMenuItem: "form",
     };
 };
 
@@ -35,6 +36,8 @@ export const dateReducer = function (state = initialState, action) {
             } else {
                 return { ...state, focusWeek: action.payload };
             }
+        case "menu/choose":
+            return { ...state, currentMenuItem: action.payload };
     }
 
     return state;
