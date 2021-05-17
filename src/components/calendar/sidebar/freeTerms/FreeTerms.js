@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 // view:
 import FreeTerms from "./FreeTerms.view";
 
-const nextTwoWeeks = (date) => {
+const nextDays = (date, num) => {
     const days = [];
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < num; i++) {
         days.push(date.toLocaleDateString());
         date.setDate(date.getDate() + 1);
     }
@@ -30,7 +30,7 @@ const indexToHour = (begin, index, phase) => {
 
 const mapStateToProps = (state) => {
     const terms = {};
-    for (let date of nextTwoWeeks(new Date())) {
+    for (let date of nextDays(new Date(), 14)) {
         const [day, month, year] = date.split(".");
         const ref = `${year}/${+month}`;
         const free = [[]];
