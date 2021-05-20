@@ -1,9 +1,9 @@
 // redux:
 import { connect } from "react-redux";
 // actions:
-import { authenticate } from "../../actions/databaseActions";
+import { authenticate, createUser } from "../../actions/databaseActions";
 // view:
-import LoginScreen from "./LoginScreen.view"
+import LoginScreen from "./LoginScreen.view";
 
 const mapStateToProps = (state) => ({
     user: state.database.user,
@@ -11,6 +11,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
     authenticate: authenticate(dispatch),
+    createUser: createUser(dispatch),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

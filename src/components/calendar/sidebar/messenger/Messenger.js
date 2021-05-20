@@ -8,9 +8,12 @@ import Messenger from "./Messenger.view";
 const mapStateToProps = (state) => {
     const messages = state.database.messages;
 
-    if (messages.empty) return {
-        messages: []
-    };
+    if (messages.empty) {
+        return {
+            messages: [],
+            firebase: state.database.firebase,
+        };
+    }
     return {
         messages,
         firebase: state.database.firebase,

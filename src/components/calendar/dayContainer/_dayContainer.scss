@@ -85,6 +85,7 @@
     top: 0;
     left: 0;
     background-color: white;
+    cursor: unset;
 
     .day-container {
         &__appointments {
@@ -119,6 +120,7 @@
     }
 
     .appointment {
+        cursor: pointer;
         &__content {
             display: inline-flex;
             flex-direction: column;

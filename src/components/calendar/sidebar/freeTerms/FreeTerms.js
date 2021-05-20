@@ -12,19 +12,21 @@ const nextDays = (date, num) => {
     return days;
 };
 
-const indexToHour = (begin, index, phase) => {
-    if (phase === "start") {
-        const hour = begin + ~~((index - 1) / 4);
-        const minutes = ((index - 1) % 4) * 15 || "00";
-        return `${hour}:${minutes}`;
-    } else if (phase === "end") {
-        const hour = begin + ~~(index / 4);
-        const minutes = (index % 4) * 15 || "00";
-        return `${hour}:${minutes}`;
-    } else {
-        const hour = begin + ~~(index / 4);
-        const minutes = (index % 4) * 15 || "00";
-        return `${hour ? hour + "godz" : ""} ${+minutes ? minutes + "m" : ""}`;
+const convertIndexToHour = (begin, index, type) => {
+    let hour, minutes;
+    switch (type) {
+        case "start":
+            hour = begin + ~~((index - 1) / 4);
+            minutes = ((index - 1) % 4) * 15 || "00";
+            return `${hour}:${minutes}`;
+        case "end":
+            hour = begin + ~~(index / 4);
+            minutes = (index % 4) * 15 || "00";
+            return `${hour}:${minutes}`;
+        case "duration":
+            hour = begin + ~~(index / 4);
+            minutes = (index % 4) * 15 || "00";
+            return `${hour ? hour + "godz" : ""} ${+minutes ? minutes + "m" : ""}`;
     }
 };
 
@@ -39,7 +41,7 @@ const mapStateToProps = (state) => {
         if (monthData) {
             if (monthData[day]) {
                 const dayData = Object.entries(monthData[+day]);
-                dayData.forEach(([__, data]) => {
+                dayData.forEach(([_, data]) => {
                     taken.push(...data.timeWindows);
                 });
                 let counter = 0;
@@ -55,9 +57,9 @@ const mapStateToProps = (state) => {
                 for (let term of free) {
                     const begin = 7; // 7:00 a.m.
                     const size = term.length - 1;
-                    const duration = indexToHour(0, size, "duration");
-                    const start = indexToHour(begin, term[0], "start");
-                    const end = indexToHour(begin, term[size - 1], "end");
+                    const duration = convertIndexToHour(0, size, "duration");
+                    const start = convertIndexToHour(begin, term[0], "start");
+                    const end = convertIndexToHour(begin, term[size - 1], "end");
                     terms[date].push({ duration, start, end });
                 }
             } else {

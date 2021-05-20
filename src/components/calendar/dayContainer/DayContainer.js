@@ -9,9 +9,7 @@ const mapStateToProps = (state, props) => {
     const target = `${year}/${month}`;
 
     return {
-        data: state.database.data[target]
-            ? state.database.data[target][day]
-            : {},
+        data: state.database.data[target] ? state.database.data[target][day] : {},
         firebase: state.database.firebase,
     };
 };

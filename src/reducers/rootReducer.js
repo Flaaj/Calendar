@@ -5,4 +5,4 @@ import { databaseReducer } from "./databaseReducer";
 export const reducer = combineReducers({
     date: dateReducer,
     database: databaseReducer,
-})
+});

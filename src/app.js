@@ -24,7 +24,7 @@ const App = ({ user, saveFirebaseToStore, authStateListener }) => {
 
     useEffect(() => {
         initializeApp(firebase, setInitialized);
-        saveFirebaseToStore(firebase)
+        saveFirebaseToStore(firebase);
     }, []);
 
     useEffect(() => {
@@ -47,11 +47,11 @@ const App = ({ user, saveFirebaseToStore, authStateListener }) => {
     );
 };
 const mapStateToProps = (state) => ({
-    user: state.database.user
+    user: state.database.user,
 });
 const mapDispatchToProps = (dispatch) => ({
     saveFirebaseToStore: saveFirebaseToStore(dispatch),
-    authStateListener: authStateListener(dispatch)
+    authStateListener: authStateListener(dispatch),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(App);
