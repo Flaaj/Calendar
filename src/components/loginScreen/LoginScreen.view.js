@@ -60,9 +60,9 @@ const LoginScreen = ({ authenticate, createUser, error }) => {
                         Adres email konta:
                     </label>
                     <input
-                        id="email"
-                        name="email"
-                        type="email"
+                        id="emailn"
+                        name="emailn"
+                        type="emailn"
                         className="form__input"
                         value={newLogin}
                         onChange={refreshState(setNewLogin)}
@@ -74,9 +74,9 @@ const LoginScreen = ({ authenticate, createUser, error }) => {
                         Hasło:
                     </label>
                     <input
-                        id="password"
-                        name="password"
-                        type="password"
+                        id="passwordn"
+                        name="passwordn"
+                        type="passwordn"
                         className="form__input"
                         value={newPassword}
                         onChange={refreshState(setNewPassword)}

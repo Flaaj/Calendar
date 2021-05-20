@@ -1,35 +1,84 @@
-import React, { useState, useEffect } from "react";
-// functions:
-import { refreshState } from "../../../../functions";
+// redux:
+import { connect } from "react-redux";
 // api:
 import { addNewAppointment } from "../../../../api";
+// view:
+import NewAppointmentForm from "./NewAppointmentForm.view";
 
+const handleChange = (dispatch) => (target) => (e) => {
+    const value = e.target.value;
+    dispatch({
+        type: "input/change",
+        payload: {
+            target,
+            value,
+        },
+    });
+};
 
-useEffect(() => {
-    const divisions = [];
+const mapStateToProps = (state) => {
+    const hours = [];
     for (let i = 0; i < 45; i++) {
         const hour = 7 + ~~(i / 4);
         const minute = 15 * (i % 4) || "00";
-        divisions.push(`${hour}:${minute}`);
-        setHours(divisions);
+        hours.push(`${hour}:${minute}`);
     }
-}, []);
 
-const onSubmit = (e) => {
+    const { name, phone, email, date, from, to, note, color, timeWindows } =
+        state.newAppointmentForm;
+
+    return {
+        name,
+        phone,
+        email,
+        date,
+        from,
+        to,
+        note,
+        color,
+        timeWindows,
+        hours,
+        onSubmit: onSubmit(state),
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleChange: handleChange(dispatch),
+    };
+};
+
+const Container = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(NewAppointmentForm);
+
+export default Container;
+
+const onSubmit = (state) => (e) => {
     e.preventDefault();
-    const body = {};
+    const { name, phone, email, date, from, to, note, color } =
+        state.newAppointmentForm;
+
+    const timeWindows = [];
+    for (let i = +from; i <= +to; i++) {
+        timeWindows.push(i);
+    }
+
     if (timeWindows.length === 0) {
         alert("Rezerwacja nie może zaczynać się później, niż się kończy :(");
     } else if (name && date && timeWindows.length > 0) {
+        const body = {};
+        
         body.name = name;
         body.timeWindows = timeWindows;
+        body.color = color;
         phone && (body.phone = phone);
         email && (body.email = email);
         note && (body.note = note);
-        color && (body.color = color);
 
         const target = date.replaceAll("-", "/").replaceAll("/0", "/");
-
+        const firebase = state.database.firebase;
         addNewAppointment(firebase, target, body);
     } else {
         alert(
@@ -37,17 +86,3 @@ const onSubmit = (e) => {
         );
     }
 };
-
-const mapStateToProps = (state) => {
-    return {
-    };
-};
-
-const dispatch = (dispatch) => {
-    return {
-    };
-};
-
-const Container = connect(mapStateToProps)(NewAppointmentForm);
-
-export default Container;
