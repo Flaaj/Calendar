@@ -5,6 +5,37 @@ import { addNewAppointment } from "../../../../api";
 // view:
 import NewAppointmentForm from "./NewAppointmentForm.view";
 
+const onSubmit = (state) => (e) => {
+    e.preventDefault();
+    const { name, phone, email, date, from, to, note, color } =
+        state.newAppointmentForm;
+
+    const timeWindows = [];
+    for (let i = +from; i <= +to; i++) {
+        timeWindows.push(i);
+    }
+
+    if (timeWindows.length === 0) {
+        alert("Rezerwacja nie może zaczynać się później, niż się kończy :(");
+    } else if (name && date && timeWindows.length > 0) {
+        const body = {};
+
+        body.name = name;
+        body.timeWindows = timeWindows;
+        body.color = color;
+        phone && (body.phone = phone);
+        email && (body.email = email);
+        note && (body.note = note);
+
+        const target = date.replaceAll("-", "/").replaceAll("/0", "/");
+        addNewAppointment(target, body);
+    } else {
+        alert(
+            "Uzupełnij co najmniej imię, date wizyty oraz godzinę jej rozpoczęcia i zakończenia. Reszta danych jest opcjonalna"
+        );
+    }
+};
+
 const handleChange = (dispatch) => (target) => (e) => {
     const value = e.target.value;
     dispatch({
@@ -54,35 +85,3 @@ const Container = connect(
 )(NewAppointmentForm);
 
 export default Container;
-
-const onSubmit = (state) => (e) => {
-    e.preventDefault();
-    const { name, phone, email, date, from, to, note, color } =
-        state.newAppointmentForm;
-
-    const timeWindows = [];
-    for (let i = +from; i <= +to; i++) {
-        timeWindows.push(i);
-    }
-
-    if (timeWindows.length === 0) {
-        alert("Rezerwacja nie może zaczynać się później, niż się kończy :(");
-    } else if (name && date && timeWindows.length > 0) {
-        const body = {};
-        
-        body.name = name;
-        body.timeWindows = timeWindows;
-        body.color = color;
-        phone && (body.phone = phone);
-        email && (body.email = email);
-        note && (body.note = note);
-
-        const target = date.replaceAll("-", "/").replaceAll("/0", "/");
-        const firebase = state.database.firebase;
-        addNewAppointment(firebase, target, body);
-    } else {
-        alert(
-            "Uzupełnij co najmniej imię, date wizyty oraz godzinę jej rozpoczęcia i zakończenia. Reszta danych jest opcjonalna"
-        );
-    }
-};

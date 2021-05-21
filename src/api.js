@@ -1,3 +1,4 @@
+import { store } from "./store"
 // functions:
 import { getRefFromDateObject } from "./functions";
 // config:
@@ -13,7 +14,8 @@ export const authStateListener = (firebase, setUser) => {
 };
 
 
-export const logOut = (firebase) => {
+export const logOut = () => {
+    const { firebase } = store.getState().database
     firebase.auth().signOut();
 };
 
@@ -25,7 +27,8 @@ export const deleteAppointment = (firebase, date, id) => {
         .catch((err) => console.log(err));
 };
 
-export const addNewAppointment = async (firebase, target, body) => {
+export const addNewAppointment = async (target, body) => {
+    const { firebase } = store.getState().database
     const response = await firebase.database().ref(target).get();
     const data = await response.val();
     const usedTimeWindows = [];

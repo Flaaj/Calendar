@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
-// functions:
-import { refreshState } from "../../../../functions";
-// api:
-import { addNewAppointment } from "../../../../api";
 
 const NewAppointmentForm = ({
-    firebase,
     name,
     phone,
     email,
@@ -16,9 +11,8 @@ const NewAppointmentForm = ({
     color,
     hours,
     handleChange,
-    onSubmit
+    onSubmit,
 }) => {
-
     return (
         <div className="new-appointment-form">
             <h2 className="new-appointment-form__heading">Nowa rezerwacja</h2>

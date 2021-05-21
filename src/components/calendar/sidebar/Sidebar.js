@@ -9,19 +9,14 @@ import FreeTerms from "./freeTerms/FreeTerms";
 // api:
 import { logOut } from "./../../../api";
 
-const Sidebar = ({ firebase, currentMenuItem }) => {
+const Sidebar = ({ currentMenuItem }) => {
     return (
         <div className="sidebar">
             <Menu />
-            {currentMenuItem === "form" && (
-                <NewAppointmentForm firebase={firebase} />
-            )}
+            {currentMenuItem === "form" && <NewAppointmentForm />}
             {currentMenuItem === "chat" && <Messenger />}
             {currentMenuItem === "terms" && <FreeTerms />}
-            <button
-                className="sidebar__logout"
-                onClick={() => logOut(firebase)}
-            >
+            <button className="sidebar__logout" onClick={() => logOut()}>
                 Wyloguj
             </button>
         </div>
@@ -31,7 +26,6 @@ const Sidebar = ({ firebase, currentMenuItem }) => {
 const mapStateToProps = (state) => {
     return {
         currentMenuItem: state.date.currentMenuItem,
-        firebase: state.database.firebase
     };
 };
 
