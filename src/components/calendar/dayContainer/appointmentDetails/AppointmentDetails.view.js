@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, handleChange, onSubmit }) => {
     const [enableInputs, setEnableInputs] = useState(false);

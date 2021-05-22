@@ -9,15 +9,7 @@ import { dateDisplay } from "../../../functions";
 // api:
 import { deleteAppointment } from "../../../api";
 
-const DayContainer = ({
-    date,
-    data,
-    firebase,
-    chosenAppointment,
-    setChosenAppointment,
-    isTodayClass,
-    isCurrentMonthClass,
-}) => {
+const DayContainer = ({ date, data, displayDetails, setChosenAppointment, isTodayClass, isCurrentMonthClass }) => {
     const [isFullScreen, setIsFullScreen] = useState(false);
     const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
 
@@ -47,13 +39,10 @@ const DayContainer = ({
                         >
                             Powrót do kalendarza
                         </button>
-                        {chosenAppointment.id && (
+                        {displayDetails && (
                             <>
                                 <AppointmentDetails />
-                                <button
-                                    onClick={() => deleteAppointment(firebase, chosenAppointment)}
-                                    className="panel__delete"
-                                >
+                                <button onClick={deleteAppointment} className="panel__delete">
                                     Usuń rezerwację
                                 </button>
                             </>

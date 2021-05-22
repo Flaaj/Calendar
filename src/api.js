@@ -18,7 +18,14 @@ export const logOut = () => {
     firebase.auth().signOut();
 };
 
-export const deleteAppointment = (firebase, date, id) => {
+export const deleteAppointment = () => {
+    const {
+        date: {
+            chosenAppointment: { date, id },
+        },
+        database: { firebase },
+    } = store.getState();
+
     firebase
         .database()
         .ref(getRefFromDateObject(date, id))
@@ -50,8 +57,6 @@ export const updateAppointment = (appointment, body) => {
     const { date, id } = appointment;
     const { firebase } = store.getState().database;
 
-    console.log(getRefFromDateObject(date, id));
-    console.log(body);
     firebase
         .database()
         .ref(getRefFromDateObject(date, id))

@@ -11,13 +11,14 @@ const mapStateToProps = (state, props) => {
     const { target, day, dateString } = getTarget(date);
 
     const isToday = state.date.today === dateString;
+    const data = state.database.data[target] ? state.database.data[target][day] : {};
+    const { id } = state.date.chosenAppointment;
 
     return {
-        data: state.database.data[target] ? state.database.data[target][day] : {},
-        firebase: state.database.firebase,
-        chosenAppointment: state.date.chosenAppointment,
+        data,
         isTodayClass: isToday ? " today" : "",
         isCurrentMonthClass: isCurrentMonth ? " current-month" : "",
+        displayDetails: data && data[id],
     };
 };
 const mapDispatchToProps = (dispatch) => {

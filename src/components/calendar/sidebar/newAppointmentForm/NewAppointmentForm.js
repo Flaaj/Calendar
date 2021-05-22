@@ -17,13 +17,14 @@ const onSubmit = (state) => (e) => {
     if (timeWindows.length === 0) {
         alert("Rezerwacja nie może zaczynać się później, niż się kończy :(");
     } else if (name && date && timeWindows.length > 0) {
-        const body = {};
-        body.name = name;
-        body.timeWindows = timeWindows;
-        body.color = color;
-        phone && (body.phone = phone);
-        email && (body.email = email);
-        note && (body.note = note);
+        const body = {
+            name,
+            timeWindows,
+            phone: phone || "",
+            email: email || "",
+            note: note || "",
+            color,
+        };
         const target = date.replaceAll("-", "/").replaceAll("/0", "/");
         addNewAppointment(target, body);
     } else {
