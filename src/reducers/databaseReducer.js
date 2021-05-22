@@ -1,3 +1,6 @@
+// functions:
+import { getTarget } from "../functions";
+
 const initializeState = () => {
     return {
         firebase: {},
@@ -5,6 +8,17 @@ const initializeState = () => {
         user: undefined,
         messages: [],
         data: {},
+        chosenAppointment: {
+            name: "",
+            phone: "",
+            email: "",
+            from: "",
+            to: "",
+            note: "",
+            date: "",
+            color: "#000000",
+            timeWindows: [],
+        },
     };
 };
 
@@ -35,6 +49,19 @@ export const databaseReducer = function (state = initialState, action) {
                     ...state.data,
                     [action.payload.target]: action.payload.data,
                 },
+            };
+        case "appointment-data/copy":
+            const { id, date } = action.payload;
+            const { target, day } = getTarget(date);
+            const data = state.data[target][day][id];
+            data.from = data.timeWindows[0] + "";
+            data.to = data.timeWindows[data.timeWindows.length - 1] + "";
+
+            return { ...state, chosenAppointment: state.data[target][day][id] };
+        case "appointment-data/change":
+            return {
+                ...state,
+                chosenAppointment: { ...state.chosenAppointment, [action.payload.target]: action.payload.value },
             };
     }
     return state;

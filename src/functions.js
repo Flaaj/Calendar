@@ -34,3 +34,11 @@ export const refreshState = (setState) => {
         setState(value);
     };
 };
+
+
+export const getTarget = (date) => {
+    const dateString = date.toLocaleDateString();
+    const [day, month, year] = dateString.replaceAll(".0", ".").split(".");
+    const target = `${year}/${month}`;
+    return { target, day, dateString };
+};

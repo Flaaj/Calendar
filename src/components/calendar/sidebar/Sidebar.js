@@ -1,27 +1,8 @@
-import React from "react";
 // redux:
 import { connect } from "react-redux";
-// components:
-import NewAppointmentForm from "./newAppointmentForm/NewAppointmentForm";
-import Menu from "./menu/Menu";
-import Messenger from "./messenger/Messenger";
-import FreeTerms from "./freeTerms/FreeTerms";
-// api:
-import { logOut } from "./../../../api";
+// view:
+import Sidebar from "./Sidebar.view"
 
-const Sidebar = ({ currentMenuItem }) => {
-    return (
-        <div className="sidebar">
-            <Menu />
-            {currentMenuItem === "form" && <NewAppointmentForm />}
-            {currentMenuItem === "chat" && <Messenger />}
-            {currentMenuItem === "terms" && <FreeTerms />}
-            <button className="sidebar__logout" onClick={() => logOut()}>
-                Wyloguj
-            </button>
-        </div>
-    );
-};
 
 const mapStateToProps = (state) => {
     return {

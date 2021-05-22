@@ -6,5 +6,5 @@ import { newAppointmentReducer } from "./newAppointmentReducer";
 export const reducer = combineReducers({
     date: dateReducer,
     database: databaseReducer,
-    newAppointmentForm: newAppointmentReducer
+    newAppointmentForm: newAppointmentReducer,
 });

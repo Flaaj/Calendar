@@ -1,25 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const NewAppointmentForm = ({
-    name,
-    phone,
-    email,
-    date,
-    from,
-    to,
-    note,
-    color,
-    hours,
-    handleChange,
-    onSubmit,
-}) => {
+const NewAppointmentForm = ({ name, phone, email, date, from, to, note, color, hours, handleChange, onSubmit }) => {
     return (
         <div className="new-appointment-form">
             <h2 className="new-appointment-form__heading">Nowa rezerwacja</h2>
-            <form
-                className="new-appointment-form__form form"
-                onSubmit={onSubmit}
-            >
+            <form className="new-appointment-form__form form" onSubmit={onSubmit}>
                 <div className="form__row">
                     <label htmlFor="name" className="form__label">
                         Imię:
@@ -63,31 +48,15 @@ const NewAppointmentForm = ({
                     <label htmlFor="date" className="form__label">
                         Data:
                     </label>
-                    <input
-                        id="date"
-                        type="date"
-                        value={date}
-                        onChange={handleChange("date")}
-                        className="form__input"
-                    />
+                    <input id="date" type="date" value={date} onChange={handleChange("date")} className="form__input" />
                 </div>
                 <div className="form__row">
                     <label htmlFor="from" className="form__label">
                         Poczatek:
                     </label>
-                    <select
-                        name="from"
-                        id="from"
-                        value={from}
-                        onChange={handleChange("from")}
-                        className="form__select"
-                    >
+                    <select name="from" id="from" value={from} onChange={handleChange("from")} className="form__select">
                         {hours.slice(0, -1).map((option, index) => (
-                            <option
-                                key={option}
-                                value={index + 1}
-                                className="form__option"
-                            >
+                            <option key={option} value={index + 1} className="form__option">
                                 {option}
                             </option>
                         ))}
@@ -97,19 +66,9 @@ const NewAppointmentForm = ({
                     <label htmlFor="from" className="form__label">
                         Koniec:
                     </label>
-                    <select
-                        name="to"
-                        id="to"
-                        value={to}
-                        onChange={handleChange("to")}
-                        className="form__select"
-                    >
+                    <select name="to" id="to" value={to} onChange={handleChange("to")} className="form__select">
                         {hours.slice(1).map((option, index) => (
-                            <option
-                                key={option}
-                                value={index + 1}
-                                className="form__option"
-                            >
+                            <option key={option} value={index + 1} className="form__option">
                                 {option}
                             </option>
                         ))}

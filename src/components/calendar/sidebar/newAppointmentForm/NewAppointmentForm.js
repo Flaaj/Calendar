@@ -7,8 +7,7 @@ import NewAppointmentForm from "./NewAppointmentForm.view";
 
 const onSubmit = (state) => (e) => {
     e.preventDefault();
-    const { name, phone, email, date, from, to, note, color } =
-        state.newAppointmentForm;
+    const { name, phone, email, date, from, to, note, color } = state.newAppointmentForm;
 
     const timeWindows = [];
     for (let i = +from; i <= +to; i++) {
@@ -19,14 +18,12 @@ const onSubmit = (state) => (e) => {
         alert("Rezerwacja nie może zaczynać się później, niż się kończy :(");
     } else if (name && date && timeWindows.length > 0) {
         const body = {};
-
         body.name = name;
         body.timeWindows = timeWindows;
         body.color = color;
         phone && (body.phone = phone);
         email && (body.email = email);
         note && (body.note = note);
-
         const target = date.replaceAll("-", "/").replaceAll("/0", "/");
         addNewAppointment(target, body);
     } else {
@@ -55,8 +52,7 @@ const mapStateToProps = (state) => {
         hours.push(`${hour}:${minute}`);
     }
 
-    const { name, phone, email, date, from, to, note, color, timeWindows } =
-        state.newAppointmentForm;
+    const { name, phone, email, date, from, to, note, color, timeWindows } = state.newAppointmentForm;
 
     return {
         name,
@@ -79,9 +75,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const Container = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(NewAppointmentForm);
+const Container = connect(mapStateToProps, mapDispatchToProps)(NewAppointmentForm);
 
 export default Container;

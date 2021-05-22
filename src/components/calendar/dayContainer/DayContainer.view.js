@@ -5,17 +5,20 @@ import Appointment from "./appointment/Appointment";
 // assets:
 const bg = "../../../public/assets/day-container-bg.svg";
 // functions:
-import { isToday, dateDisplay } from "../../../functions";
+import { dateDisplay } from "../../../functions";
 // api:
 import { deleteAppointment } from "../../../api";
 
-const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
+const DayContainer = ({
+    date,
+    data,
+    firebase,
+    chosenAppointment,
+    setChosenAppointment,
+    isTodayClass,
+    isCurrentMonthClass,
+}) => {
     const [isFullScreen, setIsFullScreen] = useState(false);
-    const [chosenAppointment, setChosenAppointment] = useState("");
-
-    const isTodayClass = isToday(date) ? " today" : "";
-    const isCurrentMonthClass = isCurrentMonth ? " current-month" : "";
-
     const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
 
     return (
@@ -30,14 +33,7 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
                 <div className="day-container__appointments" style={{ backgroundImage: `url(${bg})` }}>
                     {data &&
                         Array.from(Object.keys(data)).map((id) => (
-                            <Appointment
-                                data={data}
-                                key={id}
-                                id={id}
-                                isFullScreen={isFullScreen}
-                                chosenAppointment={chosenAppointment}
-                                setChosenAppointment={setChosenAppointment}
-                            />
+                            <Appointment date={date} key={id} id={id} isFullScreen={isFullScreen} />
                         ))}
                 </div>
                 {isFullScreen && (
@@ -51,17 +47,11 @@ const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
                         >
                             Powrót do kalendarza
                         </button>
-                        {data && data[chosenAppointment] && (
+                        {chosenAppointment.id && (
                             <>
-                                <AppointmentDetails
-                                    appointmentId={chosenAppointment}
-                                    data={data[chosenAppointment]}
-                                    firebase={firebase}
-                                    date={date}
-                                    setChosenAppointment={setChosenAppointment}
-                                />
+                                <AppointmentDetails />
                                 <button
-                                    onClick={() => deleteAppointment(firebase, date, chosenAppointment)}
+                                    onClick={() => deleteAppointment(firebase, chosenAppointment)}
                                     className="panel__delete"
                                 >
                                     Usuń rezerwację
