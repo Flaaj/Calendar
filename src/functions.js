@@ -10,9 +10,9 @@ export const getRefFromDateObject = (date, id) => {
     return id ? `${year}/${+month}/${+day}/${id}` : `${year}/${+month}/${+day}`;
 };
 
-export const isToday = (date) => {
-    return date.toLocaleDateString() === new Date().toLocaleDateString();
-};
+// export const isToday = (date) => {
+//     return date.toLocaleDateString() === new Date().toLocaleDateString();
+// };
 
 export const dateDisplay = (date, isFullScreen) => {
 
@@ -33,4 +33,23 @@ export const refreshState = (setState) => {
     return ({ target: { value } }) => {
         setState(value);
     };
+};
+
+
+export const getTarget = (date) => {
+    const dateString = date.toLocaleDateString();
+    const [day, month, year] = dateString.replaceAll(".0", ".").split(".");
+    const target = `${year}/${month}`;
+    return { target, day, dateString };
+};
+
+
+export const mapIndexesToHours = () => {
+    const hours = [];
+    for (let i = 0; i < 45; i++) {
+        const hour = 7 + ~~(i / 4);
+        const minute = 15 * (i % 4) || "00";
+        hours.push(`${hour}:${minute}`);
+    }
+    return hours;
 };

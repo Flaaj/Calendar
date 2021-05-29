@@ -1,39 +1,22 @@
-import React, { useState, useEffect } from "react";
+// redux:
+import { connect } from "react-redux";
+// actions:
+import { setFocusWeek } from "../../../actions/dateActions";
+// view:
+import FocusWeekToggles from "./FocusWeekToggles.view";
 
-const FocusWeekToggles = ({ togglesNum, focusWeek, setFocusWeek }) => {
-    const [togglesArray, setTogglesArray] = useState(
-        Array(togglesNum).fill("")
-    );
-
-    useEffect(() => {
-        setTogglesArray(Array(togglesNum).fill(""));
-    }, [togglesNum]);
-
-    const toggleFocus = (index) => {
-        setFocusWeek((week) => (week === -1 ? index : -1));
+const mapStateToProps = (state) => {
+    return {
+        focusWeekClass: state.date.focusWeek !== -1 ? " focused" : "",
+        focusWeek: state.date.focusWeek,
     };
-
-    return (
-        <div className="week-focus-toggles">
-            {togglesArray.map((_, index) =>
-                focusWeek === -1 ? (
-                    <button
-                        className="week-focus-toggles__toggle"
-                        onClick={() => toggleFocus(index)}
-                        key={`toggle-${index}`}
-                    ></button>
-                ) : (
-                    focusWeek === index && (
-                        <button
-                            className="week-focus-toggles__toggle focused"
-                            onClick={() => toggleFocus(index)}
-                            key={`toggle-${index}`}
-                        ></button>
-                    )
-                )
-            )}
-        </div>
-    );
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setFocusWeek: setFocusWeek(dispatch),
+    };
 };
 
-export default FocusWeekToggles;
+const Container = connect(mapStateToProps, mapDispatchToProps)(FocusWeekToggles);
+
+export default Container;

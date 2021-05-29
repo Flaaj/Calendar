@@ -1,50 +1,31 @@
-import React, { useState, useEffect, useRef } from "react";
-// components:
-import Message from "./message/Message";
-// functions:
-import { refreshState } from "../../../../functions";
-// api:
-import { messageListener, sendMessage } from "../../../../api";
+// redux:
+import { connect } from "react-redux";
+// actions:
+import { messageListener } from "../../../../actions/databaseActions";
+// view:
+import Messenger from "./Messenger.view";
 
-const Messenger = ({ firebase }) => {
-    const [messages, setMessages] = useState([]);
-    const [messageToSend, setMessageToSend] = useState("");
-    const bottom = useRef();
+const mapStateToProps = (state) => {
+    const messages = state.database.messages;
 
-    useEffect(() => {
-        messageListener(firebase, setMessages);
-    }, []);
-
-    useEffect(() => {
-        bottom.current.scrollIntoView();
-    }, [messages]);
-
-    return (
-        <div className="messenger">
-            <div className="messenger__content">
-                {messages.map((msg) => (
-                    <Message key={msg[0]} msg={msg} />
-                ))}
-                <div className="messenger__bottom" ref={bottom}></div>
-            </div>
-            <form
-                className="messenger__form"
-                onSubmit={sendMessage(
-                    firebase,
-                    messageToSend,
-                    setMessageToSend
-                )}
-            >
-                <textarea
-                    rows="4"
-                    value={messageToSend}
-                    onChange={refreshState(setMessageToSend)}
-                    placeholder="Treść wiadomości..."
-                ></textarea>
-                <button type="submit">Wyślij</button>
-            </form>
-        </div>
-    );
+    if (messages.empty) {
+        return {
+            messages: [],
+            firebase: state.database.firebase,
+        };
+    }
+    return {
+        messages,
+        firebase: state.database.firebase,
+    };
 };
 
-export default Messenger;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        messageListener: messageListener(dispatch),
+    };
+};
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(Messenger);
+
+export default Container;

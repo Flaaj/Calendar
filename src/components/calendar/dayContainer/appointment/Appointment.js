@@ -1,67 +1,55 @@
-import React from 'react';
+// redux:
+import { connect } from "react-redux";
+// view:
+import Appointment from "./Appointment.view";
+// functions:
+import { getTarget } from "../../../../functions";
 
-const Appointment = ({data, id, isFullScreen, chosenAppointment, setChosenAppointment}) => {
-    const {
-        color,
-        timeWindows,
-        name,
-        phone,
-        email,
-        note,
-    } = data[id];
+const mapStateToProps = (state, props) => {
+    const { date, id, isFullScreen } = props;
+    const { target, day } = getTarget(date);
+
+    const data = state.database.data[target][day][id];
+    const { color, timeWindows, name, phone, email, note } = data;
+
     const blockSize = timeWindows.length;
-    const start = timeWindows[0];
-    const end = timeWindows[blockSize - 1];
-    const blockSizeClass =
-        blockSize === 1
-            ? "small"
-            : blockSize < 4
-            ? "medium"
-            : "large";
-    return (
-        <div
-            className={`day-container__appointment grid-start-${start} grid-end-${end}`}
-            style={{
-                backgroundColor: isFullScreen
-                    ? "#fffffff0"
-                    : "",
-            }}
-            data-id={id}
-        >
-            <div
-                className="appointment"
-                style={{
-                    backgroundColor:
-                        id === chosenAppointment
-                            ? color + "99"
-                            : color + "44",
-                }}
-                onClick={() =>
-                    isFullScreen &&
-                    setChosenAppointment(id)
-                }
-            >
-                <div
-                    className={`appointment__content ${blockSizeClass}`}
-                >
-                    <div className="appointment__name">
-                        {name}
-                    </div>
-                    <div className="appointment__row">
-                        <div className="appointment__phone">
-                            {phone}
-                        </div>
-                        <div className="appointment__email">
-                            {email}
-                        </div>
-                    </div>
-                    <div className="appointment__note">
-                        {note}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
+    const [gridStart, gridEnd] = [timeWindows[0], timeWindows[blockSize - 1]];
+    const blockSizeClass = blockSize === 1 ? "small" : blockSize < 4 ? "medium" : "large";
 
-export default Appointment;
+    return {
+        name,
+        email,
+        phone,
+        note,
+        gridStart,
+        gridEnd,
+        blockSizeClass,
+        color: {
+            backgroundColor: state.date.chosenAppointment.id === id ? color + "99" : color + "44",
+        },
+        backgroundColor: {
+            backgroundColor: isFullScreen ? "#fffffff0" : "",
+        },
+    };
+};
+const mapDispatchToProps = (dispatch, props) => {
+    const { isFullScreen, id, date } = props;
+    return {
+        setChosenAppointment: () => {
+            if (isFullScreen) {
+                dispatch({
+                    type: "appointment/choose",
+                    payload: { id, date },
+                });
+                dispatch({
+                    type: "appointment-data/copy",
+                    payload: { id, date },
+                });
+            }
+        },
+    };
+};
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(Appointment);
+
+export default Container;

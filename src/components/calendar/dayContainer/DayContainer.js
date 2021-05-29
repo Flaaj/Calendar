@@ -1,83 +1,36 @@
-import React, { useState, useEffect } from "react";
-// components:
-import AppointmentDetails from "./appointmentDetails/AppointmentDetails";
-import Appointment from "./appointment/Appointment";
-// assets:
-const bg = "../../../public/assets/day-container-bg.svg";
+// redux:
+import { connect } from "react-redux";
+// view:
+import DayContainer from "./DayContainer.view";
 // functions:
-import { isToday, dateDisplay } from "../../../functions";
-// api:
-import { deleteAppointment } from "../../../api";
+import { getTarget } from "../../../functions";
 
-const DayContainer = ({ date, isCurrentMonth, data, firebase }) => {
-    const [isFullScreen, setIsFullScreen] = useState(false);
-    const [isFullScreenClass, setIsFullScreenClass] = useState("");
-    const [chosenAppointment, setChosenAppointment] = useState("");
+const mapStateToProps = (state, props) => {
+    const { date, isCurrentMonth } = props;
 
-    const isTodayClass = isToday(date) ? " today" : "";
-    const isCurrentMonthClass = isCurrentMonth ? " current-month" : "";
+    const { target, day, dateString } = getTarget(date);
 
-    useEffect(() => {
-        setIsFullScreenClass(isFullScreen ? " fullscreen" : "");
-    }, [isFullScreen]);
+    const isToday = state.date.today === dateString;
+    const data = state.database.data[target] ? state.database.data[target][day] : {};
+    const { id } = state.date.chosenAppointment;
 
-    const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
-
-    return (
-        <div
-            onClick={() => !isFullScreen && toggleFullScreen()}
-            className={"day-container" + isTodayClass + isCurrentMonthClass + isFullScreenClass}
-        >
-            <header className="day-container__header">
-                <h3>{dateDisplay(date, isFullScreen)}</h3>
-            </header>
-            <div className="day-container__content">
-                <div className="day-container__appointments" style={{ backgroundImage: `url(${bg})` }}>
-                    {data &&
-                        Array.from(Object.keys(data)).map((id) => (
-                            <Appointment
-                                data={data}
-                                key={id}
-                                id={id}
-                                isFullScreen={isFullScreen}
-                                chosenAppointment={chosenAppointment}
-                                setChosenAppointment={setChosenAppointment}
-                            />
-                        ))}
-                </div>
-                {isFullScreen && (
-                    <div className="day-container__panel panel">
-                        <button
-                            className="panel__button"
-                            onClick={() => {
-                                setChosenAppointment("");
-                                setIsFullScreen(false);
-                            }}
-                        >
-                            Powrót do kalendarza
-                        </button>
-                        {data && data[chosenAppointment] && (
-                            <>
-                                <AppointmentDetails
-                                    appointmentId={chosenAppointment}
-                                    data={data[chosenAppointment]}
-                                    firebase={firebase}
-                                    date={date}
-                                    setChosenAppointment={setChosenAppointment}
-                                />
-                                <button
-                                    onClick={() => deleteAppointment(firebase, date, chosenAppointment)}
-                                    className="panel__delete"
-                                >
-                                    Usuń rezerwację
-                                </button>
-                            </>
-                        )}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+    return {
+        data,
+        isTodayClass: isToday ? " today" : "",
+        isCurrentMonthClass: isCurrentMonth ? " current-month" : "",
+        displayDetails: data && data[id],
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setChosenAppointment: (id) =>
+            dispatch({
+                type: "appointment/choose",
+                payload: id,
+            }),
+    };
 };
 
-export default DayContainer;
+const Container = connect(mapStateToProps, mapDispatchToProps)(DayContainer);
+
+export default Container;

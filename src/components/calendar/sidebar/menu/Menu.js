@@ -1,39 +1,23 @@
-import React from "react";
+// redux:
+import { connect } from "react-redux";
+// ciew:
+import Menu from "./Menu.view";
 
-const Menu = ({ currentItem, setCurrentItem }) => {
-    return (
-        <div className="menu">
-            <h2>Menu</h2>
-            <nav>
-                <ul>
-                    <li
-                        className={currentItem === "form" ? "current" : ""}
-                        onClick={() => setCurrentItem("form")}
-                    >
-                        Nowa rezerwacja
-                    </li>
-                    <li
-                        className={currentItem === "chat" ? "current" : ""}
-                        onClick={() => setCurrentItem("chat")}
-                    >
-                        Wiadomości
-                    </li>
-                    <li
-                        className={currentItem === "terms" ? "current" : ""}
-                        onClick={() => setCurrentItem("terms")}
-                    >
-                        Wolne terminy
-                    </li>
-                    <li
-                        className={currentItem === "options" ? "current" : ""}
-                        onClick={() => setCurrentItem("options")}
-                    >
-                        Opcje
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    );
+const mapStateToProps = (state) => {
+    return {
+        currentMenuItem: state.date.currentMenuItem,
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        chooseMenuItem: (itemName) =>
+            dispatch({
+                type: "menu/choose",
+                payload: itemName,
+            }),
+    };
 };
 
-export default Menu;
+const Container = connect(mapStateToProps, mapDispatchToProps)(Menu);
+
+export default Container;

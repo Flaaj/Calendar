@@ -1,15 +1,6 @@
 import React from "react";
 
 const CalendarHeader = () => {
-    const weekdayNames = [
-        ["Poniedziałek", "Pn."],
-        ["Wtorek",       "Wt."],
-        ["Środa",        "Śr."],
-        ["Czwartek",     "Cz."],
-        ["Piątek",       "Pt."],
-        ["Sobota",       "Sb."],
-        ["Niedziela",    "Nd."],
-    ];
 
     return (
         <div className="calendar-header">
@@ -24,3 +15,13 @@ const CalendarHeader = () => {
 };
 
 export default CalendarHeader;
+
+const weekdayNames = [
+    ["Poniedziałek", "Pn."],
+    ["Wtorek",       "Wt."],
+    ["Środa",        "Śr."],
+    ["Czwartek",     "Cz."],
+    ["Piątek",       "Pt."],
+    ["Sobota",       "Sb."],
+    ["Niedziela",    "Nd."],
+];

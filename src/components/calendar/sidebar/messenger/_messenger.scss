@@ -1,12 +1,28 @@
 .messenger {
-    margin: 20px 0;
     color: white;
+
+    &__heading {
+        color: white;
+        text-align: center;
+    }
 
     &__content {
         height: 40vh;
         overflow-y: scroll;
         padding-top: 10px;
-        box-shadow: 0 5px 5px -5px #333 inset;
+        // box-shadow: 0 5px 5px -5px #333 inset;
+
+        &::-webkit-scrollbar-thumb {
+            background: white;
+            border-radius: 10px;
+        }
+        &::-webkit-scrollbar-track {
+            background: rgba(white, 0.2);
+            border-radius: 10px;
+        }
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
     }
 
     &__form {
