@@ -12,10 +12,11 @@ const Appointment = ({
     gridStart,
     gridEnd,
     setChosenAppointment,
+    gridColSpan
 }) => {
     return (
         <div
-            className={`day-container__appointment grid-start-${gridStart} grid-end-${gridEnd}`}
+            className={`day-container__appointment grid-start-${gridStart} grid-end-${gridEnd} ${gridColSpan}`}
             style={backgroundColor}
             data-id={id}
         >

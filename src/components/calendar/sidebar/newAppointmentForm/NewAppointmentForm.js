@@ -8,6 +8,7 @@ import NewAppointmentForm from "./NewAppointmentForm.view";
 const onSubmit = (state) => (e) => {
     e.preventDefault();
     const { name, phone, email, date, from, to, note, color } = state.newAppointmentForm;
+    const user = state.database.firebase.auth().currentUser.email;
 
     const timeWindows = [];
     for (let i = +from; i <= +to; i++) {
@@ -24,6 +25,8 @@ const onSubmit = (state) => (e) => {
             email: email || "",
             note: note || "",
             color,
+            addedBy: user,
+            addedDate: Date.now()
         };
         const target = date.replaceAll("-", "/").replaceAll("/0", "/");
         addNewAppointment(target, body);

@@ -17,7 +17,18 @@
             margin: 0;
             background-color: rgba(rgb(0, 0, 0), 0.8);
             color: white;
+            height: 100%;
+            @media (max-height: 800px) {
+                font-size: 70%;
+            }
+            @media (max-height: 550px) {
+                font-size: 50%;
+            }
+            @media (max-height: 450px) {
+                font-size: 35%;
+            }
         }
+        max-height: 15%;
     }
 
     &__content {
@@ -30,16 +41,41 @@
         width: 100%;
         display: grid;
         grid-template-rows: repeat(44, 1fr);
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(12, 1fr);
         background-size: auto 100%;
         background-position: right;
     }
 
     &__appointment {
+        display: inline-flex;
         border-radius: 2px;
         border-width: 0px !important;
-        margin: 0 #{"min(5%, 30px)"};
+        // margin: 0 #{"min(5%, 30px)"};
         overflow: hidden;
+
+        &::before, &::after {
+            content: "";
+            display: table;
+        }
+        &::after {
+            clear:both;
+        }
+
+        &.span-12 {
+            grid-column: span 12;
+        }
+        &.span-6 {
+            grid-column: span 6;
+        }
+        &.span-4 {
+            grid-column: span 4;
+        }
+        &.span-3 {
+            grid-column: span 3;
+        }
+        &.span-2 {
+            grid-column: span 2;
+        }
 
         @for $i from 1 through 44 {
             &.grid-start-#{$i} {

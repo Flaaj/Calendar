@@ -7,10 +7,11 @@
     }
 
     &__content {
-        height: 40vh;
+        height: calc(60vh - 120px);
         overflow-y: scroll;
         padding-top: 10px;
-        // box-shadow: 0 5px 5px -5px #333 inset;
+        width: calc(100% + 10px);
+        padding-right: 10px;
 
         &::-webkit-scrollbar-thumb {
             background: white;

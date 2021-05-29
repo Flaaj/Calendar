@@ -35,22 +35,22 @@ export const deleteAppointment = () => {
 
 export const addNewAppointment = async (target, body) => {
     const { firebase } = store.getState().database;
-    const response = await firebase.database().ref(target).get();
-    const data = await response.val();
-    const usedTimeWindows = [];
-    for (const id in data) {
-        usedTimeWindows.push(...data[id].timeWindows);
-    }
+    // const response = await firebase.database().ref(target).get();
+    // const data = await response.val();
+    // const usedTimeWindows = [];
+    // for (const id in data) {
+    //     usedTimeWindows.push(...data[id].timeWindows);
+    // }
 
-    if (body.timeWindows.some((t) => usedTimeWindows.includes(t))) {
-        alert("Ten czas jest już zarezerwowany");
-    } else {
+    // if (body.timeWindows.some((t) => usedTimeWindows.includes(t))) {
+    //     alert("Ten czas jest już zarezerwowany");
+    // } else {
         firebase
             .database()
             .ref(target)
             .push(body)
             .catch((err) => console.log(err));
-    }
+    // }
 };
 
 export const updateAppointment = (appointment, body) => {

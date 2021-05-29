@@ -6,15 +6,26 @@ import Appointment from "./Appointment.view";
 import { getTarget } from "../../../../functions";
 
 const mapStateToProps = (state, props) => {
-    const { date, id, isFullScreen } = props;
+    // getting the appointment data from state, using date given in props to get store position:
+    const { date, id, isFullScreen, gridColSpan } = props;
     const { target, day } = getTarget(date);
-
     const data = state.database.data[target][day][id];
     const { color, timeWindows, name, phone, email, note } = data;
-
+    // getting the appointment duration in a form of lenght of time windows:
     const blockSize = timeWindows.length;
+    // getting the start end ending position of appointment box on the grid:
     const [gridStart, gridEnd] = [timeWindows[0], timeWindows[blockSize - 1]];
+    // dermining the size class of the appointment box:
     const blockSizeClass = blockSize === 1 ? "small" : blockSize < 4 ? "medium" : "large";
+    // color of the appointment box depending on if it is chosen by the user:
+    const appointmentColor = {
+        backgroundColor: state.date.chosenAppointment.id === id ? color + "aa" : color + "44",
+    };
+
+    // an additional background used to hide the grid behind the appointment so that it can be both transparent and the grid behind it is not seen:
+    const backgroundColor = {
+        backgroundColor: isFullScreen ? "#fffffff0" : "",
+    };
 
     return {
         name,
@@ -24,12 +35,9 @@ const mapStateToProps = (state, props) => {
         gridStart,
         gridEnd,
         blockSizeClass,
-        color: {
-            backgroundColor: state.date.chosenAppointment.id === id ? color + "99" : color + "44",
-        },
-        backgroundColor: {
-            backgroundColor: isFullScreen ? "#fffffff0" : "",
-        },
+        color: appointmentColor,
+        backgroundColor,
+        gridColSpan
     };
 };
 const mapDispatchToProps = (dispatch, props) => {

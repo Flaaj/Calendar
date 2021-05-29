@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // components:
 import AppointmentDetails from "./appointmentDetails/AppointmentDetails";
 import Appointment from "./appointment/Appointment";
@@ -6,13 +6,18 @@ import Appointment from "./appointment/Appointment";
 const bg = "../../../public/assets/day-container-bg.svg";
 // functions:
 import { dateDisplay } from "../../../functions";
-// api:
-import { deleteAppointment } from "../../../api";
 
-const DayContainer = ({ date, data, displayDetails, setChosenAppointment, isTodayClass, isCurrentMonthClass }) => {
+const DayContainer = ({
+    date,
+    data,
+    displayDetails,
+    setChosenAppointment,
+    isTodayClass,
+    isCurrentMonthClass,
+    appointmentsGridColSpan,
+}) => {
     const [isFullScreen, setIsFullScreen] = useState(false);
     const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
-
     return (
         <div
             onClick={() => !isFullScreen && toggleFullScreen()}
@@ -24,8 +29,14 @@ const DayContainer = ({ date, data, displayDetails, setChosenAppointment, isToda
             <div className="day-container__content">
                 <div className="day-container__appointments" style={{ backgroundImage: `url(${bg})` }}>
                     {data &&
-                        Array.from(Object.keys(data)).map((id) => (
-                            <Appointment date={date} key={id} id={id} isFullScreen={isFullScreen} />
+                        data.map(([id], index) => (
+                            <Appointment
+                                date={date}
+                                key={id}
+                                id={id}
+                                isFullScreen={isFullScreen}
+                                gridColSpan={appointmentsGridColSpan[index]}
+                            />
                         ))}
                 </div>
                 {isFullScreen && (
@@ -39,14 +50,7 @@ const DayContainer = ({ date, data, displayDetails, setChosenAppointment, isToda
                         >
                             Powrót do kalendarza
                         </button>
-                        {displayDetails && (
-                            <>
-                                <AppointmentDetails />
-                                <button onClick={deleteAppointment} className="panel__delete">
-                                    Usuń rezerwację
-                                </button>
-                            </>
-                        )}
+                        {displayDetails && <AppointmentDetails />}
                     </div>
                 )}
             </div>

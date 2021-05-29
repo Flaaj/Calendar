@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// api:
+import { deleteAppointment } from "../../../../api";
 
 const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, handleChange, onSubmit }) => {
     const [enableInputs, setEnableInputs] = useState(false);
@@ -125,6 +127,9 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
                     Zapisz zmiany
                 </button>
             </form>
+            <button onClick={deleteAppointment} className="panel__delete">
+                Usuń rezerwację
+            </button>
         </div>
     );
 };
