@@ -29,7 +29,7 @@ const onSubmit = (chosenAppointment, chosenAppointmentData) => (e) => {
 
     if (timeWindows.length === 0) {
         alert("Rezerwacja nie może zaczynać się później, niż się kończy :(");
-    } else if (name && date && timeWindows.length > 0) {
+    } else if (name && timeWindows.length > 0) {
         const body = {
             name,
             timeWindows,

@@ -106,14 +106,6 @@
     }
 }
 
-.appointment {
-    width: 100%;
-    height: 100%;
-    &__content {
-        display: none;
-    }
-}
-
 .fullscreen {
     position: absolute;
     width: 100%;
@@ -136,7 +128,7 @@
 
         &__appointment {
             position: relative;
-            border-radius: 20px;
+            box-shadow: 0px 10px 15px -10px, 0px 10px 15px -10px inset;
 
             &:last-child {
                 border-bottom: none;
@@ -152,40 +144,6 @@
         &__panel {
             width: 50%;
             height: 100%;
-        }
-    }
-
-    .appointment {
-        cursor: pointer;
-        &__content {
-            display: inline-flex;
-            flex-direction: column;
-            padding: 20px;
-            height: 100%;
-            width: 100%;
-
-            &.small {
-                padding: 0 20px;
-                .appointment {
-                    &__row,
-                    &__note {
-                        display: none;
-                    }
-                }
-            }
-            &.medium {
-                padding: 10px 20px;
-                .appointment {
-                    &__note {
-                        display: none;
-                    }
-                }
-            }
-        }
-        &__row {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
         }
     }
 }

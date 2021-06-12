@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
                 terms[date] = [];
                 for (let term of free) {
                     const begin = 7; // 7:00 a.m.
-                    const size = term.length - 1;
+                    const size = term.length;
                     const duration = convertIndexToHour(0, size, "duration");
                     const start = convertIndexToHour(begin, term[0], "start");
                     const end = convertIndexToHour(begin, term[size - 1], "end");

@@ -15,7 +15,7 @@ const mapStateToProps = (state, props) => {
     const blockSize = timeWindows.length;
     // getting the start end ending position of appointment box on the grid:
     const [gridStart, gridEnd] = [timeWindows[0], timeWindows[blockSize - 1]];
-    // dermining the size class of the appointment box:
+    // determining the size class of the appointment box:
     const blockSizeClass = blockSize === 1 ? "small" : blockSize < 4 ? "medium" : "large";
     // color of the appointment box depending on if it is chosen by the user:
     const appointmentColor = {
