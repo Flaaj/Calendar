@@ -25,6 +25,12 @@ const Menu = ({ currentMenuItem, chooseMenuItem }) => {
                         Wolne terminy
                     </li>
                     <li
+                        className={currentMenuItem === "upcoming" ? "current" : ""}
+                        onClick={() => chooseMenuItem("upcoming")}
+                    >
+                        Najbliższe rezerwacje
+                    </li>
+                    <li
                         className={currentMenuItem === "options" ? "current" : ""}
                         onClick={() => chooseMenuItem("options")}
                     >

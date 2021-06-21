@@ -50,46 +50,6 @@ const LoginScreen = ({ authenticate, createUser, error }) => {
             <div className="error-message">
                 {error && "Niepoprawny email i / lub hasło"}
             </div>
-            <h1>Zalóż konto</h1>
-            <form
-                className="login-screen__form"
-                onSubmit={createUser(newLogin, newPassword)}
-            >
-                <div className="form__row">
-                    <label className="form__label" htmlFor="email">
-                        Adres email konta:
-                    </label>
-                    <input
-                        id="emailn"
-                        name="emailn"
-                        type="emailn"
-                        className="form__input"
-                        value={newLogin}
-                        onChange={refreshState(setNewLogin)}
-                        placeholder="email"
-                    />
-                </div>
-                <div className="form__row">
-                    <label className="form__label" htmlFor="password">
-                        Hasło:
-                    </label>
-                    <input
-                        id="passwordn"
-                        name="passwordn"
-                        type="passwordn"
-                        className="form__input"
-                        value={newPassword}
-                        onChange={refreshState(setNewPassword)}
-                        placeholder="hasło"
-                    />
-                </div>
-                <button type="submit" className="form__submit">
-                    Załóż konto
-                </button>
-            </form>
-            <div className="error-message">
-                {error && "Niepoprawny email i / lub hasło"}
-            </div>
         </div>
     );
 }

@@ -2,33 +2,8 @@
 import { connect } from "react-redux";
 // view:
 import FreeTerms from "./FreeTerms.view";
-
-const nextDays = (date, num) => {
-    const days = [];
-    for (let i = 0; i < num; i++) {
-        days.push(date.toLocaleDateString());
-        date.setDate(date.getDate() + 1);
-    }
-    return days;
-};
-
-const convertIndexToHour = (begin, index, type) => {
-    let hour, minutes;
-    switch (type) {
-        case "start":
-            hour = begin + ~~((index - 1) / 4);
-            minutes = ((index - 1) % 4) * 15 || "00";
-            return `${hour}:${minutes}`;
-        case "end":
-            hour = begin + ~~(index / 4);
-            minutes = (index % 4) * 15 || "00";
-            return `${hour}:${minutes}`;
-        case "duration":
-            hour = begin + ~~(index / 4);
-            minutes = (index % 4) * 15 || "00";
-            return `${hour ? hour + "godz" : ""} ${+minutes ? minutes + "m" : ""}`;
-    }
-};
+//functions:
+import {nextDays,convertIndexToHour} from "../../../../functions"
 
 const mapStateToProps = (state) => {
     const terms = {};
@@ -54,7 +29,7 @@ const mapStateToProps = (state) => {
                     }
                 }
                 terms[date] = [];
-                for (let term of free) {
+                for (const term of free) {
                     const begin = 7; // 7:00 a.m.
                     const size = term.length;
                     const duration = convertIndexToHour(0, size, "duration");

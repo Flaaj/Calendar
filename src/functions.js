@@ -53,3 +53,30 @@ export const mapIndexesToHours = () => {
     }
     return hours;
 };
+
+export const nextDays = (date, num) => {
+    const days = [];
+    for (let i = 0; i < num; i++) {
+        days.push(date.toLocaleDateString());
+        date.setDate(date.getDate() + 1);
+    }
+    return days;
+};
+
+export const convertIndexToHour = (begin, index, type) => {
+    let hour, minutes;
+    switch (type) {
+        case "start":
+            hour = begin + ~~((index - 1) / 4);
+            minutes = ((index - 1) % 4) * 15 || "00";
+            return `${hour}:${minutes}`;
+        case "end":
+            hour = begin + ~~(index / 4);
+            minutes = (index % 4) * 15 || "00";
+            return `${hour}:${minutes}`;
+        case "duration":
+            hour = begin + ~~(index / 4);
+            minutes = (index % 4) * 15 || "00";
+            return `${hour ? hour + "godz" : ""} ${+minutes ? minutes + "m" : ""}`;
+    }
+};
