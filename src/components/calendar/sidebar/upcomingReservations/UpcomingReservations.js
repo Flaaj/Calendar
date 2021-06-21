@@ -19,7 +19,6 @@ const mapStateToProps = (state) => {
             console.log(dayData)
             Object.entries(dayData).forEach(appointment => {
                 console.log(appointment)
-
             })
         }
     }
