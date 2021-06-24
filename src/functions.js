@@ -10,10 +10,6 @@ export const getRefFromDateObject = (date, id) => {
     return id ? `${year}/${+month}/${+day}/${id}` : `${year}/${+month}/${+day}`;
 };
 
-// export const isToday = (date) => {
-//     return date.toLocaleDateString() === new Date().toLocaleDateString();
-// };
-
 export const dateDisplay = (date, isFullScreen) => {
 
     let dateString = "";
@@ -80,3 +76,4 @@ export const convertIndexToHour = (begin, index, type) => {
             return `${hour ? hour + "godz" : ""} ${+minutes ? minutes + "m" : ""}`;
     }
 };
+

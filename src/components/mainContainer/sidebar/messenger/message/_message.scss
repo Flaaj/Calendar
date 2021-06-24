@@ -1,0 +1,39 @@
+.message {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+        .message__delete {
+            color: white;
+        }
+    }
+
+    &__time {
+        font-size: 0.6rem;
+        color: rgba(white, 0.4);
+    }
+
+    &__author {
+        font-size: 0.8rem;
+        color: rgba(white, 0.7);
+    }
+
+    &__text {
+        padding-left: 10px;
+        margin: 5px 0;
+        position: relative;
+    }
+
+    &__delete {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: transparent;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+}

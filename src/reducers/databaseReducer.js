@@ -53,10 +53,11 @@ export const databaseReducer = function (state = initialState, action) {
         case "appointment-data/copy":
             const { id, date } = action.payload;
             const { target, day } = getTarget(date);
+            console.log(target, day)
+            console.log(state.data[target][day])
             const data = state.data[target][day][id];
             data.from = data.timeWindows[0] + "";
             data.to = data.timeWindows[data.timeWindows.length - 1] + "";
-
             return { ...state, chosenAppointment: state.data[target][day][id] };
         case "appointment-data/change":
             return {

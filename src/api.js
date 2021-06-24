@@ -45,11 +45,11 @@ export const addNewAppointment = async (target, body) => {
     // if (body.timeWindows.some((t) => usedTimeWindows.includes(t))) {
     //     alert("Ten czas jest już zarezerwowany");
     // } else {
-        firebase
-            .database()
-            .ref(target)
-            .push(body)
-            .catch((err) => console.log(err));
+    firebase
+        .database()
+        .ref(target)
+        .push(body)
+        .catch((err) => console.log(err));
     // }
 };
 
@@ -64,8 +64,10 @@ export const updateAppointment = (appointment, body) => {
         .catch((err) => console.log(err));
 };
 
-export const sendMessage = (firebase, messageToSend, setMessageToSend) => (e) => {
+export const sendMessage = (messageToSend, setMessageToSend) => (e) => {
     e.preventDefault();
+    const { firebase } = store.getState().database;
+
     if (messageToSend) {
         const body = {
             user: firebase.auth().currentUser.email,
@@ -80,4 +82,19 @@ export const sendMessage = (firebase, messageToSend, setMessageToSend) => (e) =>
                 setMessageToSend("");
             });
     }
+};
+
+
+
+export const deleteMessage = (id) => (e) => {
+    e.preventDefault();
+    const { firebase } = store.getState().database;
+
+    firebase
+        .database()
+        .ref(`messages/${id}`)
+        .remove()
+        .then(() => {
+            console.log('deleted')
+        });
 };

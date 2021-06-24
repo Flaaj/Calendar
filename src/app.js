@@ -8,7 +8,7 @@ import { store } from "./store";
 // actions :
 import { saveFirebaseToStore, authStateListener } from "./actions/databaseActions";
 // components:
-import Calendar from "./components/calendar/Calendar";
+import MainContainer from "./components/mainContainer/MainContainer";
 import LoginScreen from "./components/loginScreen/LoginScreen";
 // styles:
 import "./app.scss";
@@ -40,12 +40,13 @@ const App = ({ user, saveFirebaseToStore, authStateListener }) => {
                 </Route>
                 <Route exact path="/">
                     {!user && <Redirect to="/login" />}
-                    <Calendar />
+                    <MainContainer />
                 </Route>
             </Router>
         )
     );
 };
+
 const mapStateToProps = (state) => ({
     user: state.database.user,
 });

@@ -7,6 +7,7 @@ const initializeState = () => {
         month: +month,
         focusWeek: -1,
         currentMenuItem: "form",
+        chosenDay: "",
         chosenAppointment: {id:"", date:""},
     };
 };
@@ -42,6 +43,8 @@ export const dateReducer = function (state = initialState, action) {
         case "appointment/choose":
             const { id, date } = action.payload;
             return { ...state, chosenAppointment: { id, date } };
+        case "day/choose":
+            return { ...state, chosenDay: action.payload}
     }
 
     return state;
