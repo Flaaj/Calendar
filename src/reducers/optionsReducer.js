@@ -10,7 +10,7 @@ const initialState = initializeState();
 export const optionsReducer = function (state = initialState, action) {
     switch (action.type) {
         case "option/update":
-            return { ...state, [action.payload.type]: action.payload.value };
+            return { ...state, [action.payload.option]: action.payload.value };
         case "options/get":
             return { ...state, ...action.payload };
     }

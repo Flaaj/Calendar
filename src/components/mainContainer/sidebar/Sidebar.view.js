@@ -5,7 +5,7 @@ import Menu from "./menu/Menu";
 import Messenger from "./messenger/Messenger";
 import FreeTerms from "./freeTerms/FreeTerms";
 import UpcomingReservations from "./upcomingReservations/UpcomingReservations";
-import Options from "./options/Options"
+import Options from "./options/Options";
 // api:
 import { logOut } from "../../../api";
 
