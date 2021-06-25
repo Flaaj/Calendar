@@ -1,11 +1,18 @@
-import React from 'react';
+// redux:
+import { connect } from "react-redux";
+// view:
+import Options from "./Options.view";
 
-const Options = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-}
+const mapStateToProps = (state) => {
+    return {
+        freeTermsDays: state.options.freeTermsDays,
+        upcomingDays: state.options.upcomingDays
+    };
+};
 
-export default Options;
+const mapDispatchToProps = (dispatch) => ({
+});
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(Options);
+
+export default Container;

@@ -29,7 +29,7 @@ const mapStateToProps = (state) => {
         const date = month === 12 ? new Date(year + 1, 1, day) : new Date(year, month, day);
         daysToShow.push({ date, isCurrentMonth: false });
     }
-
+console.log(state)
     return {
         year,
         month,

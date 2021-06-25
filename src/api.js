@@ -7,10 +7,13 @@ const firebaseConfig = require("../firebase.config.json");
 export const initializeApp = (firebase, setInitialized) => {
     firebase.initializeApp(firebaseConfig);
     setInitialized(true);
+
 };
 
 export const authStateListener = (firebase, setUser) => {
-    firebase.auth().onAuthStateChanged((user) => setUser(user));
+    firebase.auth().onAuthStateChanged((user) => {
+        setUser(user);
+    });
 };
 
 export const logOut = () => {
@@ -84,8 +87,6 @@ export const sendMessage = (messageToSend, setMessageToSend) => (e) => {
     }
 };
 
-
-
 export const deleteMessage = (id) => (e) => {
     e.preventDefault();
     const { firebase } = store.getState().database;
@@ -95,6 +96,6 @@ export const deleteMessage = (id) => (e) => {
         .ref(`messages/${id}`)
         .remove()
         .then(() => {
-            console.log('deleted')
+            console.log("deleted");
         });
 };

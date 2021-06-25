@@ -7,7 +7,7 @@ import { nextDays, convertIndexToHour } from "../../../../functions";
 
 const mapStateToProps = (state) => {
     const terms = {};
-    for (let date of nextDays(new Date(), 14)) {
+    for (let date of nextDays(new Date(), state.options.freeTermsDays)) {
         const [day, month, year] = date.split(".");
         const ref = `${year}/${+month}`;
         const free = [[]];
