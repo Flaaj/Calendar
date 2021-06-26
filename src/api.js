@@ -9,10 +9,6 @@ export const initializeApp = (firebase, setInitialized) => {
     setInitialized(true);
 };
 
-export const authStateListener = (firebase, setUser) => {
-    firebase.auth().onAuthStateChanged((user) => setUser(user));
-};
-
 export const logOut = () => {
     const { firebase } = store.getState().database;
     firebase.auth().signOut();
@@ -35,22 +31,11 @@ export const deleteAppointment = () => {
 
 export const addNewAppointment = async (target, body) => {
     const { firebase } = store.getState().database;
-    // const response = await firebase.database().ref(target).get();
-    // const data = await response.val();
-    // const usedTimeWindows = [];
-    // for (const id in data) {
-    //     usedTimeWindows.push(...data[id].timeWindows);
-    // }
-
-    // if (body.timeWindows.some((t) => usedTimeWindows.includes(t))) {
-    //     alert("Ten czas jest już zarezerwowany");
-    // } else {
     firebase
         .database()
         .ref(target)
         .push(body)
         .catch((err) => console.log(err));
-    // }
 };
 
 export const updateAppointment = (appointment, body) => {
@@ -84,8 +69,6 @@ export const sendMessage = (messageToSend, setMessageToSend) => (e) => {
     }
 };
 
-
-
 export const deleteMessage = (id) => (e) => {
     e.preventDefault();
     const { firebase } = store.getState().database;
@@ -95,6 +78,6 @@ export const deleteMessage = (id) => (e) => {
         .ref(`messages/${id}`)
         .remove()
         .then(() => {
-            console.log('deleted')
+            console.log("deleted");
         });
 };

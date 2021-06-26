@@ -2,11 +2,9 @@ import React, { useState } from "react";
 // functions:
 import { refreshState } from "../../functions";
 
-const LoginScreen = ({ authenticate, createUser, error }) => {
+const LoginScreen = ({ authenticate, error }) => {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    const [newLogin, setNewLogin] = useState("");
-    const [newPassword, setNewPassword] = useState("");
 
     return (
         <div className="login-screen">

@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar.view"
 
 const mapStateToProps = (state) => {
     return {
-        currentMenuItem: state.date.currentMenuItem,
+        currentMenuItem: state.menu.currentMenuItem,
     };
 };
 

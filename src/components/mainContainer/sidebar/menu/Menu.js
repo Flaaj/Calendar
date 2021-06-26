@@ -5,7 +5,7 @@ import Menu from "./Menu.view";
 
 const mapStateToProps = (state) => {
     return {
-        currentMenuItem: state.date.currentMenuItem,
+        currentMenuItem: state.menu.currentMenuItem,
     };
 };
 const mapDispatchToProps = (dispatch) => {

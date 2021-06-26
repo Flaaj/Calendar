@@ -7,7 +7,7 @@ import { nextDays, convertIndexToHour } from "../../../../functions";
 
 const mapStateToProps = (state) => {
     const upcoming = {};
-    for (const date of nextDays(new Date(), 7)) {
+    for (const date of nextDays(new Date(), state.options.upcomingDays)) {
         const [day, month, year] = date.split(".");
         const ref = `${year}/${+month}`;
         const dayData = state.database.data[ref]

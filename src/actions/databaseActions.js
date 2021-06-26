@@ -1,4 +1,5 @@
 import { store } from "../store";
+import { getOptions } from "./optionsActions";
 
 export const saveFirebaseToStore = (dispatch) => (firebase) => {
     dispatch({
@@ -53,12 +54,13 @@ export const createUser = (dispatch) => (login, password) => (e) => {
 
 export const authStateListener = (dispatch) => () => {
     const { firebase } = store.getState().database;
-    firebase.auth().onAuthStateChanged((user) =>
+    firebase.auth().onAuthStateChanged((user) => {
+        getOptions(dispatch, user);
         dispatch({
             type: "firebase/auth-state-change",
             payload: user,
-        })
-    );
+        });
+    });
 };
 
 export const messageListener = (dispatch) => () => {
@@ -88,21 +90,21 @@ export const queryMonthsToListen = (dispatch) => (month, year) => {
     const monthsToQuery =
         month === 1
             ? [
-                [12, year - 1],
-                [1, year],
-                [2, year],
-            ]
+                  [12, year - 1],
+                  [1, year],
+                  [2, year],
+              ]
             : month === 12
-                ? [
-                    [11, year],
-                    [12, year],
-                    [1, year + 1],
-                ]
-                : [
-                    [month - 1, year],
-                    [month, year],
-                    [month + 1, year],
-                ];
+            ? [
+                  [11, year],
+                  [12, year],
+                  [1, year + 1],
+              ]
+            : [
+                  [month - 1, year],
+                  [month, year],
+                  [month + 1, year],
+              ];
 
     monthsToQuery.forEach(([month, year]) => {
         const target = `${year}/${month}`;

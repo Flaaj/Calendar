@@ -14,7 +14,7 @@ const Calendar = ({ year, month, focusWeek, daysToShow, queryMonthsToListen }) =
                 <FocusWeekToggles togglesNum={~~(daysToShow.length / 7)} />
                 <div className="calendar__container">
                     <CalendarHeader />
-                    <div className={"calendar__month"}>
+                    <div className="calendar__month">
                         {daysToShow.map(
                             ({ date, isCurrentMonth }, index) =>
                                 (focusWeek === -1 || focusWeek === ~~(index / 7)) && (
