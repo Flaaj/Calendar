@@ -31,8 +31,6 @@ export const authenticate = (dispatch) => (login, password) => (e) => {
         });
 };
 
-<<<<<<< HEAD
-=======
 export const createUser = (dispatch) => (login, password) => (e) => {
     e.preventDefault();
     const { firebase } = store.getState().database;
@@ -54,7 +52,6 @@ export const createUser = (dispatch) => (login, password) => (e) => {
     }
 };
 
->>>>>>> main
 export const authStateListener = (dispatch) => () => {
     const { firebase } = store.getState().database;
     firebase.auth().onAuthStateChanged((user) => {
