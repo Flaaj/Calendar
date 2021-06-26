@@ -44,7 +44,6 @@ export const createUser = (dispatch) => (login, password) => (e) => {
             "jedną duża literę, przynajmnij jedną małą literę i przynajmniej jedną cyfrę "
         );
     } else {
-        console.log(password.split(""))
         firebase
             .auth()
             .createUserWithEmailAndPassword(login, password)

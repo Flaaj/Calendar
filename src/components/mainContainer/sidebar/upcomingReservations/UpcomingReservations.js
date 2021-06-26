@@ -23,25 +23,25 @@ const mapStateToProps = (state) => {
                 const appointmentId = appointment[0];
                 const start = convertIndexToHour(7, appointment[1].timeWindows[0], "start")
                 const duration = convertIndexToHour(0, appointment[1].timeWindows.length, "duration")
-                upcoming[date].push({ appointmentId, start, duration })
+                const title = appointment[1].name;
+                upcoming[date].push({ appointmentId, start, duration, title })
             });
         }
     }
-    console.log(Object.entries(upcoming))
 
     return { upcoming: Object.entries(upcoming) };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    const chooseAppointment = (id, day) => {
-        const [d, m, y] = day.split(".")
+    const chooseAppointment = (id, date) => {
+        const [d, m, y] = date.split(".")
         dispatch({
             type: "day/choose",
-            payload: day
+            payload: date
         })
         dispatch({
             type: "appointment/choose",
-            payload: { id, date: day },
+            payload: { id, date },
         });
         dispatch({
             type: "appointment-data/copy",
