@@ -14,6 +14,7 @@ const FreeTerms = ({ terms, termDblClick }) => {
                                     key={date + " " + start}
                                     className="term"
                                     onDoubleClick={() => termDblClick(startIndex, endIndex, date)}
+                                    onTouchStart={() => termDblClick(startIndex, endIndex, date)}
                                     title="Kliknij dwa razy aby uwtorzyć rezerwację w tym terminie"
                                 >
                                     <div className="term__timespan">{`${start} - ${end}`}</div>
