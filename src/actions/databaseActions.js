@@ -31,6 +31,27 @@ export const authenticate = (dispatch) => (login, password) => (e) => {
         });
 };
 
+export const createUser = (dispatch) => (login, password) => (e) => {
+    e.preventDefault();
+    const { firebase } = store.getState().database;
+    if (
+        password.length < 8 ||
+        !password.split("").some((letter) => letter.charCodeAt(0) < 91 && letter.charCodeAt(0) > 64) ||
+        !password.split("").some((letter) => letter.charCodeAt(0) < 123 && letter.charCodeAt(0) > 96) ||
+        !password.split("").some((letter) => letter.charCodeAt(0) < 58 && letter.charCodeAt(0) > 47)
+    ) {
+        alert(
+            "hasło musi miec przynajmniej 8 znaków, zawierać przynajmniej " +
+            "jedną duża literę, przynajmnij jedną małą literę i przynajmniej jedną cyfrę "
+        );
+    } else {
+        firebase
+            .auth()
+            .createUserWithEmailAndPassword(login, password)
+            .catch(err => console.log(err));
+    }
+};
+
 export const authStateListener = (dispatch) => () => {
     const { firebase } = store.getState().database;
     firebase.auth().onAuthStateChanged((user) => {
