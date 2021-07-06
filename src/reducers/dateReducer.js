@@ -6,7 +6,7 @@ const initializeState = () => {
         year: +year,
         month: +month,
         focusWeek: -1,
-        currentMenuItem: "options",
+        currentMenuItem: "form",
         chosenDay: "",
         chosenAppointment: { id: "", date: "" },
     };
