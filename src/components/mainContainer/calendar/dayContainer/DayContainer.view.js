@@ -16,7 +16,7 @@ const DayContainer = ({
     isCurrentMonthClass,
     appointmentsGridColSpan,
     setChosenDay,
-    isFullScreen,
+    isFullScreen
 }) => (
     <div
         onClick={() => !isFullScreen && setChosenDay(date.toLocaleDateString())}
@@ -47,7 +47,7 @@ const DayContainer = ({
                             setChosenAppointment("");
                         }}
                     >
-                        Return to Calendar
+                        Powrót do kalendarza
                     </button>
                     {displayDetails && <AppointmentDetails />}
                 </div>

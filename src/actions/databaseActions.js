@@ -1,5 +1,5 @@
 import { store } from "../store";
-import { getOptions } from "./optionsActions";
+// import { getOptions } from "./optionsActions";
 
 export const saveFirebaseToStore = (dispatch) => (firebase) => {
     dispatch({
@@ -55,7 +55,7 @@ export const createUser = (dispatch) => (login, password) => (e) => {
 export const authStateListener = (dispatch) => () => {
     const { firebase } = store.getState().database;
     firebase.auth().onAuthStateChanged((user) => {
-        getOptions(dispatch, user);
+        // getOptions(dispatch, user);
         dispatch({
             type: "firebase/auth-state-change",
             payload: user,
