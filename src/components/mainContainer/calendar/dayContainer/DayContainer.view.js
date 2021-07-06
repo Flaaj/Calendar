@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import AppointmentDetails from "./appointmentDetails/AppointmentDetails";
 import Appointment from "./appointment/Appointment";
 // assets:
-const bg = "../../../public/assets/day-container-bg.svg";
+const bg = "assets/day-container-bg.svg";
 // functions:
 import { dateDisplay } from "../../../../functions";
 
@@ -16,7 +16,7 @@ const DayContainer = ({
     isCurrentMonthClass,
     appointmentsGridColSpan,
     setChosenDay,
-    isFullScreen
+    isFullScreen,
 }) => (
     <div
         onClick={() => !isFullScreen && setChosenDay(date.toLocaleDateString())}
