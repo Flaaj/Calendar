@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 const NewAppointmentForm = ({ name, phone, email, date, from, to, note, color, hours, handleChange, onSubmit }) => {
     return (
         <div className="new-appointment-form">
-            <h2 className="new-appointment-form__heading">Nowa rezerwacja</h2>
+            <h2 className="new-appointment-form__heading">New reservation</h2>
             <form className="new-appointment-form__form form" onSubmit={onSubmit}>
                 <div className="form__row">
                     <label htmlFor="name" className="form__label">
-                        Imię:
+                        Title:
                     </label>
                     <input
                         id="name"
@@ -15,12 +15,12 @@ const NewAppointmentForm = ({ name, phone, email, date, from, to, note, color, h
                         className="form__input"
                         onChange={handleChange("name")}
                         value={name}
-                        placeholder="Imię i/lub nazwisko klienta"
+                        placeholder="Reservation title"
                     />
                 </div>
                 <div className="form__row">
                     <label htmlFor="phone" className="form__label">
-                        Tel:
+                        Phone:
                     </label>
                     <input
                         id="phone"
@@ -28,7 +28,7 @@ const NewAppointmentForm = ({ name, phone, email, date, from, to, note, color, h
                         className="form__input"
                         onChange={handleChange("phone")}
                         value={phone}
-                        placeholder="Numer telefonu"
+                        placeholder="Telephone number"
                     />
                 </div>
                 <div className="form__row">
@@ -41,18 +41,18 @@ const NewAppointmentForm = ({ name, phone, email, date, from, to, note, color, h
                         className="form__input"
                         onChange={handleChange("email")}
                         value={email}
-                        placeholder="Adres email"
+                        placeholder="Email address"
                     />
                 </div>
                 <div className="form__row">
                     <label htmlFor="date" className="form__label">
-                        Data:
+                        Date:
                     </label>
                     <input id="date" type="date" value={date} onChange={handleChange("date")} className="form__input" />
                 </div>
                 <div className="form__row">
                     <label htmlFor="from" className="form__label">
-                        Poczatek:
+                        Begin:
                     </label>
                     <select name="from" id="from" value={from} onChange={handleChange("from")} className="form__select">
                         {hours.slice(0, -1).map((option, index) => (
@@ -64,7 +64,7 @@ const NewAppointmentForm = ({ name, phone, email, date, from, to, note, color, h
                 </div>
                 <div className="form__row">
                     <label htmlFor="from" className="form__label">
-                        Koniec:
+                        End:
                     </label>
                     <select name="to" id="to" value={to} onChange={handleChange("to")} className="form__select">
                         {hours.slice(1).map((option, index) => (
@@ -76,7 +76,7 @@ const NewAppointmentForm = ({ name, phone, email, date, from, to, note, color, h
                 </div>
                 <div className="form__row">
                     <label htmlFor="from" className="form__label">
-                        Notatka:
+                        Note:
                     </label>
                     <textarea
                         rows="8"
@@ -85,12 +85,12 @@ const NewAppointmentForm = ({ name, phone, email, date, from, to, note, color, h
                         value={note}
                         onChange={handleChange("note")}
                         className="form__input"
-                        placeholder="Notatka..."
+                        placeholder="Note..."
                     />
                 </div>
                 <div className="form__row">
                     <label htmlFor="email" className="form__label">
-                        Kolor kafelka w kalendarzu:
+                        Color in the calendar
                     </label>
                     <input
                         id="color"
@@ -101,7 +101,7 @@ const NewAppointmentForm = ({ name, phone, email, date, from, to, note, color, h
                     />
                 </div>
                 <button type="submit" className="form__submit">
-                    Dodaj rezerwację
+                    Submit
                 </button>
             </form>
         </div>

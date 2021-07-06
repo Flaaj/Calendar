@@ -31,20 +31,7 @@ const App = ({ user, saveFirebaseToStore, authStateListener }) => {
         initialized && authStateListener();
     }, [initialized]);
 
-    return (
-        initialized && (
-            <Router>
-                <Route exact path="/login">
-                    {user && <Redirect to="/" />}
-                    <LoginScreen />
-                </Route>
-                <Route exact path="/">
-                    {!user && <Redirect to="/login" />}
-                    <MainContainer />
-                </Route>
-            </Router>
-        )
-    );
+    return initialized && <MainContainer />;
 };
 
 const mapStateToProps = (state) => ({

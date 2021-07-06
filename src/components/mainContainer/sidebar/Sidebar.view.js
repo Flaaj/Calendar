@@ -17,7 +17,7 @@ const Sidebar = ({ currentMenuItem }) => {
             {currentMenuItem === "chat" && <Messenger />}
             {currentMenuItem === "terms" && <FreeTerms />}
             {currentMenuItem === "upcoming" && <UpcomingReservations />}
-            {currentMenuItem === "options" && <Options />}
+            {/* {currentMenuItem === "options" && <Options />} */}
             <button className="sidebar__logout" onClick={() => logOut()}>
                 Wyloguj
             </button>

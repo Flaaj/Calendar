@@ -3,7 +3,7 @@ import React from "react";
 const UpcomingReservations = ({ upcoming, chooseAppointment }) => {
     return (
         <div className="terms">
-            <h2 className="terms__heading">Najbliższe rezerwacje</h2>
+            <h2 className="terms__heading">Upcoming reservations</h2>
             <div className="terms__content">
                 {upcoming.map(([date, list]) => (
                     <div key={date} className="terms__day">

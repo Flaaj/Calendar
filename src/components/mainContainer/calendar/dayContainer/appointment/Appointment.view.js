@@ -25,7 +25,7 @@ const Appointment = ({
                     <div className="appointment__name">{name}</div>
                     {phone && (
                         <div className="appointment__phone">
-                            tel: {phone}
+                            phone: {phone}
                         </div>
                     )}
                     {email && (
@@ -35,7 +35,7 @@ const Appointment = ({
                     )}
                     {note && (
                         <div className="appointment__note">
-                            Notatka: <span className="note">{note}</span>
+                            Note: <span className="note">{note}</span>
                         </div>
                     )}
                 </div>

@@ -47,7 +47,7 @@ const DayContainer = ({
                             setChosenAppointment("");
                         }}
                     >
-                        Powrót do kalendarza
+                        Return to Calendar
                     </button>
                     {displayDetails && <AppointmentDetails />}
                 </div>

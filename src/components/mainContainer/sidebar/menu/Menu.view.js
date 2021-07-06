@@ -10,32 +10,32 @@ const Menu = ({ currentMenuItem, chooseMenuItem }) => {
                         className={currentMenuItem === "form" ? "current" : ""}
                         onClick={() => chooseMenuItem("form")}
                     >
-                        Nowa rezerwacja
+                        New reservation
                     </li>
                     <li
                         className={currentMenuItem === "chat" ? "current" : ""}
                         onClick={() => chooseMenuItem("chat")}
                     >
-                        Wiadomości
+                        Messages
                     </li>
                     <li
                         className={currentMenuItem === "terms" ? "current" : ""}
                         onClick={() => chooseMenuItem("terms")}
                     >
-                        Wolne terminy
+                        Free terms
                     </li>
                     <li
                         className={currentMenuItem === "upcoming" ? "current" : ""}
                         onClick={() => chooseMenuItem("upcoming")}
                     >
-                        Najbliższe rezerwacje
+                        Upcoming reservations
                     </li>
-                    <li
+                    {/* <li
                         className={currentMenuItem === "options" ? "current" : ""}
                         onClick={() => chooseMenuItem("options")}
                     >
                         Opcje
-                    </li>
+                    </li> */}
                 </ul>
             </nav>
         </div>

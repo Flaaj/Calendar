@@ -2,7 +2,7 @@ import { store } from "./store";
 // functions:
 import { getRefFromDateObject } from "./functions";
 // config:
-const firebaseConfig = require("../firebase.config.json");
+const firebaseConfig = require("../firebaseportfolio.config.json");
 
 export const initializeApp = (firebase, setInitialized) => {
     firebase.initializeApp(firebaseConfig);

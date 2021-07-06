@@ -17,7 +17,7 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
             <form className={"new-appointment-form__form form" + (enableInputs && " edit")} onSubmit={onSubmit}>
                 <h3>
                     <label htmlFor="name" className="form__label">
-                        Imię:
+                        Title:
                     </label>
                 </h3>
                 <input
@@ -26,13 +26,13 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
                     className="form__input"
                     onChange={handleChange("name")}
                     value={name}
-                    placeholder="Imię i/lub nazwisko klienta"
+                    placeholder="Reservation title"
                     disabled={!enableInputs}
                 />
                 <h3>Dane kontaktowe:</h3>
                 <div className="form__row">
                     <label htmlFor="phone" className="form__label">
-                        Tel:
+                        Phone:
                     </label>
                     <input
                         id="phone"
@@ -40,7 +40,7 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
                         className="form__input"
                         onChange={handleChange("phone")}
                         value={phone}
-                        placeholder="Numer telefonu"
+                        placeholder="Phone number"
                         disabled={!enableInputs}
                     />
                 </div>
@@ -54,14 +54,14 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
                         className="form__input"
                         onChange={handleChange("email")}
                         value={email}
-                        placeholder="Adres email"
+                        placeholder="Email address"
                         disabled={!enableInputs}
                     />
                 </div>
                 <h3>Czas trwania:</h3>
                 <div className="form__row">
                     <label htmlFor="from" className="form__label form__label--time">
-                        od:
+                        from:
                     </label>
                     <select
                         name="from"
@@ -78,7 +78,7 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
                         ))}
                     </select>
                     <label htmlFor="to" className="form__label form__label--time">
-                        do:
+                        to:
                     </label>
                     <select
                         name="to"
@@ -97,7 +97,7 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
                 </div>
                 <h3>
                     <label htmlFor="from" className="form__label">
-                        Notatka:
+                        Note:
                     </label>
                 </h3>
                 <textarea
@@ -107,12 +107,12 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
                     value={note}
                     onChange={handleChange("note")}
                     className="form__input"
-                    placeholder="Notatka..."
+                    placeholder="Note..."
                     disabled={!enableInputs}
                 />
                 <div className="form__row">
                     <label htmlFor="email" className="form__label">
-                        Kolor kafelka:
+                        Color:
                     </label>
                     <input
                         id="color"
@@ -124,11 +124,11 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
                     />
                 </div>
                 <button type="submit" className="form__submit">
-                    Zapisz zmiany
+                    Save changes
                 </button>
             </form>
             <button onClick={deleteAppointment} className="panel__delete">
-                Usuń rezerwację
+                Delete reservation
             </button>
         </div>
     );

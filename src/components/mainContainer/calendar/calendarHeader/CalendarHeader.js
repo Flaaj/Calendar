@@ -17,11 +17,21 @@ const CalendarHeader = () => {
 export default CalendarHeader;
 
 const weekdayNames = [
-    ["Poniedziałek", "Pn."],
-    ["Wtorek",       "Wt."],
-    ["Środa",        "Śr."],
-    ["Czwartek",     "Cz."],
-    ["Piątek",       "Pt."],
-    ["Sobota",       "Sb."],
-    ["Niedziela",    "Nd."],
+    ["Monday",    "Mon."],
+    ["Tuesday",   "Tue."],
+    ["Wednesday", "Wed."],
+    ["Thursday",  "Thu."],
+    ["Friday",    "Fri."],
+    ["Saturday",  "Sat."],
+    ["Sunday",    "Sun."],
 ];
+
+// const weekdayNames = [
+//     ["Poniedziałek", "Pn."],
+//     ["Wtorek",       "Wt."],
+//     ["Środa",        "Śr."],
+//     ["Czwartek",     "Cz."],
+//     ["Piątek",       "Pt."],
+//     ["Sobota",       "Sb."],
+//     ["Niedziela",    "Nd."],
+// ];

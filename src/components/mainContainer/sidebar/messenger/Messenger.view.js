@@ -14,7 +14,7 @@ const Messenger = ({ messages, messageListener }) => {
 
     return (
         <div className="messenger">
-            <h2 className="messenger__heading heading">Wiadomości</h2>
+            <h2 className="messenger__heading heading">Messages</h2>
             <div className="messenger__content">
                 {messages.map(([id, msg]) => (
                     <Message key={id} id={id} msg={msg} />
@@ -32,9 +32,9 @@ const Messenger = ({ messages, messageListener }) => {
                     rows="4"
                     value={messageToSend}
                     onChange={refreshState(setMessageToSend)}
-                    placeholder="Treść wiadomości..."
+                    placeholder="Write your message here..."
                 ></textarea>
-                <button type="submit">Wyślij</button>
+                <button type="submit">Send</button>
             </form>
         </div>
     );

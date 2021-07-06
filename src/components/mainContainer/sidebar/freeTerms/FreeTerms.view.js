@@ -3,7 +3,7 @@ import React from "react";
 const FreeTerms = ({ terms, termDblClick }) => {
     return (
         <div className="terms">
-            <h2 className="terms__heading">Wolne terminy</h2>
+            <h2 className="terms__heading">Free terms</h2>
             <div className="terms__content">
                 {terms.map(([date, list]) => (
                     <div key={date} className="terms__day">
