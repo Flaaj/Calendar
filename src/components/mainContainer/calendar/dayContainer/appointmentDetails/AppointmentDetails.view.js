@@ -9,9 +9,9 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
     return (
         <div className="appointment-details">
             <div className="appointment-details__header">
-                <h2 className="appointment-details__heading">Dane o rezerwacji</h2>
+                <h2 className="appointment-details__heading">Details:</h2>
                 <button onClick={toggleInputs} className="appointment-details__toggle">
-                    {enableInputs ? "Cofnij" : "Edytuj"}
+                    {enableInputs ? "Return" : "Edit"}
                 </button>
             </div>
             <form className={"new-appointment-form__form form" + (enableInputs && " edit")} onSubmit={onSubmit}>
@@ -29,7 +29,7 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
                     placeholder="Reservation title"
                     disabled={!enableInputs}
                 />
-                <h3>Dane kontaktowe:</h3>
+                <h3>Contact:</h3>
                 <div className="form__row">
                     <label htmlFor="phone" className="form__label">
                         Phone:
@@ -58,7 +58,7 @@ const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, 
                         disabled={!enableInputs}
                     />
                 </div>
-                <h3>Czas trwania:</h3>
+                <h3>Duration:</h3>
                 <div className="form__row">
                     <label htmlFor="from" className="form__label form__label--time">
                         from:
