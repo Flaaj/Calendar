@@ -19,7 +19,7 @@ const Sidebar = ({ currentMenuItem }) => {
             {currentMenuItem === "upcoming" && <UpcomingReservations />}
             {/* {currentMenuItem === "options" && <Options />} */}
             <button className="sidebar__logout" onClick={() => logOut()}>
-                Wyloguj
+                Log out
             </button>
         </div>
     );
