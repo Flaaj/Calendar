@@ -1,5 +1,5 @@
 const initialState = {
-    currentMenuItem: "options",
+    currentMenuItem: "form",
 }
 
 export const menuReducer = function (state = initialState, action) {
