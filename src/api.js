@@ -55,7 +55,8 @@ export const sendMessage = (messageToSend, setMessageToSend) => (e) => {
 
     if (messageToSend) {
         const body = {
-            user: firebase.auth().currentUser.email,
+            // user: firebase.auth().currentUser.email,
+            user: "Random user no." + ~~(Math.random() * 1000000000),
             date: new Date().getTime(),
             msg: messageToSend,
         };
