@@ -2,7 +2,7 @@
 // redux:
 import { connect } from "react-redux";
 // actions:
-import { queryMonthsToListen } from "../../../actions/databaseActions";
+import { queryMonthsToListen } from "../../../api";
 // constants:
 import { daysInMonthDict } from "../../../constants";
 // view:

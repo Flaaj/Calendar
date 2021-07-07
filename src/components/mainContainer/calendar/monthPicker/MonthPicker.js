@@ -1,7 +1,8 @@
 // redux:
 import { connect } from "react-redux";
-// view: 
-import MonthPicker from "./MonthPicker.view"
+import { Actions } from "../../../../actionCreators";
+// view:
+import MonthPicker from "./MonthPicker.view";
 
 const mapStateToProps = (state) => {
     return {
@@ -12,10 +13,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        increaseMonth: () => dispatch({ type: "month/increase" }),
-        decreaseMonth: () => dispatch({ type: "month/decrease" }),
-        increaseYear: () => dispatch({ type: "year/increase" }),
-        decreaseYear: () => dispatch({ type: "year/decrease" }),
+        increaseMonth: () => dispatch(Actions.increaseMonth()),
+        decreaseMonth: () => dispatch(Actions.decreaseMonth()),
+        increaseYear: () => dispatch(Actions.increaseYear()),
+        decreaseYear: () => dispatch(Actions.decreaseYear()),
     };
 };
 

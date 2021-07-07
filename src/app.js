@@ -5,8 +5,6 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 // store:
 import { store } from "./store";
-// actions :
-import { saveFirebaseToStore, authStateListener } from "./actions/databaseActions";
 // components:
 import MainContainer from "./components/mainContainer/MainContainer";
 import LoginScreen from "./components/loginScreen/LoginScreen";
@@ -17,7 +15,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 // api:
-import { initializeApp } from "./api";
+import { initializeApp, authStateListener } from "./api";
+import { Actions } from "./actionCreators";
 
 const App = ({ user, saveFirebaseToStore, authStateListener }) => {
     const [initialized, setInitialized] = useState(false);
@@ -51,7 +50,7 @@ const mapStateToProps = (state) => ({
     user: state.database.user,
 });
 const mapDispatchToProps = (dispatch) => ({
-    saveFirebaseToStore: saveFirebaseToStore(dispatch),
+    saveFirebaseToStore: () => dispatch(Actions.saveFirebaseToStore(firebase)),
     authStateListener: authStateListener(dispatch),
 });
 

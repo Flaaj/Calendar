@@ -1,3 +1,5 @@
+import { ActionTypes } from "../actionTypes";
+
 const initializeState = () => {
     const today = new Date().toLocaleDateString();
     const [month, year] = today.split(".").slice(1);
@@ -16,32 +18,32 @@ const initialState = initializeState();
 
 export const dateReducer = function (state = initialState, action) {
     switch (action.type) {
-        case "year/increase":
+        case ActionTypes.YEAR_INCREASE:
             return { ...state, year: state.year + 1 };
-        case "year/decrease":
+        case ActionTypes.YEAR_DECREASE:
             return { ...state, year: state.year - 1 };
-        case "month/increase":
+        case ActionTypes.MONTH_INCREASE:
             if (state.month === 12) {
                 return { ...state, year: state.year + 1, month: 1 };
             } else {
                 return { ...state, month: state.month + 1 };
             }
-        case "month/decrease":
+        case ActionTypes.MONTH_DECREASE:
             if (state.month === 1) {
                 return { ...state, year: state.year - 1, month: 12 };
             } else {
                 return { ...state, month: state.month - 1 };
             }
-        case "week/focus":
+        case ActionTypes.WEEK_FOCUS:
             if (state.focusWeek !== -1) {
                 return { ...state, focusWeek: -1 };
             } else {
                 return { ...state, focusWeek: action.payload };
             }
-        case "appointment/choose":
+        case ActionTypes.APPOINTMENT_CHOOSE:
             const { id, date } = action.payload;
             return { ...state, chosenAppointment: { id, date } };
-        case "day/choose":
+        case ActionTypes.DAY_CHOOSE:
             return { ...state, chosenDay: action.payload }
     }
 

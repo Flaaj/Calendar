@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Appointment from "./Appointment.view";
 // functions:
 import { getTarget } from "../../../../../functions";
+import { Actions } from "../../../../../actionCreators";
 
 const mapStateToProps = (state, props) => {
     // getting the appointment data from state, using date given in props to get store position:
@@ -37,7 +38,7 @@ const mapStateToProps = (state, props) => {
         blockSizeClass,
         color: appointmentColor,
         backgroundColor,
-        gridColSpan
+        gridColSpan,
     };
 };
 const mapDispatchToProps = (dispatch, props) => {
@@ -45,14 +46,8 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         setChosenAppointment: () => {
             if (isFullScreen) {
-                dispatch({
-                    type: "appointment/choose",
-                    payload: { id, date },
-                });
-                dispatch({
-                    type: "appointment-data/copy",
-                    payload: { id, date },
-                });
+                dispatch(Actions.chooseAppointment(id, date));
+                dispatch(Actions.copyAppointmentDataToForm(id, date));
             }
         },
     };

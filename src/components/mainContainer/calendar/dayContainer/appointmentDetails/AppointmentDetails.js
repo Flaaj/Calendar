@@ -9,13 +9,7 @@ import { mapIndexesToHours } from "../../../../../functions";
 
 const handleChange = (dispatch) => (target) => (e) => {
     const value = e.target.value;
-    dispatch({
-        type: "appointment-data/change",
-        payload: {
-            target,
-            value,
-        },
-    });
+    dispatch(updateAppointmentData(target, value));
 };
 
 const onSubmit = (chosenAppointment, chosenAppointmentData) => (e) => {

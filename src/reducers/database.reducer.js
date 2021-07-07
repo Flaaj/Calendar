@@ -1,4 +1,5 @@
 // functions:
+import { ActionTypes } from "../actionTypes";
 import { getTarget } from "../functions";
 
 const initializeState = () => {
@@ -26,23 +27,23 @@ const initialState = initializeState();
 
 export const databaseReducer = function (state = initialState, action) {
     switch (action.type) {
-        case "firebase/save":
+        case ActionTypes.FIREBASE_SAVE:
             return { ...state, firebase: action.payload };
-        case "firebase/prelogin":
+        case ActionTypes.FIREBASE_PRELOGIN:
             return { ...state, error: false };
-        case "firebase/login-succesful":
+        case ActionTypes.FIREBASE_LOGIN_SUCCESSFUL:
             return {
                 ...state,
                 user: action.payload,
                 error: false,
             };
-        case "firebase/login-failed":
+        case ActionTypes.FIREBASE_LOGIN_FAILED:
             return { ...state, error: true };
-        case "firebase/auth-state-change":
+        case ActionTypes.FIREBASE_AUTH_STATE_CHANGE:
             return { ...state, user: action.payload };
-        case "messages/update":
+        case ActionTypes.MESSAGES_UPDATE:
             return { ...state, messages: action.payload };
-        case "data/update":
+        case ActionTypes.DATA_UPDATE:
             return {
                 ...state,
                 data: {
@@ -50,14 +51,14 @@ export const databaseReducer = function (state = initialState, action) {
                     [action.payload.target]: action.payload.data,
                 },
             };
-        case "appointment-data/copy":
+        case ActionTypes.APPOINTMENT_DATA_COPY:
             const { id, date } = action.payload;
             const { target, day } = getTarget(date);
             const data = state.data[target][day][id];
             data.from = data.timeWindows[0] + "";
             data.to = data.timeWindows[data.timeWindows.length - 1] + "";
             return { ...state, chosenAppointment: state.data[target][day][id] };
-        case "appointment-data/change":
+        case ActionTypes.APPOINTMENT_DATA_CHANGE:
             return {
                 ...state,
                 chosenAppointment: { ...state.chosenAppointment, [action.payload.target]: action.payload.value },

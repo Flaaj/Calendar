@@ -26,7 +26,7 @@ const onSubmit = (state) => (e) => {
             note: note || "",
             color,
             addedBy: user,
-            addedDate: Date.now()
+            addedDate: Date.now(),
         };
         const target = date.replaceAll("-", "/").replaceAll("/0", "/");
         addNewAppointment(target, body);
@@ -38,14 +38,8 @@ const onSubmit = (state) => (e) => {
 };
 
 const handleChange = (dispatch) => (target) => (e) => {
-    const value = e.target.value;
-    dispatch({
-        type: "input/change",
-        payload: {
-            target,
-            value,
-        },
-    });
+    const { value } = e.target;
+    dispatch(changeNewAppointmentInput(target, value));
 };
 
 const mapStateToProps = (state) => {

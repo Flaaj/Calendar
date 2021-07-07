@@ -1,3 +1,5 @@
+import { ActionTypes } from "../actionTypes";
+
 const initializeState = () => {
     return {
         name: "",
@@ -16,9 +18,9 @@ const initialState = initializeState();
 
 export const newAppointmentReducer = function (state = initialState, action) {
     switch (action.type) {
-        case "input/change":
+        case ActionTypes.NEW_APPOINTMENT_INPUT_CHANGE:
             return { ...state, [action.payload.target]: action.payload.value };
-        case "free-term/choose":
+        case ActionTypes.FREE_TERM_CHOOSE:
             let [day, month, year] = action.payload.date.split(".");
             if (day.length == 1) day = "0" + day;
             if (month.length == 1) month = "0" + month;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const UpcomingReservations = ({ upcoming, chooseAppointment }) => {
+const UpcomingReservations = ({ upcoming, setChosenAppointment }) => {
     return (
         <div className="terms">
             <h2 className="terms__heading">Najbliższe rezerwacje</h2>
@@ -13,8 +13,8 @@ const UpcomingReservations = ({ upcoming, chooseAppointment }) => {
                                 <li
                                     key={appointmentId}
                                     className="term"
-                                    onDoubleClick={() => chooseAppointment(appointmentId, date)}
-                                    onTouchStart={() => chooseAppointment(appointmentId, date)}
+                                    onDoubleClick={() => setChosenAppointment(appointmentId, date)}
+                                    onTouchStart={() => setChosenAppointment(appointmentId, date)}
                                     title={`${title}\nKliknij dwa razy aby przejść do widoku tej rezerwacji`}
                                 >
                                     <div className="term__timespan">{start}</div>

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import DayContainer from "./DayContainer.view";
 // functions:
 import { getTarget } from "../../../../functions";
+import { Actions } from "../../../../actionCreators";
 
 const getAppointmentsGridColSpan = (data) => {
     const dict = {};
@@ -61,22 +62,15 @@ const mapStateToProps = (state, props) => {
         isCurrentMonthClass: isCurrentMonth ? " current-month" : "",
         displayDetails: data && data[id],
         appointmentsGridColSpan,
-        isFullScreen: dateString == state.date.chosenDay
+        isFullScreen: dateString == state.date.chosenDay,
     };
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        setChosenAppointment: (id) =>
-            dispatch({
-                type: "appointment/choose",
-                payload: id,
-            }),
+        setChosenAppointment: (id) => dispatch(Actions.chooseAppointment(id)),
         setChosenDay: (day) => {
-            dispatch({
-                type: "day/choose",
-                payload: day
-            })
-        }
+            dispatch(Actions.chooseDay(day));
+        },
     };
 };
 

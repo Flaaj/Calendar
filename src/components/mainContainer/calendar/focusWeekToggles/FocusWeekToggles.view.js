@@ -12,7 +12,7 @@ const FocusWeekToggles = ({ togglesNum, setFocusWeek, focusWeek, focusWeekClass 
                                 <div className="toggle__spacing"></div>
                                 <button
                                     className={"toggle__button" + focusWeekClass}
-                                    onClick={setFocusWeek(index)}
+                                    onClick={() => setFocusWeek(index)}
                                 ></button>
                             </div>
                         )

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import FreeTerms from "./FreeTerms.view";
 //functions:
 import { nextDays, convertIndexToHour } from "../../../../functions";
+import { Actions } from "../../../../actionCreators";
 
 const mapStateToProps = (state) => {
     const terms = {};
@@ -55,15 +56,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     termDblClick: (startIndex, endIndex, date) => {
-        dispatch({ type: "menu/choose", payload: "form" });
-        dispatch({
-            type: "free-term/choose",
-            payload: {
-                from: startIndex,
-                to: endIndex,
-                date,
-            },
-        });
+        dispatch(Actions.chooseMenuItem("form"));
+        dispatch(Actions.chooseFreeTerm(startIndex, endIndex, date));
     },
 });
 

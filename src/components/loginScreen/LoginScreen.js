@@ -1,7 +1,7 @@
 // redux:
 import { connect } from "react-redux";
 // actions:
-import { authenticate } from "../../actions/databaseActions";
+import { authenticate } from "../../api";
 // view:
 import LoginScreen from "./LoginScreen.view";
 

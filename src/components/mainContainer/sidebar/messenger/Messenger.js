@@ -1,7 +1,7 @@
 // redux:
 import { connect } from "react-redux";
 // actions:
-import { messageListener } from "../../../../actions/databaseActions";
+import { messageListener } from "../../../../api";
 // view:
 import Messenger from "./Messenger.view";
 

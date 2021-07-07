@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import UpcomingReservations from "./UpcomingReservations.view";
 // functions:
 import { nextDays, convertIndexToHour } from "../../../../functions";
+import { Actions } from "../../../../actionCreators";
 
 const mapStateToProps = (state) => {
     const upcoming = {};
@@ -21,10 +22,10 @@ const mapStateToProps = (state) => {
             dayDataArray.sort((a, b) => (a[1].timeWindows[0] > b[1].timeWindows[0] ? 1 : -1));
             dayDataArray.forEach((appointment) => {
                 const appointmentId = appointment[0];
-                const start = convertIndexToHour(7, appointment[1].timeWindows[0], "start")
-                const duration = convertIndexToHour(0, appointment[1].timeWindows.length, "duration")
+                const start = convertIndexToHour(7, appointment[1].timeWindows[0], "start");
+                const duration = convertIndexToHour(0, appointment[1].timeWindows.length, "duration");
                 const title = appointment[1].name;
-                upcoming[date].push({ appointmentId, start, duration, title })
+                upcoming[date].push({ appointmentId, start, duration, title });
             });
         }
     }
@@ -33,26 +34,17 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    const chooseAppointment = (id, date) => {
-        const [d, m, y] = date.split(".")
-        dispatch({
-            type: "day/choose",
-            payload: date
-        })
-        dispatch({
-            type: "appointment/choose",
-            payload: { id, date },
-        });
-        dispatch({
-            type: "appointment-data/copy",
-            payload: { id, date: new Date(y, m - 1, d) },
-        });
-
-    }
+    const setChosenAppointment = (id, date) => {
+        const [d, m, y] = date.split(".");
+        const dateReference = new Date(y, m - 1, d)
+        dispatch(Actions.chooseDay(date));
+        dispatch(Actions.chooseAppointment());
+        dispatch(Actions.copyAppointmentDataToForm(id, dateReference));
+    };
     return {
-        chooseAppointment
-    }
-}
+        setChosenAppointment,
+    };
+};
 const Container = connect(mapStateToProps, mapDispatchToProps)(UpcomingReservations);
 
 export default Container;

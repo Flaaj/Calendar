@@ -1,9 +1,9 @@
 // redux:
 import { connect } from "react-redux";
-// actions:
-import { setFocusWeek } from "../../../../actions/dateActions";
 // view:
 import FocusWeekToggles from "./FocusWeekToggles.view";
+// actions:
+import { Actions } from "../../../../actionCreators";
 
 const mapStateToProps = (state) => {
     return {
@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        setFocusWeek: setFocusWeek(dispatch),
+        setFocusWeek: (week) => dispatch(Actions.focusViewOnWeek(week)),
     };
 };
 
