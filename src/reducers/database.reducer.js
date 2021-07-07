@@ -29,20 +29,26 @@ export const databaseReducer = function (state = initialState, action) {
     switch (action.type) {
         case ActionTypes.FIREBASE_SAVE:
             return { ...state, firebase: action.payload };
+
         case ActionTypes.FIREBASE_PRELOGIN:
             return { ...state, error: false };
+
         case ActionTypes.FIREBASE_LOGIN_SUCCESSFUL:
             return {
                 ...state,
                 user: action.payload,
                 error: false,
             };
+
         case ActionTypes.FIREBASE_LOGIN_FAILED:
             return { ...state, error: true };
+
         case ActionTypes.FIREBASE_AUTH_STATE_CHANGE:
             return { ...state, user: action.payload };
+
         case ActionTypes.MESSAGES_UPDATE:
             return { ...state, messages: action.payload };
+
         case ActionTypes.DATA_UPDATE:
             return {
                 ...state,
@@ -51,6 +57,7 @@ export const databaseReducer = function (state = initialState, action) {
                     [action.payload.target]: action.payload.data,
                 },
             };
+
         case ActionTypes.APPOINTMENT_DATA_COPY:
             const { id, date } = action.payload;
             const { target, day } = getTarget(date);
@@ -58,6 +65,7 @@ export const databaseReducer = function (state = initialState, action) {
             data.from = data.timeWindows[0] + "";
             data.to = data.timeWindows[data.timeWindows.length - 1] + "";
             return { ...state, chosenAppointment: state.data[target][day][id] };
+            
         case ActionTypes.APPOINTMENT_DATA_CHANGE:
             return {
                 ...state,
