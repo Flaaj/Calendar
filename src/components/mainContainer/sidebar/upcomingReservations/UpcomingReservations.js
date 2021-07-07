@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
         const [d, m, y] = date.split(".");
         const dateReference = new Date(y, m - 1, d)
         dispatch(Actions.chooseDay(date));
-        dispatch(Actions.chooseAppointment());
+        dispatch(Actions.chooseAppointment(id, date));
         dispatch(Actions.copyAppointmentDataToForm(id, dateReference));
     };
     return {
