@@ -1,5 +1,8 @@
 import React from "react";
+// api:
 import { deleteMessage } from "../../../../../api";
+// styles:
+import "./_message.scss";
 
 const Message = ({ id, user, date, msg }) => {
     return (

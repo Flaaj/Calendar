@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Appointment from "./Appointment.view";
 // functions:
 import { getTarget } from "../../../../../functions";
+// actions:
 import { Actions } from "../../../../../actionCreators";
 
 const mapStateToProps = (state, props) => {
@@ -11,8 +12,8 @@ const mapStateToProps = (state, props) => {
     const { date, id, isFullScreen, gridColSpan } = props;
     const { target, day } = getTarget(date);
     const data = state.database.data[target][day][id];
-    const { color, timeWindows, name, phone, email, note } = data;
-    // getting the appointment duration in a form of lenght of time windows:
+    const { timeWindows, color } = data;
+    // getting the appointment duration in a form of length of time windows:
     const blockSize = timeWindows.length;
     // getting the start end ending position of appointment box on the grid:
     const [gridStart, gridEnd] = [timeWindows[0], timeWindows[blockSize - 1]];
@@ -28,17 +29,18 @@ const mapStateToProps = (state, props) => {
         backgroundColor: isFullScreen ? "#fffffff0" : "",
     };
 
+    const grid = {
+        start: gridStart,
+        end: gridEnd,
+        colSpan: gridColSpan
+    }
+
     return {
-        name,
-        email,
-        phone,
-        note,
-        gridStart,
-        gridEnd,
+        data,
+        grid,
         blockSizeClass,
         color: appointmentColor,
         backgroundColor,
-        gridColSpan,
     };
 };
 const mapDispatchToProps = (dispatch, props) => {

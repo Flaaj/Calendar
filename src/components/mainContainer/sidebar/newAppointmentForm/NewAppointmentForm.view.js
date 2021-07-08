@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+// styles:
+import "./_newAppointmentForm.scss";
+// elements:
+import Heading from "../../../../elements/Heading/Heading";
 
 const NewAppointmentForm = ({ name, phone, email, date, from, to, note, color, hours, handleChange, onSubmit }) => {
     return (
         <div className="new-appointment-form">
-            <h2 className="new-appointment-form__heading">Nowa rezerwacja</h2>
+            <Heading level="h2" text="Nowa rezerwacja" classNames="new-appointment-form__heading"/>
             <form className="new-appointment-form__form form" onSubmit={onSubmit}>
                 <div className="form__row">
                     <label htmlFor="name" className="form__label">

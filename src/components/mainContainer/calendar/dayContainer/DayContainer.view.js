@@ -6,6 +6,8 @@ import Appointment from "./appointment/Appointment";
 const bg = "../../../public/assets/day-container-bg.svg";
 // functions:
 import { dateDisplay } from "../../../../functions";
+// styles:
+import "./_dayContainer.scss";
 
 const DayContainer = ({
     date,

@@ -1,4 +1,6 @@
 import React from "react";
+// styles:
+import "./_freeTerms.scss";
 
 const FreeTerms = ({ terms, termDblClick }) => {
     return (

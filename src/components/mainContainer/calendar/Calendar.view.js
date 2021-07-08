@@ -4,6 +4,8 @@ import DayContainer from "./dayContainer/DayContainer";
 import MonthPicker from "./monthPicker/MonthPicker";
 import CalendarHeader from "./calendarHeader/CalendarHeader";
 import FocusWeekToggles from "./focusWeekToggles/FocusWeekToggles";
+// styles:
+import "./_calendar.scss";
 
 const Calendar = ({ year, month, focusWeek, daysToShow, queryMonthsToListen }) => {
     useEffect(() => queryMonthsToListen(month, year), [month, year]);

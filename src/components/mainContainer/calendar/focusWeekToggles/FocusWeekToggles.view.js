@@ -1,4 +1,6 @@
 import React from "react";
+//styles:
+import "./_focusWeekToggles.scss";
 
 const FocusWeekToggles = ({ togglesNum, setFocusWeek, focusWeek, focusWeekClass }) => {
     return (

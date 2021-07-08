@@ -119,6 +119,17 @@ export const addNewAppointment = async (target, body) => {
         .catch((err) => console.log(err));
 };
 
+export const updateAppointment = (appointment, body) => {
+    const { date, id } = appointment;
+    const { firebase } = store.getState().database;
+
+    firebase
+        .database()
+        .ref(getRefFromDateObject(date, id))
+        .update(body)
+        .catch((err) => console.log(err));
+};
+
 export const deleteAppointment = () => {
     const {
         date: {
@@ -131,17 +142,6 @@ export const deleteAppointment = () => {
         .database()
         .ref(getRefFromDateObject(date, id))
         .remove()
-        .catch((err) => console.log(err));
-};
-
-export const updateAppointment = (appointment, body) => {
-    const { date, id } = appointment;
-    const { firebase } = store.getState().database;
-
-    firebase
-        .database()
-        .ref(getRefFromDateObject(date, id))
-        .update(body)
         .catch((err) => console.log(err));
 };
 

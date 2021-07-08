@@ -1,4 +1,6 @@
 import React from "react";
+// styles:
+import "./_options.scss";
 
 const Options = ({ freeTermsDays, upcomingDays, handleChange, onSubmit }) => {
     return (

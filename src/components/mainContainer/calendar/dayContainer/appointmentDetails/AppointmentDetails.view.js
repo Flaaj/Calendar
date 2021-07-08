@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 // api:
 import { deleteAppointment } from "../../../../../api";
+// styles:
+import "./_appointmentDetails.scss"
 
 const AppointmentDetails = ({ name, phone, email, from, to, note, hours, color, handleChange, onSubmit }) => {
     const [enableInputs, setEnableInputs] = useState(false);

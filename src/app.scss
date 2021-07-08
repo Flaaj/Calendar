@@ -1,18 +1,4 @@
 @import "settings/settings";
-@import "./components/loginScreen/loginScreen.scss";
-@import "./components/mainContainer/MainContainer.scss";
-@import "./components/mainContainer/calendar/monthPicker/monthPicker.scss";
-@import "./components/mainContainer/calendar/calendarHeader/calendarHeader.scss";
-@import "./components/mainContainer/calendar/focusWeekToggles/focusWeekToggles.scss";
-@import "./components/mainContainer/calendar/dayContainer/dayContainer.scss";
-@import "./components/mainContainer/calendar/dayContainer/appointmentDetails/appointmentDetails.scss";
-@import "./components/mainContainer/calendar/dayContainer/appointment/appointment.scss";
-@import "./components/mainContainer/sidebar/newAppointmentForm/newAppointmentForm.scss";
-@import "./components/mainContainer/sidebar/sidebar.scss";
-@import "./components/mainContainer/sidebar/menu/menu.scss";
-@import "./components/mainContainer/sidebar/messenger/messenger.scss";
-@import "./components/mainContainer/sidebar/messenger/message/message.scss";
-@import "./components/mainContainer/sidebar/freeTerms/freeTerms.scss";
 
 * {
     box-sizing: border-box;

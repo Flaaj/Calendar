@@ -1,41 +1,25 @@
 import React from "react";
+// elements:
+import Heading from "../../../../elements/Heading/Heading";
+import Button from "../../../../elements/Button/Button";
+// styles:
+import "./_menu.scss";
 
-const Menu = ({ currentMenuItem, chooseMenuItem }) => {
+const Menu = ({ menuItems, currentMenuItem, chooseMenuItem }) => {
     return (
         <div className="menu">
-            <h2 className="menu__heading">Menu</h2>
+            <Heading level="h2" text="Menu" classNames={["siema", "elo"]} />
             <nav>
-                <ul>
-                    <li
-                        className={currentMenuItem === "form" ? "current" : ""}
-                        onClick={() => chooseMenuItem("form")}
-                    >
-                        Nowa rezerwacja
-                    </li>
-                    <li
-                        className={currentMenuItem === "chat" ? "current" : ""}
-                        onClick={() => chooseMenuItem("chat")}
-                    >
-                        Wiadomości
-                    </li>
-                    <li
-                        className={currentMenuItem === "terms" ? "current" : ""}
-                        onClick={() => chooseMenuItem("terms")}
-                    >
-                        Wolne terminy
-                    </li>
-                    <li
-                        className={currentMenuItem === "upcoming" ? "current" : ""}
-                        onClick={() => chooseMenuItem("upcoming")}
-                    >
-                        Najbliższe rezerwacje
-                    </li>
-                    <li
-                        className={currentMenuItem === "options" ? "current" : ""}
-                        onClick={() => chooseMenuItem("options")}
-                    >
-                        Opcje
-                    </li>
+                <ul className="menu__list">
+                    {menuItems.map((item) => (
+                        <li className="menu__item" key={item.key}>
+                            <Button
+                                text={item.name}
+                                classNames={currentMenuItem === item.key && "current"}
+                                clickHandle={() => chooseMenuItem(item.key)}
+                            />
+                        </li>
+                    ))}
                 </ul>
             </nav>
         </div>

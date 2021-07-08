@@ -3,6 +3,8 @@ import React from "react";
 import arrow from "../../../../../public/assets/arrow.svg";
 // constants:
 import { monthNames } from "../../../../constants";
+// styles:
+import "./_monthPicker.scss";
 
 const MonthPicker = ({ month, year, decreaseMonth, increaseMonth, decreaseYear, increaseYear }) => {
     return (

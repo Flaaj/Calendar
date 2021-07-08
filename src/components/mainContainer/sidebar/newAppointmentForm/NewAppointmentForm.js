@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { addNewAppointment } from "../../../../api";
 // view:
 import NewAppointmentForm from "./NewAppointmentForm.view";
+// Actions:
+import { Actions } from "../../../../actionCreators";
 
 const onSubmit = (state) => (e) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ const onSubmit = (state) => (e) => {
 
 const handleChange = (dispatch) => (target) => (e) => {
     const { value } = e.target;
-    dispatch(changeNewAppointmentInput(target, value));
+    dispatch(Actions.changeNewAppointmentInput(target, value));
 };
 
 const mapStateToProps = (state) => {

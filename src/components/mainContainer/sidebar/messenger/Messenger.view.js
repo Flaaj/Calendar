@@ -5,6 +5,8 @@ import Message from "./message/Message";
 import { refreshState } from "../../../../functions";
 // api:
 import { sendMessage } from "../../../../api";
+// styles:
+import "./_messenger.scss";
 
 const Messenger = ({ messages, messageListener }) => {
     const [messageToSend, setMessageToSend] = useState("");

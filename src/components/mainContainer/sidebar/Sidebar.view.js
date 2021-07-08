@@ -8,6 +8,8 @@ import UpcomingReservations from "./upcomingReservations/UpcomingReservations";
 import Options from "./options/Options";
 // api:
 import { logOut } from "../../../api";
+// styles:
+import "./_sidebar.scss"
 
 const Sidebar = ({ currentMenuItem }) => {
     return (

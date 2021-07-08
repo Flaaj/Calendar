@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 // functions:
 import { refreshState } from "../../functions";
+//style:
+import "./_loginScreen.scss";
 
 const LoginScreen = ({ authenticate, error }) => {
     const [login, setLogin] = useState("");
@@ -9,10 +11,7 @@ const LoginScreen = ({ authenticate, error }) => {
     return (
         <div className="login-screen">
             <h1>Zaloguj się</h1>
-            <form
-                className="login-screen__form"
-                onSubmit={authenticate(login, password)}
-            >
+            <form className="login-screen__form" onSubmit={authenticate(login, password)}>
                 <div className="form__row">
                     <label className="form__label" htmlFor="email">
                         Adres email konta:
@@ -45,11 +44,9 @@ const LoginScreen = ({ authenticate, error }) => {
                     Zaloguj
                 </button>
             </form>
-            <div className="error-message">
-                {error && "Niepoprawny email i / lub hasło"}
-            </div>
+            <div className="error-message">{error && "Niepoprawny email i / lub hasło"}</div>
         </div>
     );
-}
+};
 
 export default LoginScreen;

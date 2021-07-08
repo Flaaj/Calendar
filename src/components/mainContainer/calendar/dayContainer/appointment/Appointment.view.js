@@ -1,41 +1,25 @@
 import React from "react";
+// styles:
+import "./_appointment.scss";
 
-const Appointment = ({
-    id,
-    name,
-    email,
-    phone,
-    note,
-    blockSizeClass,
-    backgroundColor,
-    color,
-    gridStart,
-    gridEnd,
-    setChosenAppointment,
-    gridColSpan,
-}) => {
+const Appointment = ({ data, blockSizeClass, backgroundColor, color, grid, setChosenAppointment }) => {
     return (
         <div
-            className={`day-container__appointment grid-start-${gridStart} grid-end-${gridEnd} ${gridColSpan}`}
+            className={`day-container__appointment grid-start-${grid.start} grid-end-${grid.end} ${grid.colSpan}`}
             style={backgroundColor}
-            data-id={id}
         >
             <div className="appointment" style={color} onClick={setChosenAppointment}>
                 <div className={`appointment__content ${blockSizeClass}`}>
-                    <div className="appointment__name">{name}</div>
-                    {phone && (
-                        <div className="appointment__phone">
-                            tel: {phone}
-                        </div>
-                    )}
-                    {email && (
+                    <div className="appointment__name">{data.name}</div>
+                    {data.phone && <div className="appointment__phone">tel: {data.phone}</div>}
+                    {data.email && (
                         <div className="appointment__email">
-                            <a href={`mailto: ${email}`}>{email}</a>
+                            <a href={`mailto: ${data.email}`}>{data.email}</a>
                         </div>
                     )}
-                    {note && (
+                    {data.note && (
                         <div className="appointment__note">
-                            Notatka: <span className="note">{note}</span>
+                            Notatka: <span className="note">{data.note}</span>
                         </div>
                     )}
                 </div>
