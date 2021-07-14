@@ -18,7 +18,7 @@ import "firebase/database";
 import { initializeApp, authStateListener } from "./api";
 import { Actions } from "./actionCreators";
 
-const App = ({ user, saveFirebaseToStore, authStateListener }) => {
+const App = ({ logged, saveFirebaseToStore, authStateListener }) => {
     const [initialized, setInitialized] = useState(false);
 
     useEffect(() => {
@@ -34,11 +34,11 @@ const App = ({ user, saveFirebaseToStore, authStateListener }) => {
         initialized && (
             <Router>
                 <Route exact path="/login">
-                    {user && <Redirect to="/" />}
+                    {logged && <Redirect to="/" />}
                     <LoginScreen />
                 </Route>
                 <Route exact path="/">
-                    {!user && <Redirect to="/login" />}
+                    {!logged && <Redirect to="/login" />}
                     <MainContainer />
                 </Route>
             </Router>
@@ -47,7 +47,7 @@ const App = ({ user, saveFirebaseToStore, authStateListener }) => {
 };
 
 const mapStateToProps = (state) => ({
-    user: state.database.user,
+    logged: state.database.logged,
 });
 const mapDispatchToProps = (dispatch) => ({
     saveFirebaseToStore: () => dispatch(Actions.saveFirebaseToStore(firebase)),

@@ -13,7 +13,7 @@ const Calendar = ({ year, month, focusWeek, daysToShow, queryMonthsToListen }) =
         <div className="calendar">
             <MonthPicker />
             <div className="calendar__row">
-                <FocusWeekToggles togglesNum={~~(daysToShow.length / 7)} />
+                <FocusWeekToggles togglesNum={daysToShow.length / 7} />
                 <div className="calendar__container">
                     <CalendarHeader />
                     <div className="calendar__month">

@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
 
     &__form {
         display: flex;
@@ -46,4 +47,7 @@
 .error-message {
     color: red;
     height: 1em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }

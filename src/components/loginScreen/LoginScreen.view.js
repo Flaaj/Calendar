@@ -43,8 +43,10 @@ const LoginScreen = ({ authenticate, error }) => {
                 <button type="submit" className="form__submit">
                     Zaloguj
                 </button>
+            {/* {error &&  */}
+            <div className="error-message">Niepoprawny email i / lub hasło</div>
+            {/*  } */}
             </form>
-            <div className="error-message">{error && "Niepoprawny email i / lub hasło"}</div>
         </div>
     );
 };

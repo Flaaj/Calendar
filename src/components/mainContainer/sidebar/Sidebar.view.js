@@ -6,10 +6,12 @@ import Messenger from "./messenger/Messenger";
 import FreeTerms from "./freeTerms/FreeTerms";
 import UpcomingReservations from "./upcomingReservations/UpcomingReservations";
 import Options from "./options/Options";
+// elements:
+import Button from "../../../elements/Button/Button";
 // api:
 import { logOut } from "../../../api";
 // styles:
-import "./_sidebar.scss"
+import "./_sidebar.scss";
 
 const Sidebar = ({ currentMenuItem }) => {
     return (
@@ -20,9 +22,7 @@ const Sidebar = ({ currentMenuItem }) => {
             {currentMenuItem === "terms" && <FreeTerms />}
             {currentMenuItem === "upcoming" && <UpcomingReservations />}
             {currentMenuItem === "options" && <Options />}
-            <button className="sidebar__logout" onClick={() => logOut()}>
-                Wyloguj
-            </button>
+            <Button text="Wyloguj" classNames="sidebar__logout" clickHandle={() => logOut()} />
         </div>
     );
 };

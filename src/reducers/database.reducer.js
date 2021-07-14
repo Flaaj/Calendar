@@ -7,6 +7,7 @@ const initializeState = () => {
         firebase: {},
         initialized: false,
         user: undefined,
+        logged: false,
         messages: [],
         data: {},
         chosenAppointment: {
@@ -37,6 +38,7 @@ export const databaseReducer = function (state = initialState, action) {
             return {
                 ...state,
                 user: action.payload,
+                logged: true,
                 error: false,
             };
 
@@ -44,7 +46,7 @@ export const databaseReducer = function (state = initialState, action) {
             return { ...state, error: true };
 
         case ActionTypes.FIREBASE_AUTH_STATE_CHANGE:
-            return { ...state, user: action.payload };
+            return { ...state, user: action.payload, logged: action.payload ? true : false };
 
         case ActionTypes.MESSAGES_UPDATE:
             return { ...state, messages: action.payload };
@@ -65,11 +67,14 @@ export const databaseReducer = function (state = initialState, action) {
             data.from = data.timeWindows[0] + "";
             data.to = data.timeWindows[data.timeWindows.length - 1] + "";
             return { ...state, chosenAppointment: state.data[target][day][id] };
-            
+
         case ActionTypes.APPOINTMENT_DATA_CHANGE:
             return {
                 ...state,
-                chosenAppointment: { ...state.chosenAppointment, [action.payload.target]: action.payload.value },
+                chosenAppointment: {
+                    ...state.chosenAppointment,
+                    [action.payload.target]: action.payload.value,
+                },
             };
     }
     return state;

@@ -30,33 +30,33 @@ const NewAppointmentForm = ({
                     placeholder="Imię i/lub nazwisko klienta"
                 />
                 <Input
-                    name="phone"
                     type="tel"
+                    name="phone"
                     value={phone}
                     changeHandler={handleChange("phone")}
                     label="Tel:"
                     placeholder="Numer telefonu"
                 />
                 <Input
-                    name="email"
                     type="email"
+                    name="email"
                     value={email}
                     changeHandler={handleChange("email")}
                     label="Email:"
                     placeholder="Adres email"
                 />
                 <Input
-                    name="Data"
                     type="date"
+                    name="Data"
                     value={date}
                     changeHandler={handleChange("date")}
                     label="Data:"
                 />
                 <Input
-                    name="Data"
                     type="select"
-                    value={date}
-                    changeHandler={handleChange("date")}
+                    name="from"
+                    value={from}
+                    changeHandler={handleChange("from")}
                     label="Początek:"
                     options={hours.slice(0, -1).map((option, index) => (
                         <option key={option} value={index + 1} className="form__option">
@@ -65,10 +65,10 @@ const NewAppointmentForm = ({
                     ))}
                 />
                 <Input
-                    name="Data"
                     type="select"
-                    value={date}
-                    changeHandler={handleChange("date")}
+                    name="to"
+                    value={to}
+                    changeHandler={handleChange("to")}
                     label="Koniec:"
                     options={hours.slice(1).map((option, index) => (
                         <option key={option} value={index + 1} className="form__option">
@@ -76,18 +76,21 @@ const NewAppointmentForm = ({
                         </option>
                     ))}
                 />
-                <div className="form__row">
-                    <label htmlFor="email" className="form__label">
-                        Kolor kafelka w kalendarzu:
-                    </label>
-                    <input
-                        id="color"
-                        type="color"
-                        value={color}
-                        onChange={handleChange("color")}
-                        className="form__input form__input--color"
-                    />
-                </div>
+                <Input
+                    type="textarea"
+                    name="note"
+                    value={note}
+                    changeHandler={handleChange("note")}
+                    label="Notatka:"
+                    rows="8"
+                />
+                <Input
+                    type="color"
+                    name="color"
+                    value={color}
+                    changeHandler={handleChange("color")}
+                    label="Kolor kafelka w kalendarzu:"
+                />
                 <button type="submit" className="form__submit">
                     Dodaj rezerwację
                 </button>
