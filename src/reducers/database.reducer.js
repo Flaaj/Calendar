@@ -28,10 +28,10 @@ const initialState = initializeState();
 
 export const databaseReducer = function (state = initialState, action) {
     switch (action.type) {
-        case ActionTypes.FIREBASE_SAVE:
-            return { ...state, firebase: action.payload };
+        case ActionTypes.FIREBASE_APP_INITIALIZE:
+            return { ...state, initialized: true };
 
-        case ActionTypes.FIREBASE_PRELOGIN:
+        case ActionTypes.FIREBASE_BEFORE_LOGIN:
             return { ...state, error: false };
 
         case ActionTypes.FIREBASE_LOGIN_SUCCESSFUL:

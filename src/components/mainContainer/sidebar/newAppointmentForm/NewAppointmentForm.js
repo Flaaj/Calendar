@@ -10,7 +10,7 @@ import { Actions } from "../../../../actionCreators";
 const onSubmit = (state) => (e) => {
     e.preventDefault();
     const { name, phone, email, date, from, to, note, color } = state.newAppointmentForm;
-    const user = state.database.firebase.auth().currentUser.email;
+    const user = state.database.user.email;
 
     const timeWindows = [];
     for (let i = +from; i <= +to; i++) {

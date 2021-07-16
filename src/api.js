@@ -1,20 +1,25 @@
+// store:
 import { store } from "./store";
-// functions:
-import { getRefFromDateObject } from "./functions";
-// config:
+const dispatch = store.dispatch;
+// database:
 const firebaseConfig = require("../firebase.config.json");
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/database";
 // Actions:
 import { Actions } from "./actionCreators";
+// helper functions:
+import { getRefFromDateObject } from "./functions";
 
-export const initializeApp = (firebase, setInitialized) => {
+export const initializeApp = () => {
     firebase.initializeApp(firebaseConfig);
-    setInitialized(true);
+    dispatch(Actions.onAppInitialized());
+    authStateListener();
 };
 
-export const authenticate = (dispatch) => (login, password) => (e) => {
+export const authenticate = (login, password) => (e) => {
     e.preventDefault();
-    const { firebase } = store.getState().database;
-    dispatch(Actions.prelogin());
+    dispatch(Actions.beforeLogin());
     firebase
         .auth()
         .signInWithEmailAndPassword(login, password)
@@ -27,38 +32,29 @@ export const authenticate = (dispatch) => (login, password) => (e) => {
         });
 };
 
-export const logOut = () => {
-    const { firebase } = store.getState().database;
-    firebase.auth().signOut();
-};
+export const logOut = () => firebase.auth().signOut();
 
-export const createUser = (dispatch) => (login, password) => (e) => {
-    e.preventDefault();
-    const { firebase } = store.getState().database;
-    if (
-        password.length < 8 ||
-        !password
-            .split("")
-            .some((letter) => letter.charCodeAt(0) < 91 && letter.charCodeAt(0) > 64) ||
-        !password
-            .split("")
-            .some((letter) => letter.charCodeAt(0) < 123 && letter.charCodeAt(0) > 96) ||
-        !password.split("").some((letter) => letter.charCodeAt(0) < 58 && letter.charCodeAt(0) > 47)
-    ) {
-        alert(
-            "hasło musi miec przynajmniej 8 znaków, zawierać przynajmniej " +
-                "jedną duża literę, przynajmnij jedną małą literę i przynajmniej jedną cyfrę "
-        );
-    } else {
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(login, password)
-            .catch((err) => console.log(err));
-    }
-};
+// export const createUser = (dispatch) => (login, password) => (e) => {
+//     e.preventDefault();
+//     if (
+//         password.length < 8 ||
+//         !password.split("").some((letter) => letter.charCodeAt(0) < 91 && letter.charCodeAt(0) > 64) ||
+//         !password.split("").some((letter) => letter.charCodeAt(0) < 123 && letter.charCodeAt(0) > 96) ||
+//         !password.split("").some((letter) => letter.charCodeAt(0) < 58 && letter.charCodeAt(0) > 47)
+//     ) {
+//         alert(
+//             "hasło musi miec przynajmniej 8 znaków, zawierać przynajmniej " +
+//                 "jedną duża literę, przynajmnij jedną małą literę i przynajmniej jedną cyfrę "
+//         );
+//     } else {
+//         firebase
+//             .auth()
+//             .createUserWithEmailAndPassword(login, password)
+//             .catch((err) => console.log(err));
+//     }
+// };
 
-export const authStateListener = (dispatch) => () => {
-    const { firebase } = store.getState().database;
+export const authStateListener = () => {
     firebase.auth().onAuthStateChanged((user) => {
         if (user)
             firebase
@@ -69,7 +65,7 @@ export const authStateListener = (dispatch) => () => {
                     if (snapshot.exists()) {
                         dispatch(Actions.getUserOptions(snapshot.val().options));
                     } else {
-                        console.log("No data available");
+                        console.log("No user options data available");
                     }
                 });
 
@@ -78,7 +74,7 @@ export const authStateListener = (dispatch) => () => {
 };
 
 export const queryMonthsToListen = (dispatch) => (month, year) => {
-    const { firebase, data } = store.getState().database;
+    const { data } = store.getState().database;
     const monthsToQuery =
         month === 1
             ? [
@@ -116,7 +112,6 @@ export const queryMonthsToListen = (dispatch) => (month, year) => {
 };
 
 export const addNewAppointment = async (target, body) => {
-    const { firebase } = store.getState().database;
     firebase
         .database()
         .ref(target)
@@ -126,7 +121,6 @@ export const addNewAppointment = async (target, body) => {
 
 export const updateAppointment = (appointment, body) => {
     const { date, id } = appointment;
-    const { firebase } = store.getState().database;
 
     firebase
         .database()
@@ -140,7 +134,6 @@ export const deleteAppointment = () => {
         date: {
             chosenAppointment: { date, id },
         },
-        database: { firebase },
     } = store.getState();
 
     firebase
@@ -151,7 +144,7 @@ export const deleteAppointment = () => {
 };
 
 export const messageListener = (dispatch) => () => {
-    const { firebase, messages } = store.getState().database;
+    const { messages } = store.getState().database;
     if (messages.length === 0) {
         firebase
             .database()
@@ -170,7 +163,6 @@ export const messageListener = (dispatch) => () => {
 
 export const sendMessage = (messageToSend, setMessageToSend) => (e) => {
     e.preventDefault();
-    const { firebase } = store.getState().database;
 
     if (messageToSend) {
         const body = {
@@ -190,7 +182,6 @@ export const sendMessage = (messageToSend, setMessageToSend) => (e) => {
 
 export const deleteMessage = (id) => (e) => {
     e.preventDefault();
-    const { firebase } = store.getState().database;
 
     firebase
         .database()

@@ -68,9 +68,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setChosenAppointment: (id) => dispatch(Actions.chooseAppointment(id)),
-        setChosenDay: (day) => {
-            dispatch(Actions.chooseDay(day));
-        },
+        setChosenDay: (day) => dispatch(Actions.chooseDay(day)),
     };
 };
 

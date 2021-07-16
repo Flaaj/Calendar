@@ -5,13 +5,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
 
-    &__form {
+    .wrapper {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
     }
+    .heading {
+        color: black;
+        margin-top: 0;
+    }
+
     .form {
+        display: flex;
+        flex-direction: column;
+
         &__row {
             display: flex;
             align-items: center;
@@ -35,19 +45,21 @@
             padding: 5px 10px;
             cursor: pointer;
             transition: 0.4s;
-            margin-bottom: 20px;
-            
+
             &:hover {
                 background: rgba(steelblue, 0.2);
             }
         }
     }
-}
 
-.error-message {
-    color: red;
-    height: 1em;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    .error-message {
+        color: red;
+        width: 100%;
+        text-align: center;
+        height: 1em;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translate(0, 200%);
+    }
 }

@@ -1,14 +1,12 @@
 import { ActionTypes } from "./actionTypes";
 
 export const Actions = {
-    
-    saveFirebaseToStore: (firebase) => ({
-        type: ActionTypes.FIREBASE_SAVE,
-        payload: firebase,
+    onAppInitialized: () => ({
+        type: ActionTypes.FIREBASE_APP_INITIALIZE,
     }),
 
-    prelogin: () => ({
-        type: ActionTypes.FIREBASE_PRELOGIN,
+    beforeLogin: () => ({
+        type: ActionTypes.FIREBASE_BEFORE_LOGIN,
     }),
 
     loginSuccessful: (user) => ({

@@ -10,35 +10,21 @@ import MainContainer from "./components/mainContainer/MainContainer";
 import LoginScreen from "./components/loginScreen/LoginScreen";
 // styles:
 import "./app.scss";
-// database:
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/database";
 // api:
-import { initializeApp, authStateListener } from "./api";
-import { Actions } from "./actionCreators";
+import { initializeApp } from "./api";
 
-const App = ({ logged, saveFirebaseToStore, authStateListener }) => {
-    const [initialized, setInitialized] = useState(false);
-
-    useEffect(() => {
-        initializeApp(firebase, setInitialized);
-        saveFirebaseToStore(firebase);
-    }, []);
-
-    useEffect(() => {
-        initialized && authStateListener();
-    }, [initialized]);
+const App = ({ userLoggedIn, appInitialized }) => {
+    useEffect(initializeApp, []);
 
     return (
-        initialized && (
+        appInitialized && (
             <Router>
                 <Route exact path="/login">
-                    {logged && <Redirect to="/" />}
+                    {userLoggedIn && <Redirect to="/" />}
                     <LoginScreen />
                 </Route>
                 <Route exact path="/">
-                    {!logged && <Redirect to="/login" />}
+                    {!userLoggedIn && <Redirect to="/login" />}
                     <MainContainer />
                 </Route>
             </Router>
@@ -47,14 +33,11 @@ const App = ({ logged, saveFirebaseToStore, authStateListener }) => {
 };
 
 const mapStateToProps = (state) => ({
-    logged: state.database.logged,
-});
-const mapDispatchToProps = (dispatch) => ({
-    saveFirebaseToStore: () => dispatch(Actions.saveFirebaseToStore(firebase)),
-    authStateListener: authStateListener(dispatch),
+    userLoggedIn: state.database.logged,
+    appInitialized: state.database.initialized,
 });
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(App);
+const Container = connect(mapStateToProps)(App);
 
 ReactDOM.render(
     <Provider store={store}>
