@@ -30,7 +30,6 @@ const Input = ({ type = "text", name, value, changeHandler, label, placeholder, 
                     <textarea
                         id={name}
                         name={name}
-                        type={type}
                         className="input"
                         value={value}
                         onChange={changeHandler}
