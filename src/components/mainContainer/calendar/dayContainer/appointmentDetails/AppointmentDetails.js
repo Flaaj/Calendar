@@ -8,7 +8,7 @@ import { updateAppointment } from "../../../../../api";
 import { mapIndexesToHours } from "../../../../../functions";
 
 const handleChange = (dispatch) => (target) => (e) => {
-    const value = e.target.value;
+    const { value } = e.target;
     dispatch(updateAppointmentData(target, value));
 };
 

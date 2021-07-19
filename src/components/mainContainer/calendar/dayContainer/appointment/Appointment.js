@@ -29,15 +29,13 @@ const mapStateToProps = (state, props) => {
         backgroundColor: isFullScreen ? "#fffffff0" : "",
     };
 
-    const grid = {
-        start: gridStart,
-        end: gridEnd,
-        colSpan: gridColSpan
-    }
-
     return {
         data,
-        grid,
+        grid: {
+            start: gridStart,
+            end: gridEnd,
+            colSpan: gridColSpan
+        },
         blockSizeClass,
         color: appointmentColor,
         backgroundColor,

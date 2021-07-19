@@ -1,6 +1,8 @@
 import React from "react";
 // styles:
 import "./_calendarHeader.scss";
+// constants:
+import { weekdayNames } from "../../../../constants";
 
 const CalendarHeader = () => (
     <div className="calendar-header">
@@ -15,12 +17,3 @@ const CalendarHeader = () => (
 
 export default CalendarHeader;
 
-const weekdayNames = [
-    ["Poniedziałek", "Pn."],
-    ["Wtorek", "Wt."],
-    ["Środa", "Śr."],
-    ["Czwartek", "Cz."],
-    ["Piątek", "Pt."],
-    ["Sobota", "Sb."],
-    ["Niedziela", "Nd."],
-];

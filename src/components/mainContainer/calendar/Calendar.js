@@ -9,7 +9,9 @@ import Calendar from "./Calendar.view";
 
 const mapStateToProps = (state) => {
     const { year, month, focusWeek } = state.date;
+
     const daysToShow = getDaysToShowInMonth(year, month);
+    
     return {
         year,
         month,

@@ -42,3 +42,13 @@ export const monthNamesAltered = {
     11: "Listopada",
     12: "Grudnia",
 };
+
+export const weekdayNames = [
+    ["Poniedziałek", "Pn."],
+    ["Wtorek", "Wt."],
+    ["Środa", "Śr."],
+    ["Czwartek", "Cz."],
+    ["Piątek", "Pt."],
+    ["Sobota", "Sb."],
+    ["Niedziela", "Nd."],
+];
