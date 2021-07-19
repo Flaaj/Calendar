@@ -18,6 +18,7 @@ const mapStateToProps = (state, props) => {
     const sortedData = sortAppointmentsDataByTime(appointmentsData);
 
     const chosenAppointmentId = state.date.chosenAppointment.id;
+    
     // get array of appointment blocks widths (for instance if there are two appointments at the same time, each of them will have width of 6 - half of total of 12 columns)
     const appointmentsGridColSpan = appointmentsData ? getAppointmentsGridColSpan(sortedData) : [];
 

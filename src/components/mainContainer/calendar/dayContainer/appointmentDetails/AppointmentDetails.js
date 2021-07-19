@@ -7,10 +7,40 @@ import { updateAppointment } from "../../../../../api";
 // functions:
 import { mapIndexesToHours } from "../../../../../functions";
 
-const handleChange = (dispatch) => (target) => (e) => {
-    const { value } = e.target;
-    dispatch(updateAppointmentData(target, value));
+const mapStateToProps = (state) => {
+    const { chosenAppointment } = state.date;
+    const { chosenAppointment: chosenAppointmentData } = state.database;
+
+    const hours = mapIndexesToHours();
+
+    const { name, phone, email, date, from, to, note, color } = chosenAppointmentData;
+
+    return {
+        name,
+        phone,
+        email,
+        date,
+        from,
+        to,
+        note,
+        color,
+        hours,
+        handleChange,
+        onSubmit: onSubmit(chosenAppointment, chosenAppointmentData),
+    };
 };
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleChange: (target) => (e) => {
+            const { value } = e.target;
+            dispatch(updateAppointmentData(target, value));
+        },
+    };
+};
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(AppointmentDetails);
+
+export default Container;
 
 const onSubmit = (chosenAppointment, chosenAppointmentData) => (e) => {
     e.preventDefault();
@@ -39,35 +69,3 @@ const onSubmit = (chosenAppointment, chosenAppointmentData) => (e) => {
         );
     }
 };
-
-const mapStateToProps = (state) => {
-    const { chosenAppointment } = state.date;
-    const { chosenAppointment: chosenAppointmentData } = state.database;
-
-    const hours = mapIndexesToHours();
-
-    const { name, phone, email, date, from, to, note, color } = chosenAppointmentData;
-
-    return {
-        name,
-        phone,
-        email,
-        date,
-        from,
-        to,
-        note,
-        color,
-        hours,
-        handleChange,
-        onSubmit: onSubmit(chosenAppointment, chosenAppointmentData),
-    };
-};
-const mapDispatchToProps = (dispatch) => {
-    return {
-        handleChange: handleChange(dispatch),
-    };
-};
-
-const Container = connect(mapStateToProps, mapDispatchToProps)(AppointmentDetails);
-
-export default Container;

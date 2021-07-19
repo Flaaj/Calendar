@@ -15,7 +15,7 @@ const mapStateToProps = (state, props) => {
     const { timeWindows, color } = data;
     // getting the appointment duration in a form of length of time windows:
     const blockSize = timeWindows.length;
-    // getting the start end ending position of appointment box on the grid:
+    // getting the start and ending position of appointment box on the grid:
     const [gridStart, gridEnd] = [timeWindows[0], timeWindows[blockSize - 1]];
     // determining the size class of the appointment box:
     const blockSizeClass = blockSize === 1 ? "small" : blockSize < 4 ? "medium" : "large";
